@@ -7,7 +7,7 @@ class Pelicula
     public $seatCode;
 
     // Fila donde se situa el asiento
-    public $rowCode;
+    public $rowCode ;
 
     function __construct($pseatCode, $prowCode)
     {
