@@ -9,10 +9,12 @@ class Pelicula
     // Fila donde se situa el asiento
     public $rowCode;
 
-    function __construct($pseatCode,$prowCode){
-        $this->seatCode=$pseatCode;
-        $this->rowCode=$prowCode;
+    function __construct($pseatCode, $prowCode)
+    {
+        $this->seatCode = $pseatCode;
+        $this->rowCode = $prowCode;
     }
+
     /**
      *
      * @return mixed
@@ -52,12 +54,8 @@ class Pelicula
     public function __toString()
     {
         return "<div class='container'>
-                <p>Codigo Pelicula: " . $this->filmCode . "</p>
-                <p>Nombre Pelicula: " . $this->filmName . "</p>
-                <p>Duración Pelicula: " . $this->filmCode . "</p>
-                <p>Imagen Pelicula: " . $this->filmCode . "</p>
-                <p>Horario Pelicula: " . $this->filmCode . "</p>
-                <p>Codigo Sala: " . $this->filmCode . "</p>
+                <p>Codigo asiento: " . $this->seatCode . "</p>
+                <p>Codigo fila: " . $this->rowCode . "</p>
                 </div>";
     }
 }

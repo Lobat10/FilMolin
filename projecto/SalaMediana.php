@@ -1,6 +1,6 @@
 <?php
 
-class SalaGrande
+class SalaMediana
 {
 
     // Codigo de la sala
@@ -17,20 +17,18 @@ class SalaGrande
 
     // Lista de horas que hay sesiones en el dia de hoy( muchas dudas, muchas muchas)
     public $timeTableList;
-    
-    //COMPROBAREMOS EL TIPO DE SALA CON 'INSTANCEOF'
+
+    // COMPROBAREMOS EL TIPO DE SALA CON 'INSTANCEOF'
     // ($sala INSTANCEOF 'SalaGrande') == true/false
-    
-    
-    function __construct($proomCode, $pcapacity, $pimageSeatsRoom, $proomsList, $ptimeTableList){
-        
-        $this->roomCode=$proomCode;
-        $this->capacity=$pcapacity;
-        $this->imageSeatsRoom=$pimageSeatsRoom;
-        $this->roomsList=$proomsList;
-        $this->timeTableList=$ptimeTableList;
+    function __construct($proomCode, $pimageSeatsRoom, $proomsList, $ptimeTableList)
+    {
+        $this->roomCode = $proomCode;
+        $this->capacity = 80;
+        $this->imageSeatsRoom = $pimageSeatsRoom;
+        $this->roomsList = $proomsList;
+        $this->timeTableList = $ptimeTableList;
     }
-    
+
     /**
      *
      * @return mixed
@@ -123,11 +121,13 @@ class SalaGrande
 
     public function __toString()
     {
-        return "<p>Codigo Obra:" . $this->getCodigoObra() . "</p>
-                <p>Nombre Obra:" . $this->getNombreObra() . "</p>
-                <p>duracion:" . $this->getDuracion() . " </p>
-                <p>Imagen:<img src='img/" . $this->getImagen() . "'></p>
-                <p>codigo Autor:" . $this->getCodigoAutor() . " </p>";
+        return "<div class='container'>
+                <p>Codigo Sala: " . $this->filmCode . "</p>
+                <p>Capacidad de la Sala: " . $this->filmName . " asientos.</p>
+                <p>Imagen asientos sala: " . $this->filmCode . "</p>
+                <p>Listado peliculas de hoy: " . $this->filmCode . "</p>
+                <p>Lista horarios de sesiones: " . $this->filmCode . "</p>
+                </div>";
     }
 }
 ?>

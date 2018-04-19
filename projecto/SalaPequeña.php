@@ -1,6 +1,6 @@
 <?php
 
-class SalaGrande
+class SalaMediana
 {
 
     // Codigo de la sala
@@ -23,7 +23,7 @@ class SalaGrande
     function __construct($proomCode, $pimageSeatsRoom, $proomsList, $ptimeTableList)
     {
         $this->roomCode = $proomCode;
-        $this->capacity = 100;
+        $this->capacity = 80;
         $this->imageSeatsRoom = $pimageSeatsRoom;
         $this->roomsList = $proomsList;
         $this->timeTableList = $ptimeTableList;
@@ -123,7 +123,7 @@ class SalaGrande
     {
         return "<div class='container'>
                 <p>Codigo Sala: " . $this->filmCode . "</p>
-                <p>Capacidad de la Sala: " . $this->filmName . " asientos.</p>                
+                <p>Capacidad de la Sala: " . $this->filmName . " asientos.</p>
                 <p>Imagen asientos sala: " . $this->filmCode . "</p>
                 <p>Listado peliculas de hoy: " . $this->filmCode . "</p>
                 <p>Lista horarios de sesiones: " . $this->filmCode . "</p>
