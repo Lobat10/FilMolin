@@ -9,8 +9,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-<link rel="icon" href="./favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
 <link rel='stylesheet'
 	href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
 	integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm'
@@ -53,7 +53,7 @@
 		<div class="navbar navbar-dark bg-dark box-shadow">
 			<div class="container d-flex justify-content-between">
 				<a href="#" class="navbar-brand d-flex align-items-center"> <img
-					src="icon.png" width="50px" height="50px">
+					src="./img/icon.png" width="50px" height="50px">
 					<h1 style="font-size: 200px">FilMolin Cinema</h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -68,7 +68,7 @@
 	<main role="main">
 
 	<section class="jumbotron text-center "
-		style="background-image: url('fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
+		style="background-image: url('./img/fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
 		<div class="container">
 			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
 			<p class="lead" style="color: white">A continuación os mostraremos la
@@ -84,7 +84,7 @@
 			<div class="row">
 				<div class="col-md-4">
 					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="cine.jpg">
+						<img class="card-img-top" src="./img/cine.jpg">
 						<div class="card-body">
 							<h1>TITULO PELICULA</h1>
 							<p class="card-text">DESCRIPCION PELICULA</p>
@@ -102,7 +102,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="cine.jpg">
+						<img class="card-img-top" src="./img/cine.jpg">
 						<div class="card-body">
 							<h1>TITULO PELICULA</h1>
 							<p class="card-text">DESCRIPCION PELICULA</p>
@@ -120,7 +120,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="cine.jpg">
+						<img class="card-img-top" src="./img/cine.jpg">
 						<div class="card-body">
 							<h1>TITULO PELICULA</h1>
 							<p class="card-text">DESCRIPCION PELICULA</p>
@@ -138,7 +138,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="cine.jpg">
+						<img class="card-img-top" src="./img/cine.jpg">
 						<div class="card-body">
 							<h1>TITULO PELICULA</h1>
 							<p class="card-text">DESCRIPCION PELICULA</p>
@@ -156,7 +156,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="cine.jpg">
+						<img class="card-img-top" src="./img/cine.jpg">
 						<div class="card-body">
 							<h1>TITULO PELICULA</h1>
 							<p class="card-text">DESCRIPCION PELICULA</p>
@@ -174,7 +174,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="cine.jpg">
+						<img class="card-img-top" src="./img/cine.jpg">
 						<div class="card-body">
 							<h1>TITULO PELICULA</h1>
 							<p class="card-text">DESCRIPCION PELICULA</p>
@@ -192,7 +192,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="cine.jpg">
+						<img class="card-img-top" src="./img/cine.jpg">
 						<div class="card-body">
 							<h1>TITULO PELICULA</h1>
 							<p class="card-text">DESCRIPCION PELICULA</p>
@@ -210,7 +210,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="cine.jpg">
+						<img class="card-img-top" src="./img/cine.jpg" >
 						<div class="card-body">
 							<h1>TITULO PELICULA</h1>
 							<p class="card-text">DESCRIPCION PELICULA</p>
@@ -228,7 +228,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="cine.jpg">
+						<img class="card-img-top" src="./img/cine.jpg">
 						<div class="card-body">
 							<h1>TITULO PELICULA</h1>
 							<p class="card-text">DESCRIPCION PELICULA</p>
