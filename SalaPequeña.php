@@ -1,6 +1,6 @@
 <?php
 
-class SalaMediana
+class SalaPequeña
 {
 
     // Codigo de la sala
@@ -26,7 +26,9 @@ class SalaMediana
         $this->capacity = 80;
         $this->imageSeatsRoom = $pimageSeatsRoom;
         $this->roomsList = $proomsList;
-        $this->timeTableList = $ptimeTableList;
+        //Clave = sesiones de hoy, 1ª sesion a las 10, 2ª sesion a las 12:30...(HORAS FIJAS)
+        
+        $this->timeTableList = array(1=>"10:00",2=>"12:30",3=>"15:00",4=>"17:30",5=>"20:00", 6=>"22:15");
     }
 
     /**

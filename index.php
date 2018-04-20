@@ -1,8 +1,22 @@
 <?php
+include "SalaGrande.php";
+include "SalaPequeña.php";
+include "SalaMediana.php";
+include "Asiento.php";
+include "Pelicula.php";
+include "conexion/conexion.php";
+
+$conexion = new mysqli($servidor, $usuario, $clave, "filmmolin");
+$conexion->query("SET NAMES 'UTF8'");
+
+if ($conexion->connect_errno) {
+    echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
+}
+
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -24,11 +38,7 @@
 
 <title>FilMolin Cinema</title>
 
-<!-- Bootstrap core CSS -->
-<link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Custom styles for this template -->
-<link href="album.css" rel="stylesheet">
 </head>
 
 <body>
@@ -54,7 +64,7 @@
 			<div class="container d-flex justify-content-between">
 				<a href="#" class="navbar-brand d-flex align-items-center"> <img
 					src="./img/icon.png" width="50px" height="50px">
-					<h1 style="font-size: 200px">FilMolin Cinema</h1>
+					<h1 style="font-size: 100px">FilMolin Cinema</h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarHeader" aria-controls="navbarHeader"
@@ -71,179 +81,44 @@
 		style="background-image: url('./img/fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
 		<div class="container">
 			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
-			<p class="lead" style="color: white">A continuaci�n os mostraremos la
+			<p class="lead" style="color: white">A continuación os mostraremos la
 				lista de peliculas disponibles en nuestro cine.</p>
-			<!--<p>
-            <a href="#" class="btn btn-primary my-2">Boton innecesario</a>
-            <a href="#" class="btn btn-secondary my-2">Boton secundario innecesario</a>
-          </p>-->
+			<p>
+				<a href="#" class="btn btn-primary my-2">Oferta</a> <a href="#"
+					class="btn btn-secondary my-2">Oferta 2</a>
+			</p>
 		</div>
 	</section>
+
 	<div class="album py-5 bg-light">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4">
-					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="./img/cine.jpg">
-						<div class="card-body">
-							<h1>TITULO PELICULA</h1>
-							<p class="card-text">DESCRIPCION PELICULA</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-								</div>
-								<small class="text-muted">Duracion (...)</small>
+<?php
+$error = "";
+$resultado = $conexion->query("SELECT * FROM peliculas");
+if ($resultado->num_rows === 0)
+    $error = "<p>No hay obras en la base de datos</p>";
+
+while ($pelicula = $resultado->fetch_assoc() ) {
+    
+    echo "	<div class='col-md-4'>
+					<div class='card mb-4 box-shadow'>";
+    echo "<img class='card-img-top' src='./img/" . $pelicula['image'] . "'>";
+    echo "<div class='card-body'>";
+    echo "	<h1>" . $pelicula['filmname'] . "</h1>";
+    echo "		<p class='card-text'>" . $pelicula['description'] . "</p>
+							<div class='d-flex justify-content-between align-items-center'>
+								<div class='btn-group'>";
+    echo "									<button type='button' class='btn btn-sm btn-outline-secondary'>Hora comienzo: " . $pelicula['timetable'] . "</button>";
+    echo "	<button type='button' class='btn btn-sm btn-outline-secondary'>Sala nº" . $pelicula['roomcode'] . " </button>
+								</div>";
+    echo "	<small class='text-muted'>" . $pelicula['duration'] . " mins. </small>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="./img/cine.jpg">
-						<div class="card-body">
-							<h1>TITULO PELICULA</h1>
-							<p class="card-text">DESCRIPCION PELICULA</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-								</div>
-								<small class="text-muted">Duracion (...)</small>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="./img/cine.jpg">
-						<div class="card-body">
-							<h1>TITULO PELICULA</h1>
-							<p class="card-text">DESCRIPCION PELICULA</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-								</div>
-								<small class="text-muted">Duracion (...)</small>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="./img/cine.jpg">
-						<div class="card-body">
-							<h1>TITULO PELICULA</h1>
-							<p class="card-text">DESCRIPCION PELICULA</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-								</div>
-								<small class="text-muted">Duracion (...)</small>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="./img/cine.jpg">
-						<div class="card-body">
-							<h1>TITULO PELICULA</h1>
-							<p class="card-text">DESCRIPCION PELICULA</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-								</div>
-								<small class="text-muted">Duracion (...)</small>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="./img/cine.jpg">
-						<div class="card-body">
-							<h1>TITULO PELICULA</h1>
-							<p class="card-text">DESCRIPCION PELICULA</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-								</div>
-								<small class="text-muted">Duracion (...)</small>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="./img/cine.jpg">
-						<div class="card-body">
-							<h1>TITULO PELICULA</h1>
-							<p class="card-text">DESCRIPCION PELICULA</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-								</div>
-								<small class="text-muted">Duracion (...)</small>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="./img/cine.jpg" >
-						<div class="card-body">
-							<h1>TITULO PELICULA</h1>
-							<p class="card-text">DESCRIPCION PELICULA</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-								</div>
-								<small class="text-muted">Duracion (...)</small>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="card mb-4 box-shadow">
-						<img class="card-img-top" src="./img/cine.jpg">
-						<div class="card-body">
-							<h1>TITULO PELICULA</h1>
-							<p class="card-text">DESCRIPCION PELICULA</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div class="btn-group">
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-									<button type="button" class="btn btn-sm btn-outline-secondary">Ver
-										Horarios</button>
-								</div>
-								<small class="text-muted">Duracion (...)</small>
-							</div>
-						</div>
-					</div>
-				</div>
+				</div>";
+}
+?>
 			</div>
 		</div>
 	</div>

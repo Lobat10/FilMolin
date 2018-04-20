@@ -20,13 +20,14 @@ class SalaGrande
 
     // COMPROBAREMOS EL TIPO DE SALA CON 'INSTANCEOF'
     // ($sala INSTANCEOF 'SalaGrande') == true/false
-    function __construct($proomCode, $pimageSeatsRoom, $proomsList, $ptimeTableList)
+    function __construct($proomCode, $pimageSeatsRoom, $proomsList)
     {
         $this->roomCode = $proomCode;
         $this->capacity = 100;
         $this->imageSeatsRoom = $pimageSeatsRoom;
         $this->roomsList = $proomsList;
-        $this->timeTableList = $ptimeTableList;
+        //Clave = sesiones de hoy, 1ª sesion a las 10, 2ª sesion a las 12:30...(HORAS FIJAS)
+        $this->timeTableList = array(1=>"10:00",2=>"12:30",3=>"15:00",4=>"17:30",5=>"20:00", 6=>"22:45");
     }
 
     /**

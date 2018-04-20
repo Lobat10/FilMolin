@@ -18,19 +18,41 @@ class Pelicula
     // Hora de comienzo de la pelicula
     public $timetable;
 
-    // Codigo de la sala en la que se va a reproducir la película
-    public $codeRoom;
+    // Codigo de la sala en la que se va a reproducir la pelï¿½cula
+    public $roomCode;
 
-    
-    function __construct($filmCode, $filmName, $duration, $image, $timetable,$codeRoom){
-        
-        $this->roomCode=$proomCode;
-        $this->capacity=$pcapacity;
-        $this->imageSeatsRoom=$pimageSeatsRoom;
-        $this->roomsList=$proomsList;
-        $this->timeTableList=$ptimeTableList;
+    // Descripcion de la peli, spoiler
+    public $description;
+
+    /*function __construct($filmCode, $filmName, $duration, $image, $timetable, $roomcode, $description)
+    {
+        $this->filmCode = $filmCode;
+        $this->filmName = $filmName;
+        $this->duration = $duration;
+        $this->image = $image;
+        $this->timetable = $timetable;
+        $this->roomCode = $roomcode;
+        $this->description = $description;
+    }*/
+
+    /**
+     *
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
-    
+
+    /**
+     *
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
     /**
      *
      * @return mixed
@@ -74,15 +96,6 @@ class Pelicula
     public function getTimetable()
     {
         return $this->timetable;
-    }
-
-    /**
-     *
-     * @return mixed
-     */
-    public function getCodeRoom()
-    {
-        return $this->codeRoom;
     }
 
     /**
@@ -132,11 +145,20 @@ class Pelicula
 
     /**
      *
-     * @param mixed $codeRoom
+     * @return mixed
      */
-    public function setCodeRoom($codeRoom)
+    public function getRoomCode()
     {
-        $this->codeRoom = $codeRoom;
+        return $this->roomCode;
+    }
+
+    /**
+     *
+     * @param mixed $roomCode
+     */
+    public function setRoomCode($roomCode)
+    {
+        $this->roomCode = $roomCode;
     }
 
     public function __toString()
@@ -144,10 +166,11 @@ class Pelicula
         return "<div class='container'> 
                 <p>Codigo Pelicula: " . $this->filmCode . "</p>
                 <p>Nombre Pelicula: " . $this->filmName . "</p>
-                <p>Duración Pelicula: " . $this->filmCode . "</p>
-                <p>Imagen Pelicula: " . $this->filmCode . "</p>
-                <p>Horario Pelicula: " . $this->filmCode . "</p>
-                <p>Codigo Sala: " . $this->filmCode . "</p>
+                <p>Duraciï¿½n Pelicula: " . $this->duration . "</p>
+                <p>DescripciÃ³n Pelicula: " . $this->description . "</p>                  
+                <p>Imagen Pelicula: " . $this->image . "</p>
+                <p>Horario Pelicula: " . $this->timetable . "</p>
+                <p>Codigo Sala: " . $this->codeRoom . "</p>
                 </div>";
     }
 }

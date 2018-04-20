@@ -1,6 +1,6 @@
 <?php
 
-class Pelicula
+class Asiento
 {
 
     // codigo asiento, dentro de una fila
