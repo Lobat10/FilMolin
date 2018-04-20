@@ -76,7 +76,15 @@ if ($conexion->connect_errno) {
 	</header>
 
 	<main role="main">
-
+	<?php
+if (isset($_GET['oferta'])) {
+    if ($_GET['oferta']) {
+        
+    } else {
+        
+    }
+} else {
+    ?>
 	<section class="jumbotron text-center "
 		style="background-image: url('./img/fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
 		<div class="container">
@@ -84,12 +92,13 @@ if ($conexion->connect_errno) {
 			<p class="lead" style="color: white">A continuación os mostraremos la
 				lista de peliculas disponibles en nuestro cine.</p>
 			<p>
-				<a href="#" class="btn btn-primary my-2">Oferta</a> <a href="#"
-					class="btn btn-secondary my-2">Oferta 2</a>
+				<a href="./index.php?oferta=1" class="btn btn-primary my-2">Oferta 1</a>
+				<a href="./index.php?oferta=2" class="btn btn-secondary my-2">Oferta
+					2</a>
 			</p>
 		</div>
 	</section>
-
+<?php }?>
 	<div class="album py-5 bg-light">
 		<div class="container">
 			<div class="row">
@@ -99,7 +108,7 @@ $resultado = $conexion->query("SELECT * FROM peliculas");
 if ($resultado->num_rows === 0)
     $error = "<p>No hay obras en la base de datos</p>";
 
-while ($pelicula = $resultado->fetch_assoc() ) {
+while ($pelicula = $resultado->fetch_assoc()) {
     
     echo "	<div class='col-md-4'>
 					<div class='card mb-4 box-shadow'>";
