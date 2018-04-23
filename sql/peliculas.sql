@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2018 a las 08:41:53
+-- Tiempo de generación: 23-04-2018 a las 10:32:30
 -- Versión del servidor: 10.1.31-MariaDB
 -- Versión de PHP: 7.1.16
 
@@ -43,40 +43,10 @@ CREATE TABLE `peliculas` (
 --
 
 INSERT INTO `peliculas` (`filmcode`, `filmname`, `duration`, `description`, `image`, `roomcode`, `timetable`) VALUES
-(1, '300', 150, 'Peliculas muy guay', '300.jpg', 1, '10:30:00'),
-(2, 'Ready Player One', 125, 'aaaaaaaaaa', 'ready.jpg', 1, '20:00:00');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `salas`
---
-
-CREATE TABLE `salas` (
-  `roomcode` int(11) NOT NULL,
-  `capacity` int(11) NOT NULL,
-  `image` varchar(50) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-
---
--- Volcado de datos para la tabla `salas`
---
-
-INSERT INTO `salas` (`roomcode`, `capacity`, `image`) VALUES
-(1, 100, 'salagrande.jpg');
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `usuarios`
---
-
-CREATE TABLE `usuarios` (
-  `login` varchar(10) COLLATE latin1_spanish_ci NOT NULL,
-  `nombre` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `password` varchar(15) COLLATE latin1_spanish_ci NOT NULL,
-  `descripcion` varchar(100) COLLATE latin1_spanish_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+(1, '300', 150, 'Peliculas muy guay', '300', 1, '10:30:00'),
+(2, 'Ready Player One', 125, 'aaaaaaaaaa', 'ready', 1, '20:00:00'),
+(3, 'Black Panther', 115, 'Pantera negra', 'panther', 1, '22:30:00'),
+(4, 'Proyecto Rampage', 107, '\r\nEl primatólogo Davis Okoye (Johnson), un hombre que mantiene las distancias con otras personas, ti', 'rampage', 1, '19:15:00');
 
 --
 -- Índices para tablas volcadas
@@ -88,12 +58,6 @@ CREATE TABLE `usuarios` (
 ALTER TABLE `peliculas`
   ADD PRIMARY KEY (`filmcode`),
   ADD KEY `fk_salas` (`roomcode`);
-
---
--- Indices de la tabla `salas`
---
-ALTER TABLE `salas`
-  ADD PRIMARY KEY (`roomcode`);
 
 --
 -- Restricciones para tablas volcadas
