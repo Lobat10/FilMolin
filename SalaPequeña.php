@@ -1,6 +1,6 @@
 <?php
 
-class SalaPequeña
+class SalaPequeï¿½a
 {
 
     // Codigo de la sala
@@ -23,10 +23,10 @@ class SalaPequeña
     function __construct($proomCode, $pimageSeatsRoom, $proomsList, $ptimeTableList)
     {
         $this->roomCode = $proomCode;
-        $this->capacity = 80;
+        $this->capacity = 50;
         $this->imageSeatsRoom = $pimageSeatsRoom;
         $this->roomsList = $proomsList;
-        //Clave = sesiones de hoy, 1ª sesion a las 10, 2ª sesion a las 12:30...(HORAS FIJAS)
+        //Clave = sesiones de hoy, 1ï¿½ sesion a las 10, 2ï¿½ sesion a las 12:30...(HORAS FIJAS)
         
         $this->timeTableList = array(1=>"10:00",2=>"12:30",3=>"15:00",4=>"17:30",5=>"20:00", 6=>"22:15");
     }

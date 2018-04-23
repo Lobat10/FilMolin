@@ -48,7 +48,11 @@ if ($conexion->connect_errno) {
 				<div class="row">
 					<div class="col-sm-8 col-md-7 py-4">
 						<h4 class="text-white">About</h4>
-						<p class="text-muted">Somos los chavales, creando un cine</p>
+						<p class="text-muted">FilMolin Cinema, es el nuevo cine con un
+							servicio unico en los cines, ya que ahora no solo podras reservar
+							tu entrada, si no que podras reservar las palomitas, las bebidas,
+							las golosinas, etc. Sin tener que esperar colas en la tienda. Los
+							creadores de este cine y dueños son Pablo Molina y Adrián Lobato.</p>
 					</div>
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4 class="text-white">Contactanos</h4>
@@ -82,14 +86,18 @@ if (isset($_GET['oferta'])) {
     if ($_GET['oferta'] == 1) {
         ?>
         <section class="jumbotron text-center "
-		style="background-image: url('./img/fondo.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
+		style="background-image: url('./img/palomitas.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
 		<div class="container">
-			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
-			<p class="lead" style="color: white">A continuación os mostraremos la
-				lista de peliculas disponibles en nuestro cine.</p>
+			<h1 class="jumbotron-heading" style="color: black">No pierdas tu
+				tiempo!</h1>
+			<p class="lead" style="color: black; font-weight: bold;">Recoge tus
+				palomitas sin esperar las colas de la tienda.</p>
+			<p class="lead" style="color: black; font-weight: bold;">Encarga tus
+				palomitas con la compra de tu entrada!</p>
 			<p>
-				<a href="./index.php?oferta=1" class="btn btn-primary my-2">Oferta 1</a>
-				<a href="./index.php?oferta=2" class="btn btn-primary my-2">Oferta 2</a>
+				<a href="./index.php?oferta=1" class="btn btn-secondary my-2">Oferta
+					1</a> <a href="./index.php?oferta=2" class="btn btn-secondary my-2">Oferta
+					2</a>
 			</p>
 		</div>
 	</section>
@@ -136,20 +144,31 @@ while ($pelicula = $resultado->fetch_assoc()) {
     
     echo "	<div class='col-md-4'>
 					<div class='card mb-4 box-shadow'>";
-    echo "<img class='card-img-top' src='./img/" . $pelicula['image'] . "'>";
-    echo "<div class='card-body'>";
-    echo "	<h1>" . $pelicula['filmname'] . "</h1>";
-    echo "		<p class='card-text'>" . $pelicula['description'] . "</p>
-							<div class='d-flex justify-content-between align-items-center'>
-								<div class='btn-group'>";
-    echo "									<button type='button' class='btn btn-sm btn-outline-secondary'>Hora comienzo: " . $pelicula['timetable'] . "</button>";
-    echo "	<button type='button' class='btn btn-sm btn-outline-secondary'>Sala nº" . $pelicula['roomcode'] . " </button>
-								</div>";
-    echo "	<small class='text-muted'>" . $pelicula['duration'] . " mins. </small>
-							</div>
-						</div>
-					</div>
-				</div>";
+    echo "                  <img class='card-img-top' src='./img/" . $pelicula['image'] . ".jpg'>";
+    echo "                  <div class='card-body text-light bg-dark'>";
+    echo "	                    <h1>" . $pelicula['filmname'] . "</h1>";
+    echo "                      <button class='navbar-toggler bg-dark text-light' type='button' data-toggle='collapse'
+					            data-target='#navbar".$pelicula['image']."' aria-controls='navbarHeader'
+					            aria-expanded='false' aria-label='Toggle navigation'>
+					            <span class='navbar-toggler-icon'> &darr; </span></button>";
+    
+    echo "                      <div class='collapse bg-dark' id='navbar".$pelicula['image']."'>
+			                         <div class='container'>
+                        				<div class='row'>
+                        					<div class='col-sm-8 col-md-7 py-4'>
+                                                <ul class='list-unstyled'>
+                        						 <li><p class='card-text'>" . $pelicula['description'] . "</p></li>
+                        						 <li><p class='card-text'>Sala nº" . $pelicula['roomcode'] . "</p></li>
+                                                 <li><p class='card-text'>Hora comienzo: " . $pelicula['timetable'] . "</p></li>
+                                                 <li><p class='card-text'>" . $pelicula['duration'] . " mins. </p></li>
+                                                </ul>
+                        					</div>
+                        				</div>
+                        			</div>
+                        		</div>
+						    </div>
+					     </div>
+				    </div>";
 }
 ?>
 			</div>
