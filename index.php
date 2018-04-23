@@ -78,10 +78,35 @@ if ($conexion->connect_errno) {
 	<main role="main">
 	<?php
 if (isset($_GET['oferta'])) {
-    if ($_GET['oferta']) {
-        
+    
+    if ($_GET['oferta'] == 1) {
+        ?>
+        <section class="jumbotron text-center "
+		style="background-image: url('./img/fondo.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
+		<div class="container">
+			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
+			<p class="lead" style="color: white">A continuación os mostraremos la
+				lista de peliculas disponibles en nuestro cine.</p>
+			<p>
+				<a href="./index.php?oferta=1" class="btn btn-primary my-2">Oferta 1</a>
+				<a href="./index.php?oferta=2" class="btn btn-primary my-2">Oferta 2</a>
+			</p>
+		</div>
+	</section>
+        <?php
     } else {
-        
+        ?><section class="jumbotron text-center "
+		style="background-image: url('./img/fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
+		<div class="container">
+			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
+			<p class="lead" style="color: white">A continuación os mostraremos la
+				lista de peliculas disponibles en nuestro cine.</p>
+			<p>
+				<a href="./index.php?oferta=1" class="btn btn-primary my-2">Oferta 1</a>
+				<a href="./index.php?oferta=2" class="btn btn-primary my-2">Oferta 2</a>
+			</p>
+		</div>
+	</section><?php
     }
 } else {
     ?>
@@ -93,8 +118,7 @@ if (isset($_GET['oferta'])) {
 				lista de peliculas disponibles en nuestro cine.</p>
 			<p>
 				<a href="./index.php?oferta=1" class="btn btn-primary my-2">Oferta 1</a>
-				<a href="./index.php?oferta=2" class="btn btn-secondary my-2">Oferta
-					2</a>
+				<a href="./index.php?oferta=2" class="btn btn-primary my-2">Oferta 2</a>
 			</p>
 		</div>
 	</section>
