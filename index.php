@@ -35,6 +35,10 @@ if ($conexion->connect_errno) {
 	src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script
 	src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.min.css" />
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
 <title>FilMolin Cinema</title>
 
@@ -49,10 +53,11 @@ if ($conexion->connect_errno) {
 					<div class="col-sm-8 col-md-7 py-4">
 						<h4 class="text-white">About</h4>
 						<p class="text-muted">FilMolin Cinema, es el nuevo cine con un
-							servicio unico en los cines, ya que ahora no solo podras reservar
-							tu entrada, si no que podras reservar las palomitas, las bebidas,
-							las golosinas, etc. Sin tener que esperar colas en la tienda. Los
-							creadores de este cine y dueños son Pablo Molina y Adrián Lobato.</p>
+							servicio unico que nos diferencia de otros empresas, ya que ahora
+							no solo podras reservar tu entrada, si no que podras reservar las
+							palomitas, las bebidas, las golosinas, etc. Sin tener que esperar
+							colas en la tienda. Los creadores y dueños de este cine son Pablo
+							Molina y Adrián Lobato.</p>
 					</div>
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4 class="text-white">Contactanos</h4>
@@ -131,11 +136,47 @@ if (isset($_GET['oferta'])) {
 		</div>
 	</section>
 <?php }?>
+<div class="container">
+		<form action="./index.php" method="post" style="float: right;">
+			<div class="container">
+				<div class="col-sm-6" style="height: 130px;">
+					<div class="form-group">
+						<div class='input-group date' id='datetimepicker9'>
+							<label for="date"
+								class="col-sm-2 col-form-label col-form-label-lg">Elige la fecha</label>
+							<div class="alert alert-info" style="align-items: center">
+								<strong>Atención!</strong> Solo hay disponibilidad de las
+								peliculas durante esta semana. Diculpe las molestias.
+							</div>
+							<input type='date' id='date' class="form-control form-control-lg" />
+							<input type="submit" id='enviar'
+								class="form-control form-control btn btn-info" />
+						</div>
+					</div>
+				</div>
+				<a href="./index.php?today=true"><button type="button"
+						class="btn btn-info btn-lg">Peliculas de hoy</button></a>
+			</div>
+
+		</form>
+
+
+	</div>
+
+
 	<div class="album py-5 bg-light">
 		<div class="container">
 			<div class="row">
 <?php
+
 $error = "";
+$where = "";
+$today = "".date('Y-m-d')."";
+if (isset($_GET['today'])) {
+    if ($_GET['today'] == true) {
+        $where = "AND sesiones.date='" . $today."'";
+    }
+}
 $resultado = $conexion->query("SELECT * FROM peliculas");
 if ($resultado->num_rows === 0)
     $error = "<p>No hay obras en la base de datos</p>";
@@ -148,20 +189,32 @@ while ($pelicula = $resultado->fetch_assoc()) {
     echo "                  <div class='card-body text-light bg-dark'>";
     echo "	                    <h1>" . $pelicula['filmname'] . "</h1>";
     echo "                      <button class='navbar-toggler bg-dark text-light' type='button' data-toggle='collapse'
-					            data-target='#navbar".$pelicula['image']."' aria-controls='navbarHeader'
+					            data-target='#navbar" . $pelicula['image'] . "' aria-controls='navbarHeader'
 					            aria-expanded='false' aria-label='Toggle navigation'>
 					            <span class='navbar-toggler-icon'> &darr; </span></button>";
     
-    echo "                      <div class='collapse bg-dark' id='navbar".$pelicula['image']."'>
+    echo "                      <div class='collapse bg-dark' id='navbar" . $pelicula['image'] . "'>
 			                         <div class='container'>
                         				<div class='row'>
                         					<div class='col-sm-8 col-md-7 py-4'>
                                                 <ul class='list-unstyled'>
-                        						 <li><p class='card-text'>" . $pelicula['description'] . "</p></li>
-                        						 <li><p class='card-text'>Sala nº" . $pelicula['roomcode'] . "</p></li>
-                                                 <li><p class='card-text'>Hora comienzo: " . $pelicula['timetable'] . "</p></li>
+                        						 <li><p class='card-text' style='width: 200px '>" . $pelicula['description'] . "</p></li>
                                                  <li><p class='card-text'>" . $pelicula['duration'] . " mins. </p></li>
-                                                </ul>
+                                                        <hr size='8px' color='blue' />";
+    $resultado2 = $conexion->query("SELECT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . " " . $where);
+    if ($resultado2->num_rows === 0) {
+        $error = "<p>No hay obras en la base de datos</p>";
+    }
+    
+    while ($sesion = $resultado2->fetch_assoc()) {
+        
+        echo "                                       <li><ul class='list-unstyled'>
+                                                        <li><p class='card-text'>Fecha: " . $sesion['date'] . "</p></li>
+                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php'><p class='card-text'>" . $sesion['timetable'] . "</p></li>
+                                                        <hr size='8px' color='blue' />
+                                                     </ul>";
+    }
+    echo "                                      </ul>
                         					</div>
                         				</div>
                         			</div>
@@ -170,10 +223,12 @@ while ($pelicula = $resultado->fetch_assoc()) {
 					     </div>
 				    </div>";
 }
+
 ?>
 			</div>
 		</div>
 	</div>
+
 	</main>
 	<footer class="text-muted">
 		<div class="container">
