@@ -101,7 +101,8 @@ if (isset($_GET['oferta'])) {
 				palomitas con la compra de tu entrada!</p>
 			<p>
 				<a href="./index.php?oferta=1" class="btn btn-secondary my-2">Oferta
-					1</a> <a href="./index.php?oferta=2" class="btn btn-secondary my-2">Oferta
+					1</a>
+				<a href="./index.php?oferta=2" class="btn btn-secondary my-2">Oferta
 					2</a>
 			</p>
 		</div>
@@ -210,7 +211,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
         
         echo "                                       <li><ul class='list-unstyled'>
                                                         <li><p class='card-text'>Fecha: " . $sesion['date'] . "</p></li>
-                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?'><p class='card-text'>" . $sesion['timetable'] . "</p></li>
+                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=".$pelicula['filmcode']."'><p class='card-text'>" . $sesion['timetable'] . "</p></a></li>
                                                         <hr size='8px' color='blue' />
                                                      </ul>";
     }
