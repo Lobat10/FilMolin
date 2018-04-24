@@ -73,7 +73,6 @@ if ($conexion->connect_errno) {
 <?php
 $object = 0;
 if (isset($_POST['objeto'])) {
-    
     $object = $_POST['objeto'];
     if ($object == 1) {
         ?>        
@@ -143,6 +142,50 @@ if (isset($_POST['objeto'])) {
 <?php
     }
 }
+
+if($object==1){
+    if (isset($_POST['filmcode']) && isset($_POST['filmname']) && isset($_POST['duration']) && isset($_POST['description']) && isset($_POST['image']) && isset($_POST['roomcode'])) {
+        if (! empty($_POST['filmcode']) && ! empty($_POST['filmname']) && ! empty($_POST['duration']) && ! empty($_POST['description']) && ! empty($_POST['image']) && ! empty($_POST['roomcode'])) {
+            
+            $resultado = $conexion->query("SELECT * FROM peliculas WHERE peliculas.filmcode=" . $_POST['filmcode']);
+            if ($resultado->num_rows != 0) {
+                
+                echo "<p> Ya existe el FILMCODE de esta pelicula</p>";
+            } else {
+                
+                $resultado = $conexion->query("SELECT * FROM peliculas WHERE peliculas.filmname='" . $_POST['filmname']) . "'";
+                if ($resultado->num_rows != 0) {
+                    
+                    echo "<p>Ya existe el FILMNAME de esta pelicula</p>";
+                } else {
+                    if ($_POST['duration'] < 100) {
+                        echo "<p>La duracion de la pelicula tiene que ser superior a 100 minutos.</p>";
+                    } else {
+                        $resultado = $conexion->query("SELECT * FROM salas WHERE salas.roomcode=" . $_POST['roomcode']);
+                        if ($resultado->num_rows != 0) {
+                            
+                            echo "<p>Ya existe la ROOMCODE de esta pelicula</p>";
+                        } else {
+                            $resultado2 = $conexion->query("INSERT INTO peliculas values (" . $_POST['filmcode'] . ",'" . $_POST['filmname'] . "'," . $_POST['duration'] . ",'" . $_POST['description'] . "','" . $_POST['image'] . "'," . $_POST['roomcode'] . ")");
+                            
+                            echo "<p>La pelicula " . $_POST['filmname'] . " se ha introducido.</p>";
+                            header('Location:index.php');
+                        }
+                    }
+                }
+            }
+        } else {
+            echo "<p>No puede haber ningún campo vacío.</p>";
+        }
+    } else {
+        echo "<p>No se han enviado todos los campos del formulario, no se ha insertalo la pelicula</p>";
+    }
+}else if($object==2){
+    
+}else if($object==3){
+    
+}
+
 
 ?>
 </body>
