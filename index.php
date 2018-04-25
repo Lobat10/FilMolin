@@ -71,6 +71,10 @@ if ($conexion->connect_errno) {
 		</div>
 		<div class="navbar navbar-dark bg-dark box-shadow">
 			<div class="container d-flex justify-content-between">
+				<div class="container">
+					<a href="./login/login.php" class="btn btn-primary btn-lg active"
+						role="button" aria-pressed="true" style="float:right;clear:right;">Inicia sesión</a>
+				</div>
 				<a href="#" class="navbar-brand d-flex align-items-center"> <img
 					src="./img/icon.png" width="50px" height="50px">
 					<h1 style="font-size: 100px">FilMolin Cinema</h1>
@@ -82,6 +86,7 @@ if ($conexion->connect_errno) {
 				</button>
 			</div>
 		</div>
+
 	</header>
 
 	<main role="main">
@@ -101,8 +106,7 @@ if (isset($_GET['oferta'])) {
 				palomitas con la compra de tu entrada!</p>
 			<p>
 				<a href="./index.php?oferta=1" class="btn btn-secondary my-2">Oferta
-					1</a>
-				<a href="./index.php?oferta=2" class="btn btn-secondary my-2">Oferta
+					1</a> <a href="./index.php?oferta=2" class="btn btn-secondary my-2">Oferta
 					2</a>
 			</p>
 		</div>
@@ -172,10 +176,10 @@ if (isset($_GET['oferta'])) {
 
 $error = "";
 $where = "";
-$today = "".date('Y-m-d')."";
+$today = "" . date('Y-m-d') . "";
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
-        $where = "AND sesiones.date='" . $today."'";
+        $where = "AND sesiones.date='" . $today . "'";
     }
 }
 $resultado = $conexion->query("SELECT * FROM peliculas");
@@ -211,7 +215,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
         
         echo "                                       <li><ul class='list-unstyled'>
                                                         <li><p class='card-text'>Fecha: " . $sesion['date'] . "</p></li>
-                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=".$pelicula['filmcode']."'><p class='card-text'>" . $sesion['timetable'] . "</p></a></li>
+                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "'><p class='card-text'>" . $sesion['timetable'] . "</p></a></li>
                                                         <hr size='8px' color='blue' />
                                                      </ul>";
     }
