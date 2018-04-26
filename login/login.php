@@ -1,5 +1,35 @@
 <?php
 include "../conexion/conexion.php";
+session_name("login");
+session_start();
+
+
+if(isset($_SESSION['login'])){
+    $login=$_SESSION['login'];
+    if($login==1) header('Location:administracion.php');
+}
+$mensajeError='';
+if(isset($_POST['enviar'])){
+    if(isset($_POST['user'])){
+        $user=$_POST['user'];
+    }
+    if(isset($_POST['pass'])){
+        $pass=$_POST['pass'];
+    }
+    if($user=='admin'){
+        if($pass=='secreto'){
+            $_SESSION['usuario'] = $user;
+            $_SESSION['password'] = $pass;
+            $_SESSION['login'] = 1;
+            header('Location:administracion.php');
+        }else{
+            $mensajeError = "La contraseña es erronea, intentelo de nuevo";
+        }
+    }else{
+        $mensajeError = "El usuario es erroneo, intentelo de nuevo";
+        
+    }
+}
 
 ?>
 <!doctype html>
@@ -67,10 +97,10 @@ input {
 			<h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
 			<label for="inputUser" class="sr-only">Nombre usuario</label> <input
 				type="text" id="inputUser" class="form-control"
-				placeholder="Nombre usuario" required autofocus> <label
+				placeholder="Nombre usuario" name="user" required autofocus> <label
 				for="inputPassword" class="sr-only">Password</label> <input
 				type="password" id="inputPassword" class="form-control"
-				placeholder="Password" required>
+				placeholder="Password" name="pass" required>
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Entra!</button>
 			<div class="checkbox mb-3">
@@ -79,7 +109,7 @@ input {
 			</div>
 			<p class="mt-5 mb-3 text-muted">&copy; FilMolin Cinema 2018</p>
 		</form>
-		<a href="./alta.php">
+		<a href="./AltaUser.php">
 			<button type="button" class="btn btn-info">Aún no estas registrado?
 				Accede aquí.</button>
 		</a>
