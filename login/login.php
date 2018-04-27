@@ -1,33 +1,49 @@
 <?php
 include "../conexion/conexion.php";
-session_name("login");
-session_start();
 
+$conexion = new mysqli($servidor, $usuario, $clave, "filmmolin");
+$conexion->query("SET NAMES 'UTF8'");
 
-if(isset($_SESSION['login'])){
-    $login=$_SESSION['login'];
-    if($login==1) header('Location:administracion.php');
+if ($conexion->connect_errno) {
+    echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
 }
-$mensajeError='';
-if(isset($_POST['enviar'])){
-    if(isset($_POST['user'])){
-        $user=$_POST['user'];
+$user = "";
+$pass = "";
+$login = 0;
+
+if (isset($_SESSION['login'])) {
+    $login = $_SESSION['login'];
+    if ($login == 1) {
+        header('Location: ../index.php');
     }
-    if(isset($_POST['pass'])){
-        $pass=$_POST['pass'];
+}
+
+$mensajeError = '';
+if (isset($_POST['enviar'])) {
+    
+    if (isset($_POST['user']) && ! empty($_POST['user'])) {
+        $user = $_POST['user'];
     }
-    if($user=='admin'){
-        if($pass=='secreto'){
+    if (isset($_POST['pass']) && ! empty($_POST['pass'])) {
+        $pass = $_POST['pass'];
+    }
+    $resultado = $conexion->query("SELECT login,password FROM usuarios WHERE login='" . $user . "'");
+    if ($resultado->num_rows === 0) {
+        $mensajeError = "<p>No existe ese usuario en la base de datos</p>";
+    } else {
+        $usuario = $resultado->fetch_assoc();
+        if (password_verify($pass, $usuario['password'])) {
+            session_name("login");
+            session_start();
+            error_log("6");
             $_SESSION['usuario'] = $user;
             $_SESSION['password'] = $pass;
             $_SESSION['login'] = 1;
-            header('Location:administracion.php');
-        }else{
+            $mensajeError = "correcto";
+            header('Location: ../index.php');
+        } else {
             $mensajeError = "La contraseña es erronea, intentelo de nuevo";
         }
-    }else{
-        $mensajeError = "El usuario es erroneo, intentelo de nuevo";
-        
     }
 }
 
@@ -94,7 +110,7 @@ input {
 		<form class="form-signin" id="idForm" action="./login.php"
 			method="post">
 			<img class="mb-4" src="../img/icon.png" alt="" width="72" height="72">
-			<h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
+			<h1 class="h3 mb-3 font-weight-normal">*****</h1>
 			<label for="inputUser" class="sr-only">Nombre usuario</label> <input
 				type="text" id="inputUser" class="form-control"
 				placeholder="Nombre usuario" name="user" required autofocus> <label
@@ -102,7 +118,8 @@ input {
 				type="password" id="inputPassword" class="form-control"
 				placeholder="Password" name="pass" required>
 
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Entra!</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit"
+				name="enviar">Entra!</button>
 			<div class="checkbox mb-3">
 				<label> <input type="checkbox" value="remember-me"> Remember me
 				</label>
@@ -115,5 +132,10 @@ input {
 		</a>
 
 	</div>
+	<?php
+if ($mensajeError != "") {
+    echo "<p>" . $mensajeError . "</p>";
+}
+?>
 </body>
 </html>

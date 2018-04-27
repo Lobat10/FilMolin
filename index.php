@@ -6,6 +6,9 @@ include "Asiento.php";
 include "Pelicula.php";
 include "conexion/conexion.php";
 
+session_name("login");
+session_start();
+
 $conexion = new mysqli($servidor, $usuario, $clave, "filmmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
@@ -69,27 +72,37 @@ if ($conexion->connect_errno) {
 				</div>
 			</div>
 		</div>
-		<div class="navbar navbar-dark bg-dark box-shadow">
+		<div class="navbar navbar-dark bg-dark box-shadow" style="align-items:initial">
 			<div class="container d-flex justify-content-between">
 				<div class="container">
 				<?php
     
     if (isset($_SESSION['login'])) {
-        
-        if ($_SESSION['login'] == 0) {
+        $login = $_SESSION['login'];
+        if ($login == 1) {
             ?>
-					<a href="./login/login.php" class="btn btn-primary btn-lg active"
+					<a href="./login/cuenta.php"><span id="icon"
+						style="float: right; width: 150px; clear: right;"
+						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
+
+		<?php }else{?>
+					
+					 <a href="./login/login.php" class="btn btn-primary btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
-					<?php }else{?>
-					
-					<a href="./login/cuenta.php"><span class="glyphicon glyphicon-user"><?php echo $_SESSION['user']; ?></span></a>
-					
 					
 					<?php
         }
+    } else {
+        ?>
+    
+    <a href="./login/login.php" class="btn btn-primary btn-lg active"
+						role="button" aria-pressed="true"
+						style="float: right; clear: right;">Inicia sesión</a>
+    <?php
     }
     ?>
+    
 				
 				
 				</div>
