@@ -6,7 +6,7 @@ include "Asiento.php";
 include "Pelicula.php";
 include "conexion/conexion.php";
 
-session_name("login");
+session_name("login" );
 session_start();
 
 $conexion = new mysqli($servidor, $usuario, $clave, "filmmolin");
