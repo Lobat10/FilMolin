@@ -72,8 +72,26 @@ if ($conexion->connect_errno) {
 		<div class="navbar navbar-dark bg-dark box-shadow">
 			<div class="container d-flex justify-content-between">
 				<div class="container">
+				<?php
+    
+    if (isset($_SESSION['login'])) {
+        
+        if ($_SESSION['login'] == 0) {
+            ?>
 					<a href="./login/login.php" class="btn btn-primary btn-lg active"
-						role="button" aria-pressed="true" style="float:right;clear:right;">Inicia sesión</a>
+						role="button" aria-pressed="true"
+						style="float: right; clear: right;">Inicia sesión</a>
+					<?php }else{?>
+					
+					<a href="./login/cuenta.php"><span class="glyphicon glyphicon-user"><?php echo $_SESSION['user']; ?></span></a>
+					
+					
+					<?php
+        }
+    }
+    ?>
+				
+				
 				</div>
 				<a href="#" class="navbar-brand d-flex align-items-center"> <img
 					src="./img/icon.png" width="50px" height="50px">
