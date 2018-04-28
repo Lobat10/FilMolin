@@ -81,7 +81,7 @@ if ($conexion->connect_errno) {
         $login = $_SESSION['login'];
         if ($login == 1) {
             ?>
-					<a href="./login/cuenta.php"><span id="icon"
+					<a href="./administration/cuenta.php"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
 						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
 
@@ -237,6 +237,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
                         						 <li><p class='card-text' style='width: 200px '>" . $pelicula['description'] . "</p></li>
                                                  <li><p class='card-text'>" . $pelicula['duration'] . " mins. </p></li>
                                                         <hr size='8px' color='blue' />";
+    
     $resultado2 = $conexion->query("SELECT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . " " . $where);
     if ($resultado2->num_rows === 0) {
         $error = "<p>No hay obras en la base de datos</p>";

@@ -33,7 +33,6 @@ if (isset($_POST['enviar'])) {
             } else {
                 $passHash = password_hash($pass, PASSWORD_DEFAULT);
                 $resultado = $conexion->query("INSERT INTO usuarios VALUES ('" . $user . "','" . $nombre . "','" . $passHash . "','" . $description . "',0)");
-                $mensaje = "Se ha insertado el usuario " . $user;
                 header('Location: ./login.php');
                 
             }

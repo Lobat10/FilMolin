@@ -27,7 +27,7 @@ if (isset($_POST['enviar'])) {
     if (isset($_POST['pass']) && ! empty($_POST['pass'])) {
         $pass = $_POST['pass'];
     }
-    $resultado = $conexion->query("SELECT login,password FROM usuarios WHERE login='" . $user . "'");
+    $resultado = $conexion->query("SELECT login,password,admin FROM usuarios WHERE login='" . $user . "'");
     if ($resultado->num_rows === 0) {
         $mensajeError = "<p>No existe ese usuario en la base de datos</p>";
     } else {
@@ -35,11 +35,15 @@ if (isset($_POST['enviar'])) {
         if (password_verify($pass, $usuario['password'])) {
             session_name("login");
             session_start();
-            error_log("6");
             $_SESSION['usuario'] = $user;
             $_SESSION['password'] = $pass;
             $_SESSION['login'] = 1;
             $mensajeError = "correcto";
+            if ($usuario['admin'] == 1) {
+                $_SESSION['admin'] = true;
+            } else {
+                $_SESSION['admin'] = false;
+            }
             header('Location: ../index.php');
         } else {
             $mensajeError = "La contraseña es erronea, intentelo de nuevo";
