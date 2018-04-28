@@ -9,7 +9,7 @@ include "conexion/conexion.php";
 session_name("login" );
 session_start();
 
-$conexion = new mysqli($servidor, $usuario, $clave, "filmmolin");
+$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
 if ($conexion->connect_errno) {

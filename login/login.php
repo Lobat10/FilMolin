@@ -1,7 +1,7 @@
 <?php
 include "../conexion/conexion.php";
 
-$conexion = new mysqli($servidor, $usuario, $clave, "filmmolin");
+$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
 if ($conexion->connect_errno) {
@@ -114,7 +114,7 @@ input {
 		<form class="form-signin" id="idForm" action="./login.php"
 			method="post">
 			<img class="mb-4" src="../img/icon.png" alt="" width="72" height="72">
-			<h1 class="h3 mb-3 font-weight-normal">*****</h1>
+			<h1 class="h3 mb-3 font-weight-normal">Sign in</h1>
 			<label for="inputUser" class="sr-only">Nombre usuario</label> <input
 				type="text" id="inputUser" class="form-control"
 				placeholder="Nombre usuario" name="user" required autofocus> <label
