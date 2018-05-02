@@ -83,7 +83,7 @@ if ($conexion->connect_errno) {
             ?>
 					<a href="./administration/cuenta.php"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
-						class="glyphicon glyphicon-user"  width: 150px; ><?php echo $_SESSION['usuario']; ?></span></a>
+						class="glyphicon glyphicon-user" ><?php echo $_SESSION['usuario']; ?></span></a>
 
 		<?php }else{?>
 					
