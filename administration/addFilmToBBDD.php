@@ -36,14 +36,10 @@
 
 </head>
 <?php
-include "SalaGrande.php";
-include "SalaPequeña.php";
-include "SalaMediana.php";
-include "Asiento.php";
-include "Pelicula.php";
-include "conexion/conexion.php";
 
-$conexion = new mysqli($servidor, $usuario, $clave, "filmmolin");
+include "../conexion/conexion.php";
+
+$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
 if ($conexion->connect_errno) {
@@ -94,7 +90,7 @@ if (isset($_POST['filmcode']) && isset($_POST['filmname']) && isset($_POST['dura
 ?>
 
 <body>
-	<img src="./img/introductor.jpg" id="introductor" />
+	<img src="../img/introductor.jpg" id="introductor" />
 
 
 	<div class="container">

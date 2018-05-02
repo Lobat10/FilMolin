@@ -1,7 +1,7 @@
 <?php
 include "../conexion/conexion.php";
 
-$conexion = new mysqli($servidor, $usuario, $clave, "filmmolin");
+$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
 if ($conexion->connect_errno) {
@@ -23,7 +23,7 @@ $mensajeError = '';
 <meta name="description" content="">
 <meta name="author" content="">
 <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
-<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="../img/favicon.ico" type="image/x-icon">
 <link rel='stylesheet'
 	href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
 	integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm'
@@ -91,7 +91,7 @@ if ($mensajeError != "") {
 }
 ?>
 <div class="container">
-	<a href=""><button type="button" class="btn btn-primary btn-lg btn-block"> Cerrar Sesion</button></a>
+	<a href="../logout/logout.php"><button type="button" class="btn btn-primary btn-lg btn-block"> Cerrar Sesion</button></a>
 </div>
 </body>
 </html>
