@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_name('login');
 session_start ();
 $_SESSION['login']="";
