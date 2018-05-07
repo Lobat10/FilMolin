@@ -230,7 +230,6 @@ if (isset($_GET['oferta'])) {
 $error = "";
 $where = "";
 $hoy = "";
-$today = "" . date('Y-m-d') . "";
 $todayh = getdate();
 
 $año = $todayh['year'];
@@ -239,7 +238,6 @@ $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
-        $where = "AND sesiones.date='" . $today . "'";
         $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='".$año."-".$mes."-".$dia."'";
     }
 }
@@ -268,7 +266,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
                                                  <li><p class='card-text'>" . $pelicula['duration'] . " mins. </p></li>
                                                         <hr size='8px' color='blue' />";
     
-    $resultado2 = $conexion->query("SELECT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . " " . $where);
+    $resultado2 = $conexion->query("SELECT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . "");
     if ($resultado2->num_rows === 0) {
         $error = "<p>No hay obras en la base de datos</p>";
     }
