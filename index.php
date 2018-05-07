@@ -1,9 +1,4 @@
 <?php
-include "SalaGrande.php";
-include "SalaPequeña.php";
-include "SalaMediana.php";
-include "Asiento.php";
-include "Pelicula.php";
 include "conexion/conexion.php";
 
 session_name("login");
@@ -233,14 +228,14 @@ $hoy = "";
 $today = "" . date('Y-m-d') . "";
 $todayh = getdate();
 
-$año = $todayh['year'];
+$aï¿½o = $todayh['year'];
 $mes = $todayh['mon'];
 $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
         $where = "AND sesiones.date='" . $today . "'";
-        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='".$año."-".$mes."-".$dia."'";
+        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='".$aï¿½o."-".$mes."-".$dia."'";
     }
 }
 $resultado = $conexion->query("SELECT * FROM peliculas".$hoy);
