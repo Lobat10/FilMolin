@@ -1,6 +1,6 @@
 <?php
 include "SalaGrande.php";
-include "SalaPequeÃ±a.php";
+include "SalaPequeña.php";
 include "SalaMediana.php";
 include "Asiento.php";
 include "Pelicula.php";
@@ -226,15 +226,24 @@ if (isset($_GET['oferta'])) {
 			<div class="row">
 <?php
 
+
 $error = "";
 $where = "";
+$hoy = "";
 $today = "" . date('Y-m-d') . "";
+$todayh = getdate();
+
+$año = $todayh['year'];
+$mes = $todayh['mon'];
+$dia = $todayh['mday'];
+
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
         $where = "AND sesiones.date='" . $today . "'";
+        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='".$año."-".$mes."-".$dia."'";
     }
 }
-$resultado = $conexion->query("SELECT * FROM peliculas");
+$resultado = $conexion->query("SELECT * FROM peliculas".$hoy);
 if ($resultado->num_rows === 0)
     $error = "<p>No hay obras en la base de datos</p>";
 
