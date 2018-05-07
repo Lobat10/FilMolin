@@ -228,14 +228,14 @@ $hoy = "";
 $today = "" . date('Y-m-d') . "";
 $todayh = getdate();
 
-$a�o = $todayh['year'];
+$anyo = $todayh['year'];
 $mes = $todayh['mon'];
 $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
         $where = "AND sesiones.date='" . $today . "'";
-        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='".$a�o."-".$mes."-".$dia."'";
+        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='".$anyo."-".$mes."-".$dia."'";
     }
 }
 $resultado = $conexion->query("SELECT * FROM peliculas".$hoy);
