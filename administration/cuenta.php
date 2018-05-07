@@ -56,7 +56,9 @@ $mensajeError = '';
 					<th scope="col">Login</th>
 					<th scope="col">Name</th>
 					<th scope="col">Description</th>
+<?php if($_SESSION['admin']){ ?>					
 					<th scope="col">Admin</th>
+		<?php }?>
 				</tr>
 			</thead>
 			
@@ -76,10 +78,12 @@ if ($usuario['admin'] == 1) {
 echo "		<tbody>
 				<tr>
 					<th scope='row'>" . $usuario['login'] . "</th>
-					<th scope='row'>" . $usuario['name'] . "</th>
-					<th scope='row'>" . $usuario['description'] . "</th>
-	                <th scope='row'>" . $admin . "</th>
-				</tr>
+					<th scope='row'>" . $usuario['nombre'] . "</th>
+					<th scope='row'>" . $usuario['descripcion'] . "</th>";
+if($_SESSION['admin']){
+              echo "<th scope='row'>" . $admin . "</th>";
+}
+echo "				</tr>
 			</tbody>";
 ?>		
 		</table>
@@ -90,6 +94,14 @@ if ($mensajeError != "") {
     echo "<p>" . $mensajeError . "</p>";
 }
 ?>
+<?php if($_SESSION['admin']){?>
+<div class="btn-group btn-group-justified">
+  <a href="./addFilmToDDBB" class="btn btn-primary">Apple</a>
+  <a href="#" class="btn btn-primary">Samsung</a>
+  <a href="#" class="btn btn-primary">Sony</a>
+</div>
+<?php }?>
+
 <div class="container">
 	<a href="../logout/logout.php"><button type="button" class="btn btn-primary btn-lg btn-block"> Cerrar Sesion</button></a>
 </div>
