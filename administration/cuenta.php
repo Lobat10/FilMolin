@@ -49,7 +49,7 @@ $mensajeError = '';
 
 <body class="text-center">
 	<div class="container">
-	<h1>DATOS DE TU CUENTA PERSONAL</h1>
+		<h1>DATOS DE TU CUENTA PERSONAL</h1>
 		<table class="table table-light">
 			<thead class="thead-dark">
 				<tr>
@@ -80,8 +80,8 @@ echo "		<tbody>
 					<th scope='row'>" . $usuario['login'] . "</th>
 					<th scope='row'>" . $usuario['nombre'] . "</th>
 					<th scope='row'>" . $usuario['descripcion'] . "</th>";
-if($_SESSION['admin']){
-              echo "<th scope='row'>" . $admin . "</th>";
+if ($_SESSION['admin']) {
+    echo "<th scope='row'>" . $admin . "</th>";
 }
 echo "				</tr>
 			</tbody>";
@@ -95,15 +95,26 @@ if ($mensajeError != "") {
 }
 ?>
 <?php if($_SESSION['admin']){?>
-<div class="btn-group btn-group-justified">
-  <a href="./addFilmToDDBB" class="btn btn-primary">Apple</a>
-  <a href="#" class="btn btn-primary">Samsung</a>
-  <a href="#" class="btn btn-primary">Sony</a>
-</div>
-<?php }?>
 
+<div class="btn-group btn-group-vertical" style="float: left">
+		<h1>Introducir datos a la BBDD</h1>
+		<div class="container">
+			<a href="./addFilmToBBDD.php" class="btn btn-primary">Pelicula</a> <a
+				href="./addRoomToBBDD.php" class="btn btn-primary">Sala</a> <a
+				href="./addSesionToBBDD.php" class="btn btn-primary">Sesion</a>
+		</div>
+	</div>
+<?php }?>
 <div class="container">
-	<a href="../logout/logout.php"><button type="button" class="btn btn-primary btn-lg btn-block"> Cerrar Sesion</button></a>
-</div>
+		<h1>Operaciones</h1>
+		<div class="container">
+			<a href="../logout/logout.php"><button type="button"
+					class="btn btn-primary">Cerrar Sesion</button></a>
+		</div>
+		<div class="container">
+			<a href="../logout/logout.php"><button type="button"
+					class="btn btn-primary">Baja Cuenta</button></a>
+		</div>
+	</div>
 </body>
 </html>

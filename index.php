@@ -6,7 +6,7 @@ include "Asiento.php";
 include "Pelicula.php";
 include "conexion/conexion.php";
 
-session_name("login" );
+session_name("login");
 session_start();
 
 $conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
@@ -72,7 +72,8 @@ if ($conexion->connect_errno) {
 				</div>
 			</div>
 		</div>
-		<div class="navbar navbar-dark bg-dark box-shadow" style="align-items:initial">
+		<div class="navbar navbar-dark bg-dark box-shadow"
+			style="align-items: initial">
 			<div class="container d-flex justify-content-between">
 				<div class="container">
 				<?php
@@ -83,7 +84,7 @@ if ($conexion->connect_errno) {
             ?>
 					<a href="./administration/cuenta.php"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
-						class="glyphicon glyphicon-user" ><?php echo $_SESSION['usuario']; ?></span></a>
+						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
 
 		<?php }else{?>
 					
@@ -122,12 +123,15 @@ if ($conexion->connect_errno) {
 
 	<main role="main">
 	<?php
+
 if (isset($_GET['oferta'])) {
-    
+    $cont = 1;
     if ($_GET['oferta'] == 1) {
         ?>
         <section class="jumbotron text-center "
 		style="background-image: url('./img/palomitas.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
+		<a href="./index.php?oferta=3" style="float: left"><img
+			src="./img/behind.png" style="width: 150px;height:150px;"></a>
 		<div class="container">
 			<h1 class="jumbotron-heading" style="color: black">No pierdas tu
 				tiempo!</h1>
@@ -135,43 +139,60 @@ if (isset($_GET['oferta'])) {
 				palomitas sin esperar las colas de la tienda.</p>
 			<p class="lead" style="color: black; font-weight: bold;">Encarga tus
 				palomitas con la compra de tu entrada!</p>
-			<p>
-				<a href="./index.php?oferta=1" class="btn btn-secondary my-2">Oferta
-					1</a> <a href="./index.php?oferta=2" class="btn btn-secondary my-2">Oferta
-					2</a>
-			</p>
 		</div>
+		<a href="./index.php?oferta=2" style="float: right"><img
+			src="./img/forward.png" style="width: 150px;height:150px;"></a>
 	</section>
         <?php
-    } else {
+    } else if ($_GET['oferta'] == 2) {
         ?><section class="jumbotron text-center "
 		style="background-image: url('./img/fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
+		<a href="./index.php?oferta=1" style="float: left"><img
+			src="./img/behind.png" style="width: 150px;height:150px;"></span></a>
 		<div class="container">
 			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
 			<p class="lead" style="color: white">A continuación os mostraremos la
 				lista de peliculas disponibles en nuestro cine.</p>
-			<p>
-				<a href="./index.php?oferta=1" class="btn btn-primary my-2">Oferta 1</a>
-				<a href="./index.php?oferta=2" class="btn btn-primary my-2">Oferta 2</a>
-			</p>
+
 		</div>
+		<a href="./index.php?oferta=3" style="float: right"><img
+			src="./img/forward.png" style="width: 150px;height:150px;"></a>
+	</section><?php
+    } else {
+        ?><section class="jumbotron text-center "
+		style="background-image: url('./img/fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
+
+		<a href="./index.php?oferta=2" style="float: left"><img
+			src="./img/behind.png" style="width: 150px;height:150px;"></a>
+		<div class="container">
+			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
+			<p class="lead" style="color: white">A continuación os mostraremos la
+				lista de peliculas disponibles en nuestro cine.</p>
+
+		</div>
+		<a href="./index.php?oferta=1" style="float: right"><img
+			src="./img/forward.png" style="width: 150px;height:150px;"></a>
 	</section><?php
     }
 } else {
     ?>
 	<section class="jumbotron text-center "
 		style="background-image: url('./img/fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
+		<a href="./index.php?oferta=2" style="float: left"><img
+			src="./img/behind.png" style="width: 150px;height:150px;"></a>
 		<div class="container">
 			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
 			<p class="lead" style="color: white">A continuación os mostraremos la
 				lista de peliculas disponibles en nuestro cine.</p>
-			<p>
-				<a href="./index.php?oferta=1" class="btn btn-primary my-2">Oferta 1</a>
-				<a href="./index.php?oferta=2" class="btn btn-primary my-2">Oferta 2</a>
-			</p>
 		</div>
+		<a href="./index.php?oferta=1" style="float: right;clear:left"><img
+			src="./img/forward.png"style="width: 150px;height:150px;"></a>
 	</section>
 <?php }?>
+
+
+
+
 <div class="container">
 		<form action="./index.php" method="post" style="float: right;">
 			<div class="container">
