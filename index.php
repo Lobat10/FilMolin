@@ -268,7 +268,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
         
         echo "                                       <li><ul class='list-unstyled'>
                                                         <li><p class='card-text'>Fecha: " . $sesion['date'] . "</p></li>
-                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "'><p class='card-text'>" . $sesion['timetable'] . "</p></a></li>
+                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "&hora=".$sesion['timetable']."'><p class='btn btn-link'>" . $sesion['timetable'] . "</p></a></li>
                                                         <hr size='8px' color='blue' />
                                                      </ul>";
     }

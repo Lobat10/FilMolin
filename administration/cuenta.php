@@ -96,24 +96,22 @@ if ($mensajeError != "") {
 ?>
 <?php if($_SESSION['admin']){?>
 
-<div class="btn-group btn-group-vertical" style="float: left">
+<div class="btn-group btn-group-vertical" >
 		<h1>Introducir datos a la BBDD</h1>
 		<div class="container">
 			<a href="./addFilmToBBDD.php" class="btn btn-primary">Pelicula</a> <a
 				href="./addRoomToBBDD.php" class="btn btn-primary">Sala</a> <a
 				href="./addSesionToBBDD.php" class="btn btn-primary">Sesion</a>
 		</div>
-	</div>
+</div>
 <?php }?>
-<div class="container">
+<div class="btn-group btn-group-vertical">		
+		<div class="container">
 		<h1>Operaciones</h1>
-		<div class="container">
 			<a href="../logout/logout.php"><button type="button"
-					class="btn btn-primary">Cerrar Sesion</button></a>
-		</div>
-		<div class="container">
+					class="btn btn-warning">Cerrar Sesion</button></a>
 			<a href="../logout/logout.php"><button type="button"
-					class="btn btn-primary">Baja Cuenta</button></a>
+					class="btn btn-danger">Baja Cuenta</button></a>
 		</div>
 	</div>
 </body>
