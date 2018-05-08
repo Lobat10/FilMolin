@@ -121,48 +121,48 @@ if ($conexion->connect_errno) {
 	</header>
 
 	<main role="main">
-	
-	
+
+
 	<div class="container">
- 
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
 
-    <!-- Wrapper for slides -->
-    <div class="carousel-inner">
-      <div class="item active">
-        <img src="./img/palomitas.jpg" alt="Los Angeles" style="width:100%;">
-      </div>
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+			<!-- Indicators -->
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
 
-      <div class="item">
-        <img src="./img/fondo2.jpg" alt="Chicago" style="width:100%;">
-      </div>
-    
-      <div class="item">
-        <img src="./img/fondo2.jpg" alt="New york" style="width:100%;">
-      </div>
-    </div>
+			<!-- Wrapper for slides -->
+			<div class="carousel-inner">
+				<div class="item active">
+					<img src="./img/palomitas.jpg" alt="Los Angeles"
+						style="width: 100%;">
+				</div>
 
-    <!-- Left and right controls -->
-    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-      <span class="glyphicon glyphicon-chevron-left"></span>
-      <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-      <span class="glyphicon glyphicon-chevron-right"></span>
-      <span class="sr-only">Next</span>
-    </a>
-  </div>
- </div>
- <br>
+				<div class="item">
+					<img src="./img/fondo2.jpg" alt="Chicago" style="width: 100%;">
+				</div>
+
+				<div class="item">
+					<img src="./img/fondo2.jpg" alt="New york" style="width: 100%;">
+				</div>
+			</div>
+
+			<!-- Left and right controls -->
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span> <span
+				class="sr-only">Previous</span>
+			</a> <a class="right carousel-control" href="#myCarousel"
+				data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+	<br>
 
 
-<div class="container">
+	<div class="container">
 		<form action="./index.php" method="post" style="float: right;">
 			<div class="container">
 				<div class="col-sm-6" style="height: 130px;">
@@ -195,7 +195,6 @@ if ($conexion->connect_errno) {
 			<div class="row">
 <?php
 
-
 $error = "";
 $where = "";
 $hoy = "";
@@ -207,10 +206,10 @@ $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
-        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='".$ano."-".$mes."-".$dia."'";
+        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "'";
     }
 }
-$resultado = $conexion->query("SELECT * FROM peliculas".$hoy);
+$resultado = $conexion->query("SELECT * FROM peliculas" . $hoy);
 if ($resultado->num_rows === 0)
     $error = "<p>No hay obras en la base de datos</p>";
 
@@ -244,7 +243,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
         
         echo "                                       <li><ul class='list-unstyled'>
                                                         <li><p class='card-text'>Fecha: " . $sesion['date'] . "</p></li>
-                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "&hora=".$sesion['timetable']."&sala=".$sesion['roomcode']."'><p class='btn btn-link'>" . $sesion['timetable'] . "</p></a></li>
+                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "&hora=" . $sesion['timetable'] . "&sala=" . $sesion['roomcode'] . "'><p class='btn btn-link'>" . $sesion['timetable'] . "</p></a></li>
                                                         <hr size='8px' color='blue' />
                                                      </ul>";
     }
