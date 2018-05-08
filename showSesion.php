@@ -50,7 +50,7 @@ if (!isset($_GET['code'])){
 
 </head>
 
-<body class="text-center"> 
+<body class="text-center">
 
 	<?php 
 	
