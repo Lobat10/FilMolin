@@ -13,6 +13,8 @@ if ($conexion->connect_errno) {
 
 $cod="";
 $where="";
+$sala=$_GET['sala'];
+$hora=$_GET['hora'];
 
 if(!isset($_SESSION['login'])){
     header('Location: ./login/login.php');
@@ -74,8 +76,17 @@ if (!isset($_GET['code'])){
 					<div class='card mb-4 box-shadow'>";
 	        echo "                  <img class='card-img-top' src='./img/" . $pelicula['image'] . ".jpg'>";
 	        echo "<div class='text-left'>";
-	        echo "<h4>Director: ".$pelicula['director']."</h4>"; 
-	        //Seguirá con datos, mañana lo hago.
+	        echo "<br><h4>Director: ".$pelicula['director']."</h4>";
+	        echo "<br><h4>País: ".$pelicula['pais']."</h4>"; 
+	        echo "<br><h4>Duración: ".$pelicula['duration']." min.</h4>";
+	        echo "</div></div></div>";
+	        echo "<div class='col-md-4'>
+	        <div class='card'>
+	        <div class='card-header'><h3>Sala ".$sala." - Sesión: ".$hora."</h3></div>
+	        <div class='card-body'>".$pelicula['description']."</div>
+	        <div class='card-footer'>AQUÍ VA EL FUCKING LINK PARA PILLAR BUTACA</div>
+	        </div>";
+           
 	    }
 	 
 	?>
