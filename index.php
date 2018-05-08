@@ -1,6 +1,5 @@
 <?php
 include "SalaGrande.php";
-include "SalaPequeña.php";
 include "SalaMediana.php";
 include "Asiento.php";
 include "Pelicula.php";
@@ -233,13 +232,13 @@ $where = "";
 $hoy = "";
 $todayh = getdate();
 
-$a�o = $todayh['year'];
+$ano = $todayh['year'];
 $mes = $todayh['mon'];
 $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
-        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='".$a�o."-".$mes."-".$dia."'";
+        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='".$ano."-".$mes."-".$dia."'";
     }
 }
 $resultado = $conexion->query("SELECT * FROM peliculas".$hoy);
@@ -276,7 +275,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
         
         echo "                                       <li><ul class='list-unstyled'>
                                                         <li><p class='card-text'>Fecha: " . $sesion['date'] . "</p></li>
-                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "&hora=".$sesion['timetable']."'><p class='btn btn-link'>" . $sesion['timetable'] . "</p></a></li>
+                                                        <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "&hora=".$sesion['timetable']."&sala=".$sesion['roomcode']."'><p class='btn btn-link'>" . $sesion['timetable'] . "</p></a></li>
                                                         <hr size='8px' color='blue' />
                                                      </ul>";
     }
