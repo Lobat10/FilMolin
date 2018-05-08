@@ -122,6 +122,8 @@ if ($conexion->connect_errno) {
 
 	<main role="main">
 	
+	
+	
 	<?php
 
 if (isset($_GET['oferta'])) {
