@@ -1,5 +1,7 @@
 <?php
+
 include "./conexion/conexion.php";
+
 
 session_name("login");
 session_start();
@@ -234,7 +236,9 @@ $dia = $todayh['mday'];
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
         $where = "AND sesiones.date='" . $today . "'";
+
         $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='" . $anyo . "-" . $mes . "-" . $dia . "'";
+
     }
 }
 $resultado = $conexion->query("SELECT * FROM peliculas" . $hoy);
