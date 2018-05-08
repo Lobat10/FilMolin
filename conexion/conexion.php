@@ -1,6 +1,6 @@
 <?php
 $servidor = "localhost";
-$usuario = "id5659829_admin	";
+$usuario = "admin";
 $clave = "admin";
 
 $servidor2 = "localhost";

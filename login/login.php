@@ -1,7 +1,7 @@
 <?php
 include "../conexion/conexion.php";
 
-$conexion = new mysqli($servidor, $usuario, $clave, "id5659829_filmolin");
+$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
 if ($conexion->connect_errno) {
