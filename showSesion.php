@@ -47,16 +47,28 @@ if (!isset($_GET['code'])){
 </style>
 
 <title>FilMolin Cinema</title>
-
-
 </head>
 
-<body class="text-center">
+<body class="text-center"> 
+
 	<?php 
 	
-	
-	
-	
+	$resultado = $conexion->query("SELECT * FROM peliculas".$where);
+	if ($resultado->num_rows === 0){
+	    $error = "<p>No hay obras en la base de datos</p>";
+	}
+	    while ($pelicula = $resultado->fetch_assoc()) {
+	        echo "<div class='page-header'>";
+	        echo "<h1>".$pelicula['filmname']."<small>&nbsp;Una película de ".$pelicula['director']."</small></h1>";
+	        echo "</div>";
+	        
+	        echo "	<div class='col-md-4'>
+					<div class='card mb-4 box-shadow'>";
+	        echo "                  <img class='card-img-top' src='./img/" . $pelicula['image'] . ".jpg'>";
+	        echo "<div class='text-left'>";
+	        echo "<h4>Director: ".$pelicula['director']."</h4>"; 
+	        //Seguirá con datos, mañana lo hago.
+	    }
 	
 	?>
 </body>
