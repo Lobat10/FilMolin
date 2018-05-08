@@ -47,6 +47,7 @@ if (!isset($_GET['code'])){
 </style>
 
 <title>FilMolin Cinema</title>
+
 </head>
 
 <body class="text-center"> 
