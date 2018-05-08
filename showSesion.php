@@ -77,7 +77,7 @@ if (!isset($_GET['code'])){
 	        echo "<h4>Director: ".$pelicula['director']."</h4>"; 
 	        //Seguirá con datos, mañana lo hago.
 	    }
-	
+	 
 	?>
 </body>
 </html>
