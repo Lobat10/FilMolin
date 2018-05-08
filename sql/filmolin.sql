@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.8.0
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2018 a las 11:46:52
+-- Tiempo de generación: 07-05-2018 a las 16:46:06
 -- Versión del servidor: 10.1.31-MariaDB
--- Versión de PHP: 7.2.3
+-- Versión de PHP: 7.1.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `filmmolin`
+-- Base de datos: `filmolin`
 --
 
 -- --------------------------------------------------------
@@ -32,20 +32,20 @@ CREATE TABLE `peliculas` (
   `filmcode` int(11) NOT NULL,
   `filmname` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `duration` int(11) NOT NULL,
-  `description` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
-  `image` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
-  `roomcode` int(11) NOT NULL
+  `description` varchar(1000) COLLATE latin1_spanish_ci NOT NULL,
+  `image` varchar(50) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `peliculas`
 --
 
-INSERT INTO `peliculas` (`filmcode`, `filmname`, `duration`, `description`, `image`, `roomcode`) VALUES
-(1, '300', 150, 'Peliculas muy guay', '300', 1),
-(2, 'Ready Player One', 125, 'aaaaaaaaaa', 'ready', 1),
-(3, 'Black Panther', 115, 'Pantera negra', 'panther', 1),
-(4, 'Proyecto Rampage', 107, '\r\nEl primatólogo Davis Okoye (Johnson), un hombre que mantiene las distancias con otras personas, ti', 'rampage', 1);
+INSERT INTO `peliculas` (`filmcode`, `filmname`, `duration`, `description`, `image`) VALUES
+(1, '300', 150, 'Peliculas muy guay', '300'),
+(2, 'Ready Player One', 125, 'aaaaaaaaaa', 'ready'),
+(3, 'Black Panther', 115, 'Pantera negra', 'panther'),
+(4, 'Proyecto Rampage', 107, '\r\nEl primatólogo Davis Okoye (Johnson), un hombre que mantiene las distancias con otras personas, ti', 'rampage'),
+(5, 'Campeones', 124, 'Marco es un tipo sin demasiado optimismo que, por vicisitudes de la vida, acaba entrenando a un equipo de baloncesto formado por chicos con discapacidad. A regañadientes comienza la tarea pero, lo que comienza siendo un trabajo forzado, acaba ayudándole a salir de su crisis existencial.', 'campeones');
 
 -- --------------------------------------------------------
 
@@ -56,7 +56,7 @@ INSERT INTO `peliculas` (`filmcode`, `filmname`, `duration`, `description`, `ima
 CREATE TABLE `salas` (
   `roomcode` int(11) NOT NULL,
   `capacity` int(11) NOT NULL,
-  `image` text COLLATE latin1_spanish_ci NOT NULL
+  `image` varchar(50) COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -64,8 +64,11 @@ CREATE TABLE `salas` (
 --
 
 INSERT INTO `salas` (`roomcode`, `capacity`, `image`) VALUES
-(1, 100, 'salagrande.jpsg'),
-(2, 80, 'salamediana.jpg');
+(1, 100, 'salagrande.jpg'),
+(2, 80, 'salamediana.jpg'),
+(3, 50, 'salapequeña.jpg'),
+(4, 50, 'salapequeña.jpg'),
+(5, 80, 'salamediana.jpg');
 
 -- --------------------------------------------------------
 
@@ -77,7 +80,7 @@ CREATE TABLE `sesiones` (
   `filmcode` int(11) NOT NULL,
   `roomcode` int(11) NOT NULL,
   `timetable` time NOT NULL,
-  `date` date NOT NULL
+  `date` text COLLATE latin1_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
@@ -85,8 +88,10 @@ CREATE TABLE `sesiones` (
 --
 
 INSERT INTO `sesiones` (`filmcode`, `roomcode`, `timetable`, `date`) VALUES
-(1, 1, '13:30:00', '2018-04-28'),
-(1, 2, '20:00:00', '2018-04-28');
+(1, 1, '20:30:00', '2018-04-24'),
+(1, 2, '18:00:00', '2018-04-24'),
+(1, 3, '22:00:00', '2018-04-24'),
+(5, 5, '22:00:00', '2018-04-25');
 
 -- --------------------------------------------------------
 
@@ -96,9 +101,9 @@ INSERT INTO `sesiones` (`filmcode`, `roomcode`, `timetable`, `date`) VALUES
 
 CREATE TABLE `usuarios` (
   `login` varchar(25) COLLATE latin1_spanish_ci NOT NULL,
-  `name` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
+  `nombre` varchar(50) COLLATE latin1_spanish_ci NOT NULL,
   `password` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
-  `description` varchar(255) COLLATE latin1_spanish_ci NOT NULL,
+  `descripcion` varchar(100) COLLATE latin1_spanish_ci NOT NULL,
   `admin` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
@@ -106,8 +111,9 @@ CREATE TABLE `usuarios` (
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`login`, `name`, `password`, `description`, `admin`) VALUES
-('admin', 'Admin Admin', '$2y$10$UyfUbs7a5m1YXnLFOOPXT.Czd8J.6GS1vAjcgRrj6ap3a20s2v3Rq', 'Youngs Developers', 1);
+INSERT INTO `usuarios` (`login`, `nombre`, `password`, `descripcion`, `admin`) VALUES
+('admin', 'Administrador/es', '$2y$10$e.vZRH3ccyJhGBdtTNpS..zUsqAGD63WOKR05.WycFj2QANn0g9xG', 'Young developer', 1),
+('prueba', 'prueba', '$2y$10$jU9.1XILH454BT9IypLbSOUEXXNMvBzgAM5WUkLNuVfY.skmAcAuS', 'prueba', 0);
 
 --
 -- Índices para tablas volcadas
@@ -117,8 +123,7 @@ INSERT INTO `usuarios` (`login`, `name`, `password`, `description`, `admin`) VAL
 -- Indices de la tabla `peliculas`
 --
 ALTER TABLE `peliculas`
-  ADD PRIMARY KEY (`filmcode`),
-  ADD KEY `fk_salas` (`roomcode`);
+  ADD PRIMARY KEY (`filmcode`);
 
 --
 -- Indices de la tabla `salas`
@@ -131,24 +136,24 @@ ALTER TABLE `salas`
 --
 ALTER TABLE `sesiones`
   ADD PRIMARY KEY (`filmcode`,`roomcode`),
-  ADD KEY `salas_foreigkey` (`roomcode`);
+  ADD KEY `sesionesSalasFK` (`roomcode`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`login`);
 
 --
 -- Restricciones para tablas volcadas
 --
 
 --
--- Filtros para la tabla `peliculas`
---
-ALTER TABLE `peliculas`
-  ADD CONSTRAINT `fk_salas` FOREIGN KEY (`roomcode`) REFERENCES `salas` (`roomcode`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Filtros para la tabla `sesiones`
 --
 ALTER TABLE `sesiones`
-  ADD CONSTRAINT `fk_pelis` FOREIGN KEY (`filmcode`) REFERENCES `peliculas` (`filmcode`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `salas_foreigkey` FOREIGN KEY (`roomcode`) REFERENCES `salas` (`roomcode`);
+  ADD CONSTRAINT `sesionesPeliculasFK` FOREIGN KEY (`filmcode`) REFERENCES `peliculas` (`filmcode`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `sesionesSalasFK` FOREIGN KEY (`roomcode`) REFERENCES `salas` (`roomcode`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

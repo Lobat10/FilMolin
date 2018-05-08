@@ -1,9 +1,9 @@
 <?php
-include "SalaGrande.php";
-include "SalaMediana.php";
-include "Asiento.php";
-include "Pelicula.php";
-include "conexion/conexion.php";
+
+
+include "./conexion/conexion.php";
+
+
 
 session_name("login");
 session_start();
@@ -131,7 +131,7 @@ if (isset($_GET['oferta'])) {
         <section class="jumbotron text-center "
 		style="background-image: url('./img/palomitas.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
 		<a href="./index.php?oferta=3" style="float: left"><img
-			src="./img/behind.png" style="width: 150px;height:150px;"></a>
+			src="./img/behind.png" style="width: 150px; height: 150px;"></a>
 		<div class="container">
 			<h1 class="jumbotron-heading" style="color: black">No pierdas tu
 				tiempo!</h1>
@@ -141,14 +141,14 @@ if (isset($_GET['oferta'])) {
 				palomitas con la compra de tu entrada!</p>
 		</div>
 		<a href="./index.php?oferta=2" style="float: right"><img
-			src="./img/forward.png" style="width: 150px;height:150px;"></a>
+			src="./img/forward.png" style="width: 150px; height: 150px;"></a>
 	</section>
         <?php
     } else if ($_GET['oferta'] == 2) {
         ?><section class="jumbotron text-center "
 		style="background-image: url('./img/fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
 		<a href="./index.php?oferta=1" style="float: left"><img
-			src="./img/behind.png" style="width: 150px;height:150px;"></span></a>
+			src="./img/behind.png" style="width: 150px; height: 150px;"></span></a>
 		<div class="container">
 			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
 			<p class="lead" style="color: white">A continuación os mostraremos la
@@ -156,14 +156,14 @@ if (isset($_GET['oferta'])) {
 
 		</div>
 		<a href="./index.php?oferta=3" style="float: right"><img
-			src="./img/forward.png" style="width: 150px;height:150px;"></a>
+			src="./img/forward.png" style="width: 150px; height: 150px;"></a>
 	</section><?php
     } else {
         ?><section class="jumbotron text-center "
 		style="background-image: url('./img/fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
 
 		<a href="./index.php?oferta=2" style="float: left"><img
-			src="./img/behind.png" style="width: 150px;height:150px;"></a>
+			src="./img/behind.png" style="width: 150px; height: 150px;"></a>
 		<div class="container">
 			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
 			<p class="lead" style="color: white">A continuación os mostraremos la
@@ -171,7 +171,7 @@ if (isset($_GET['oferta'])) {
 
 		</div>
 		<a href="./index.php?oferta=1" style="float: right"><img
-			src="./img/forward.png" style="width: 150px;height:150px;"></a>
+			src="./img/forward.png" style="width: 150px; height: 150px;"></a>
 	</section><?php
     }
 } else {
@@ -179,14 +179,14 @@ if (isset($_GET['oferta'])) {
 	<section class="jumbotron text-center "
 		style="background-image: url('./img/fondo2.jpg'); background-repeat: no-repeat; background-position: center; background-color: white">
 		<a href="./index.php?oferta=2" style="float: left"><img
-			src="./img/behind.png" style="width: 150px;height:150px;"></a>
+			src="./img/behind.png" style="width: 150px; height: 150px;"></a>
 		<div class="container">
 			<h1 class="jumbotron-heading" style="color: white">Cartelera FilMolin</h1>
 			<p class="lead" style="color: white">A continuación os mostraremos la
 				lista de peliculas disponibles en nuestro cine.</p>
 		</div>
-		<a href="./index.php?oferta=1" style="float: right;clear:left"><img
-			src="./img/forward.png"style="width: 150px;height:150px;"></a>
+		<a href="./index.php?oferta=1" style="float: right; clear: left"><img
+			src="./img/forward.png" style="width: 150px; height: 150px;"></a>
 	</section>
 <?php }?>
 
@@ -226,22 +226,25 @@ if (isset($_GET['oferta'])) {
 			<div class="row">
 <?php
 
-
 $error = "";
 $where = "";
 $hoy = "";
+$today = "" . date('Y-m-d') . "";
 $todayh = getdate();
 
-$ano = $todayh['year'];
+
+$anyo = $todayh['year'];
+
 $mes = $todayh['mon'];
 $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
+
         $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='".$ano."-".$mes."-".$dia."'";
     }
 }
-$resultado = $conexion->query("SELECT * FROM peliculas".$hoy);
+$resultado = $conexion->query("SELECT * FROM peliculas" . $hoy);
 if ($resultado->num_rows === 0)
     $error = "<p>No hay obras en la base de datos</p>";
 
@@ -266,7 +269,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
                                                  <li><p class='card-text'>" . $pelicula['duration'] . " mins. </p></li>
                                                         <hr size='8px' color='blue' />";
     
-    $resultado2 = $conexion->query("SELECT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . "");
+    $resultado2 = $conexion->query("SELECT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . " " . $where);
     if ($resultado2->num_rows === 0) {
         $error = "<p>No hay obras en la base de datos</p>";
     }
@@ -274,8 +277,9 @@ while ($pelicula = $resultado->fetch_assoc()) {
     while ($sesion = $resultado2->fetch_assoc()) {
         
         echo "                                       <li><ul class='list-unstyled'>
-                                                        <li><p class='card-text'>Fecha: " . $sesion['date'] . "</p></li>
+
                                                         <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "&hora=".$sesion['timetable']."&sala=".$sesion['roomcode']."'><p class='btn btn-link'>" . $sesion['timetable'] . "</p></a></li>
+
                                                         <hr size='8px' color='blue' />
                                                      </ul>";
     }
