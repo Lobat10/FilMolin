@@ -4,6 +4,7 @@
 include "./conexion/conexion.php";
 
 
+
 session_name("login");
 session_start();
 
@@ -122,6 +123,7 @@ if ($conexion->connect_errno) {
 	<main role="main">
 
 
+
 	<div class="container">
 
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -142,6 +144,7 @@ if ($conexion->connect_errno) {
 				<div class="item">
 					<img src="./img/fondo2.jpg" alt="Chicago" style="width: 100%;">
 				</div>
+
 
 
 				<div class="item">
@@ -204,13 +207,16 @@ $todayh = getdate();
 
 $ano = $todayh['year'];
 
+
 $mes = $todayh['mon'];
 $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
 
+
         $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "'";
+
 
     }
 }
@@ -247,9 +253,11 @@ while ($pelicula = $resultado->fetch_assoc()) {
     while ($sesion = $resultado2->fetch_assoc()) {
         
         echo "                                       <li><ul class='list-unstyled'>
+
                                                         <li><p class='card-text'>Fecha: " . $sesion['date'] . "</p></li>
 
                                                         <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "&hora=" . $sesion['timetable'] . "&sala=" . $sesion['roomcode'] . "'><p class='btn btn-link'>" . $sesion['timetable'] . "</p></a></li>
+
 
                                                         <hr size='8px' color='blue' />
                                                      </ul>";
