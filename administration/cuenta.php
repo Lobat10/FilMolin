@@ -78,8 +78,8 @@ if ($usuario['admin'] == 1) {
 echo "		<tbody>
 				<tr>
 					<th scope='row'>" . $usuario['login'] . "</th>
-					<th scope='row'>" . $usuario['nombre'] . "</th>
-					<th scope='row'>" . $usuario['descripcion'] . "</th>";
+					<th scope='row'>" . $usuario['name'] . "</th>
+					<th scope='row'>" . $usuario['description'] . "</th>";
 if ($_SESSION['admin']) {
     echo "<th scope='row'>" . $admin . "</th>";
 }
