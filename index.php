@@ -1,9 +1,9 @@
 <?php
-include "SalaGrande.php";
-include "SalaMediana.php";
-include "Asiento.php";
-include "Pelicula.php";
-include "conexion/conexion.php";
+
+
+include "./conexion/conexion.php";
+
+
 
 session_name("login");
 session_start();
@@ -123,6 +123,7 @@ if ($conexion->connect_errno) {
 	<main role="main">
 
 
+
 	<div class="container">
 
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -143,6 +144,8 @@ if ($conexion->connect_errno) {
 				<div class="item">
 					<img src="./img/fondo2.jpg" alt="Chicago" style="width: 100%;">
 				</div>
+
+
 
 				<div class="item">
 					<img src="./img/fondo2.jpg" alt="New york" style="width: 100%;">
@@ -198,15 +201,20 @@ if ($conexion->connect_errno) {
 $error = "";
 $where = "";
 $hoy = "";
+$today = "" . date('Y-m-d') . "";
 $todayh = getdate();
 
+
 $ano = $todayh['year'];
+
+
 $mes = $todayh['mon'];
 $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
         $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode AND sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "' GROUP BY peliculas.filmcode"; 
+
     }
 }
 $resultado = $conexion->query("SELECT DISTINCT * FROM peliculas" . $hoy);
@@ -235,6 +243,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
                                                         <hr size='8px' color='blue' />";
     
     $resultado2 = $conexion->query("SELECT DISTINCT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . "");
+
     if ($resultado2->num_rows === 0) {
         $error = "<p>No hay obras en la base de datos</p>";
     }
@@ -242,8 +251,12 @@ while ($pelicula = $resultado->fetch_assoc()) {
     while ($sesion = $resultado2->fetch_assoc()) {
         
         echo "                                       <li><ul class='list-unstyled'>
+
                                                         <li><p class='card-text'>Fecha: " . $sesion['date'] . "</p></li>
+
                                                         <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "&hora=" . $sesion['timetable'] . "&sala=" . $sesion['roomcode'] . "'><p class='btn btn-link'>" . $sesion['timetable'] . "</p></a></li>
+
+
                                                         <hr size='8px' color='blue' />
                                                      </ul>";
     }
