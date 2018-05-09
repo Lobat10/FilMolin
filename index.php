@@ -206,7 +206,7 @@ $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
-        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode AND sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "'GROUP BY peliculas.filmcode";
+        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode AND sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "' GROUP BY peliculas.filmcode";
     }
 }
 $resultado = $conexion->query("SELECT DISTINCT * FROM peliculas" . $hoy);
