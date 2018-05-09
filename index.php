@@ -206,10 +206,10 @@ $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
-        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode and sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "'";
+        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode AND sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "'GROUP BY peliculas.filmcode";
     }
 }
-$resultado = $conexion->query("SELECT * FROM peliculas" . $hoy);
+$resultado = $conexion->query("SELECT DISTINCT * FROM peliculas" . $hoy);
 if ($resultado->num_rows === 0)
     $error = "<p>No hay obras en la base de datos</p>";
 
@@ -234,7 +234,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
                                                  <li><p class='card-text'>" . $pelicula['duration'] . " mins. </p></li>
                                                         <hr size='8px' color='blue' />";
     
-    $resultado2 = $conexion->query("SELECT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . "");
+    $resultado2 = $conexion->query("SELECT DISTINCT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . "");
     if ($resultado2->num_rows === 0) {
         $error = "<p>No hay obras en la base de datos</p>";
     }
