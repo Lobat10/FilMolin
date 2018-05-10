@@ -1,6 +1,6 @@
 <?php
 
-class SalaPeque�a
+class SalaPequeña
 {
 
     // Codigo de la sala
