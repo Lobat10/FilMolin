@@ -4,7 +4,7 @@ class Asiento
 {
 
     // codigo asiento, dentro de una fila
-    public $seatCode;
+    public $seatCode ;
 
     // Fila donde se situa el asiento
     public $rowCode ;
