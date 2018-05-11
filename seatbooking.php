@@ -4,6 +4,10 @@ include "./conexion/conexion.php";
 session_name('login');
 session_start();
 
+if (! isset($_SESSION['login'])) {
+    header('Location: ./login/login.php');
+}
+
 $conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
@@ -15,16 +19,6 @@ $cod = "";
 $where = "";
 $sala = $_GET['sala'];
 $hora = $_GET['hora'];
-
-if (! isset($_SESSION['login'])) {
-    header('Location: ./login/login.php');
-}
-if (! isset($_GET['code'])) {
-    header('Location: ./index.php');
-} else {
-    $cod = $_GET['code'];
-    $where = " WHERE filmcode=" . $cod . "";
-}
 
 ?>
 <!doctype html>
@@ -131,34 +125,77 @@ if (! isset($_GET['code'])) {
 		</div>
 
 	</header>
+	
 	<?php
 
-$resultado = $conexion->query("SELECT * FROM peliculas" . $where);
+$resultado = $conexion->query("SELECT * FROM salas WHERE roomcode=" . $sala);
 if ($resultado->num_rows === 0) {
     $error = "<p>No hay obras en la base de datos</p>";
 }
-while ($pelicula = $resultado->fetch_assoc()) {
-    echo "<div class='page-header'>";
-    echo "<h1>" . $pelicula['filmname'] . "<small>&nbsp;Una película de " . $pelicula['director'] . "</small></h1>";
-    echo "</div>";
-    
-    echo "	<div class='col-md-4'>
-					<div class='card mb-4 box-shadow'>";
-    echo "                  <img class='card-img-top' src='./img/" . $pelicula['image'] . ".jpg'>";
-    echo "<div class='text-left'>";
-    echo "<br><h4>Director: " . $pelicula['director'] . "</h4>";
-    echo "<br><h4>País: " . $pelicula['pais'] . "</h4>";
-    echo "<br><h4>Duración: " . $pelicula['duration'] . " min.</h4>";
-    echo "<br><h4>Género: " . $pelicula['genero'] . "</h4>";
-    echo "</div></div></div>";
-    echo "<div class='col-md-4'>
-	        <div class='card'>
-	        <div class='card-header'><h3>Sala " . $sala . " - Sesión: " . $hora . "</h3></div>
-	        <div class='card-body'>" . $pelicula['description'] . "</div>
-	        <div class='card-footer'><a href='./seatbooking.php?sala=" . $sala . "&hora=" . $hora . "'><button type='button' class='btn btn-default btn-block'>Ver disponibilidad</button></div>
-	        </div>";
+$room = $resultado->fetch_assoc();
+
+if ($room['capacity'] == 100) {
+    $tabla = "asientosgrande";
+} else if ($room['capacity'] == 80) {
+    $tabla = "asientosmediana";
+} else {
+    $tabla = "asientospequeña";
 }
 
+$resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER BY ");
+
 ?>
+<div class="container">
+		<div class="form-check">
+			<table class="table table-hover">
+				<thead>
+
+					<th scope="col">FILAS</th>
+					<th scope="col">1</th>
+					<th scope="col">2</th>
+					<th scope="col">3</th>
+					<th scope="col">4</th>
+					<th scope="col">5</th>
+					<th scope="col">6</th>
+					<th scope="col">7</th>
+					<th scope="col">8</th>
+					<th scope="col">9</th>
+					<th scope="col">10</th>
+
+				</thead>
+				<tbody>
+	
+<?php
+while ($filas = $resultado2->fetch_assoc()) {
+    
+    echo "<tr>
+            <th scope='row'>" . $filas['fila'] . "</th>";
+    
+    $resultado = $conexion->query("SELECT * FROM " . $tabla . " WHERE roomcode=" . $sala . " AND timetable='" . $hora . "' AND fila=" . $filas['fila']);
+    
+    while ($asientos = $resultado->fetch_assoc()) {
+        
+        if ($asientos['taken'] == 0) {
+            echo "<td><label class='form-check-label'> <input type='checkbox'class='form-check-input' id='checkboxSuccess' value='" . $asientos['columna'] . "'> </label></td>";
+        } else {
+            echo "<td><label class='form-check-label'> <input type='checkbox'class='form-check-input' id='checkboxSuccess' value='" . $asientos['columna'] . "' disabled> </label></td>";
+        }
+    }
+    
+    echo "</tr>";
+}
+?>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td class="table-info" colspan="11">PANTALLA</td>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
 </body>
 </html>
