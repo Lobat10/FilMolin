@@ -1,4 +1,4 @@
-<?php 
+<?php
 include "./conexion/conexion.php";
 
 session_name('login');
@@ -15,24 +15,12 @@ if ($conexion->connect_errno) {
     echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
 }
 
-
 $cod = "";
 $where = "";
 $sala = $_GET['sala'];
-$hora = $_GET['hora'];
 
-$host= $_SERVER["HTTP_HOST"];
-$url= $_SERVER["REQUEST_URI"];
-
-if(isset($_POST['enviar'])){
-    if (isset($_POST['butacas'])){
-        $butacas=$_POST['butacas'];
-        foreach ($butacas as $i){
-            $result = $conexion->query("UPDATE".$tabla." SET taken=1 WHERE seatcode=".$i);
-        }
-        header("Location: ./confirmBooking.php?sala=".$sala."&entradas=".count($butacas));
-    }
-}
+$host = $_SERVER["HTTP_HOST"];
+$url = $_SERVER["REQUEST_URI"];
 
 $resultado = $conexion->query("SELECT * FROM salas WHERE roomcode=" . $sala);
 if ($resultado->num_rows === 0) {
@@ -42,17 +30,25 @@ $room = $resultado->fetch_assoc();
 
 if ($room['capacity'] == 100) {
     $tabla = "asientosgrande";
+    $precioXentrada = $room['price'];
 } else if ($room['capacity'] == 80) {
     $tabla = "asientosmediana";
+    $precioXentrada = $room['price'];
 } else {
     $tabla = "asientospequeña";
+    $precioXentrada = $room['price'];
 }
 
-$resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER BY fila DESC" );
-
-
-
-
+if (isset($_POST['enviar'])) {
+    if (isset($_POST['butacas'])) {
+        $butacas = $_POST['butacas'];
+        $entradas = count($butacas);
+        foreach ($butacas as $i) {
+            $result = $conexion->query("UPDATE " . $tabla . " SET taken=1 WHERE seatcode=" . $i);
+        }
+        // header("Location: ./confirmBooking.php?sala=" . $sala . "&entradas=" . count($butacas));
+    }
+}
 ?>
 <!doctype html>
 <html lang="es">
@@ -158,64 +154,16 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 		</div>
 
 	</header>
-	
-	
-<div class="container">
-		<form  method="post" action='./confirmbooking.php?sala=<?php echo $sala; ?>'>
-			<div class="container">
-				<table class="table table-striped">
-					<thead>
+	<div class="container">
 
-						<th scope="col">FILAS</th>
-						<th scope="col">1</th>
-						<th scope="col">2</th>
-						<th scope="col">3</th>
-						<th scope="col">4</th>
-						<th scope="col">5</th>
-						<th scope="col">6</th>
-						<th scope="col">7</th>
-						<th scope="col">8</th>
-						<th scope="col">9</th>
-						<th scope="col">10</th>
-
-					</thead>
-					<tbody>
-	
 <?php
-while ($filas = $resultado2->fetch_assoc()) {
-    
-    echo "<tr>
-            <th scope='col'>" . $filas['fila'] . "</th>";
-    
-    $resultado = $conexion->query("SELECT * FROM " . $tabla . " WHERE roomcode=" . $sala . " AND timetable='" . $hora . "' AND fila=" . $filas['fila']);
-    
-    while ($asientos = $resultado->fetch_assoc()) {
-        
-        if ($asientos['taken'] == 0) {
-            echo "<td style='background-color:green;'><input name='butacas[]' type='checkbox' class='form-check-input' value='" . $asientos['seatcode'] . "'> </td>";
-        } else {
-            echo "<td style='background-color:red;'><input name='butacas[]' type='checkbox' class='form-check-input' value='" . $asientos['seatcode'] . "' disabled></td>";
-        }
-    }
-    
-    echo "</tr>";
-}
+echo "<p>El precio de la entrada de esta sala es : " . $precioXentrada . "</p><br>";
+echo "<p>Usted quiere reservar " . $entradas . " entradas, el precio total es de : " . ($precioXentrada * $entradas) . "</p><br>";
+
 ?>
-				</tbody>
-					<tfoot>
-						<tr>
-							<td></td>
-						</tr>
-						<tr>
-							<td class="table-info" colspan="11">PANTALLA</td>
-						</tr>
-					</tfoot>
-				</table>
-				<button class="btn btn-lg btn-primary btn-block" type="submit"
-				name="enviar">Confirmar y continuar!</button>
-			</div>
-            
-		</form>
-	</div>
+	
+
+</div>
+
 </body>
 </html>
