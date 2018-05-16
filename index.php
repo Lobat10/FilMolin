@@ -1,9 +1,5 @@
 <?php
-
-
 include "./conexion/conexion.php";
-
-
 
 session_name("login");
 session_start();
@@ -204,17 +200,14 @@ $hoy = "";
 $today = "" . date('Y-m-d') . "";
 $todayh = getdate();
 
-
 $ano = $todayh['year'];
-
 
 $mes = $todayh['mon'];
 $dia = $todayh['mday'];
 
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
-        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode AND sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "' GROUP BY peliculas.filmcode"; 
-
+        $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode AND sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "' GROUP BY peliculas.filmcode";
     }
 }
 $resultado = $conexion->query("SELECT DISTINCT * FROM peliculas" . $hoy);
@@ -243,7 +236,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
                                                         <hr size='8px' color='blue' />";
     
     $resultado2 = $conexion->query("SELECT DISTINCT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . "");
-
+    
     if ($resultado2->num_rows === 0) {
         $error = "<p>No hay obras en la base de datos</p>";
     }

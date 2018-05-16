@@ -105,14 +105,12 @@ if ($mensajeError != "") {
 		</div>
 	</div>
 <?php
-
 }
 
-if (isset($_SESSION['entradas'])) {
+if (isset($_SESSION['precio'])) {
     
     $array = $_SESSION['entradas'];
-    $price= $_SESSION['precio']
-    ?>
+    $price = $_SESSION['precio']?>
 
 <table class="table table-bordered table-responsive">
 		<h1>Carrito productos/entradas</h1>
@@ -124,24 +122,24 @@ if (isset($_SESSION['entradas'])) {
 			</tr>
 		</thead>
 		<tbody>
-<?php 
-$cont=1;
-foreach ($array as $i) {
+<?php
+    $cont = 1;
+    
+    $total = ($price * count($array));
     
 	echo "		<tr>
 				<th scope='row'>".$cont."</th>
 				<td>".count($array)." entrada/s</td>
-				<td>".."</td>
+				<td>".$total."</td>
 
 			</tr>";
-    $cont++;
-}
-?>
+    
+    ?>
 		</tbody>
 		<tfoot>
 			<tr>
 				<th scope="row" colspan="2">TOTAL:</th>
-				<td>@twitter</td>
+				<td></td>
 			</tr>
 		</tfoot>
 	</table>

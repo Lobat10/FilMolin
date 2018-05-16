@@ -1,4 +1,4 @@
-<?php 
+<?php
 include "./conexion/conexion.php";
 
 session_name('login');
@@ -22,16 +22,16 @@ if (! isset($_GET['hora']) || ! isset($_GET['sala'])) {
     $hora = $_GET['hora'];
 }
 
-$host= $_SERVER["HTTP_HOST"];
-$url= $_SERVER["REQUEST_URI"];
+$host = $_SERVER["HTTP_HOST"];
+$url = $_SERVER["REQUEST_URI"];
 
-if(isset($_POST['enviar'])){
-    if (isset($_POST['butacas'])){
-        $butacas=$_POST['butacas'];
-        foreach ($butacas as $i){
-            $result = $conexion->query("UPDATE".$tabla." SET taken=1 WHERE seatcode=".$i);
+if (isset($_POST['enviar'])) {
+    if (isset($_POST['butacas'])) {
+        $butacas = $_POST['butacas'];
+        foreach ($butacas as $i) {
+            $result = $conexion->query("UPDATE" . $tabla . " SET taken=1 WHERE seatcode=" . $i);
         }
-        header("Location: ./confirmBooking.php?sala=".$sala."&entradas=".count($butacas));
+        header("Location: ./confirmBooking.php?sala=" . $sala . "&entradas=" . count($butacas));
     }
 }
 
@@ -49,10 +49,7 @@ if ($room['capacity'] == 100) {
     $tabla = "asientospequeña";
 }
 
-$resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER BY fila DESC" );
-
-
-
+$resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER BY fila DESC");
 
 ?>
 <!doctype html>
@@ -159,10 +156,11 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 		</div>
 
 	</header>
-	
-	
-<div class="container">
-		<form  method="post" action='./confirmbooking.php?sala=<?php echo $sala; ?>'>
+
+
+	<div class="container">
+		<form method="post"
+			action='./confirmbooking.php?sala=<?php echo $sala; ?>'>
 			<div class="container">
 				<table class="table table-striped">
 					<thead>
@@ -213,9 +211,9 @@ while ($filas = $resultado2->fetch_assoc()) {
 					</tfoot>
 				</table>
 				<button class="btn btn-lg btn-primary btn-block" type="submit"
-				name="enviar">Confirmar y continuar!</button>
+					name="enviar">Confirmar y continuar!</button>
 			</div>
-            
+
 		</form>
 	</div>
 </body>
