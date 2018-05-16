@@ -8,18 +8,19 @@ if (! isset($_SESSION['login'])) {
     header('Location: ./login/login.php');
 }
 
-$conexion = new mysqli($servidor3, $usuario3, $clave3, "id5676343_filmolin");
+$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
 if ($conexion->connect_errno) {
     echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
 }
 
-
-$cod = "";
-$where = "";
-$sala = $_GET['sala'];
-$hora = $_GET['hora'];
+if (! isset($_GET['hora']) || ! isset($_GET['sala'])) {
+    header('Location: ./index.php');
+} else {
+    $sala = $_GET['sala'];
+    $hora = $_GET['hora'];
+}
 
 $host= $_SERVER["HTTP_HOST"];
 $url= $_SERVER["REQUEST_URI"];

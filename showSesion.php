@@ -13,18 +13,20 @@ if ($conexion->connect_errno) {
 
 $cod = "";
 $where = "";
-$sala = $_GET['sala'];
-$hora = $_GET['hora'];
 
 if (! isset($_SESSION['login'])) {
     header('Location: ./login/login.php');
 }
-if (! isset($_GET['code'])) {
+if (! isset($_GET['code']) || ! isset($_GET['hora']) || ! isset($_GET['sala'])) {
     header('Location: ./index.php');
 } else {
     $cod = $_GET['code'];
+    $sala = $_GET['sala'];
+    $hora = $_GET['hora'];
     $where = " WHERE filmcode=" . $cod . "";
 }
+
+
 
 ?>
 <!doctype html>

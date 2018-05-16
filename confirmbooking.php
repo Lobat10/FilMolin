@@ -38,14 +38,20 @@ if ($room['capacity'] == 100) {
     $tabla = "asientospequeña";
     $precioXentrada = $room['price'];
 }
-
+$arr=array();
 if (isset($_POST['enviar'])) {
+    
     if (isset($_POST['butacas'])) {
+        //setcookie("reservando",count($butacas),time()+(5),"/"); POR SI ACASO AQUI ESTA PARA DEJAR LIBRE EL ASIENTO A LOS 10 MINUTOS
         $butacas = $_POST['butacas'];
         $entradas = count($butacas);
+        $cont=0;
         foreach ($butacas as $i) {
             $result = $conexion->query("UPDATE " . $tabla . " SET taken=1 WHERE seatcode=" . $i);
+            $arr[]=$i;
         }
+        $_SESSION['precio']=$precioXentrada;
+        $_SESSION['entradas']=$arr;
         // header("Location: ./confirmBooking.php?sala=" . $sala . "&entradas=" . count($butacas));
     }
 }
@@ -156,11 +162,11 @@ if (isset($_POST['enviar'])) {
 	</header>
 	<div class="container">
 
-<?php
-echo "<p>El precio de la entrada de esta sala es : " . $precioXentrada . "</p><br>";
-echo "<p>Usted quiere reservar " . $entradas . " entradas, el precio total es de : " . ($precioXentrada * $entradas) . "</p><br>";
-
-?>
+        <?php
+        echo "<p>El precio de la entrada de esta sala es : " . $precioXentrada . "</p><br>";
+        echo "<p>Usted quiere reservar " . $entradas . " entradas, el precio total es de : " . ($precioXentrada * $entradas) . "</p><br>";
+        
+        ?>
 	
 
 </div>

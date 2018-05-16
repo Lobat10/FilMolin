@@ -96,21 +96,62 @@ if ($mensajeError != "") {
 ?>
 <?php if($_SESSION['admin']){?>
 
-<div class="btn-group btn-group-vertical" >
+<div class="btn-group btn-group-vertical">
 		<h1>Introducir datos a la BBDD</h1>
 		<div class="container">
 			<a href="./addFilmToBBDD.php" class="btn btn-primary">Pelicula</a> <a
 				href="./addRoomToBBDD.php" class="btn btn-primary">Sala</a> <a
 				href="./addSesionToBBDD.php" class="btn btn-primary">Sesion</a>
 		</div>
-</div>
+	</div>
+<?php
+
+}
+
+if (isset($_SESSION['entradas'])) {
+    
+    $array = $_SESSION['entradas'];
+    $price= $_SESSION['precio']
+    ?>
+
+<table class="table table-bordered table-responsive">
+		<h1>Carrito productos/entradas</h1>
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Producto</th>
+				<th scope="col">Precio</th>
+			</tr>
+		</thead>
+		<tbody>
+<?php 
+$cont=1;
+foreach ($array as $i) {
+    
+	echo "		<tr>
+				<th scope='row'>".$cont."</th>
+				<td>".count($array)." entrada/s</td>
+				<td>".."</td>
+
+			</tr>";
+    $cont++;
+}
+?>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th scope="row" colspan="2">TOTAL:</th>
+				<td>@twitter</td>
+			</tr>
+		</tfoot>
+	</table>
 <?php }?>
-<div class="btn-group btn-group-vertical">		
+<div class="btn-group btn-group-vertical">
 		<div class="container">
-		<h1>Operaciones</h1>
+			<h1>Operaciones</h1>
 			<a href="../logout/logout.php"><button type="button"
-					class="btn btn-warning">Cerrar Sesion</button></a>
-			<a href="../logout/logout.php"><button type="button"
+					class="btn btn-warning">Cerrar Sesion</button></a> <a
+				href="../logout/logout.php"><button type="button"
 					class="btn btn-danger">Baja Cuenta</button></a>
 		</div>
 	</div>
