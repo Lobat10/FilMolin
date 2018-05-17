@@ -299,4 +299,3 @@ while ($pelicula = $resultado->fetch_assoc()) {
 	</footer>
 </body>
 </html>
-

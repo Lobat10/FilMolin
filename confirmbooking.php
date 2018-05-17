@@ -148,9 +148,9 @@ if (isset($_POST['enviar'])) {
 				
 				
 				</div>
-				<a href="#" class="navbar-brand d-flex align-items-center"> <img
+				<a href="./index.php" class="navbar-brand d-flex align-items-center"> <img
 					src="./img/icon.png" width="50px" height="50px">
-					<h1 style="font-size: 100px">FilMolin Cinema</h1>
+					<h1 style="font-size: 100px">FilMolin Cinema &copy; </h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarHeader" aria-controls="navbarHeader"
@@ -161,15 +161,64 @@ if (isset($_POST['enviar'])) {
 		</div>
 
 	</header>
-	<div class="container">
+	<div class="container jumbotron">
 
         <?php
         echo "<p>El precio de la entrada de esta sala es : " . $precioXentrada . "€</p><br>";
         echo "<p>Usted quiere reservar " . $entradas . " entradas, el precio total es de : " . ($precioXentrada * $entradas) . "€</p><br>";
-        echo "<p><a href='./administration/cuenta.php'> Pagar!</a></p>";
         ?>
 	
 
 </div>
+<div class="container">
+
+		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+			<ol class="carousel-indicators">
+				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+				<li data-target="#myCarousel" data-slide-to="1"></li>
+				<li data-target="#myCarousel" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="item active">
+					<img src="./img/combo3.jpg" style="width: auto;">
+					<a href="./shop.php"><div class="carousel-caption" style="color:black;">
+						<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;	 </h3>
+						<p>Reserva tus palomitas, bebidas o chucherias y ahorrate las colas de espera! </p>
+						<br><p>Pincha aquí!</p>
+					</div></a>
+				</div>
+
+				<div class="item">
+					<img src="./img/combo3.jpg" style="width: auto;">
+					<a href="./shop.php"><div class="carousel-caption" style="color:black;">
+						<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;	 </h3>
+						<p>Reserva tus palomitas, bebidas o chucherias y ahorrate las colas de espera! </p>
+						<br><p>Pincha aquí!</p>
+						
+					</div></a>
+				</div>
+
+				<div class="item">
+					<img src="./img/combo3.jpg" style="width: auto;">
+					<a href="./shop.php"><div class="carousel-caption" style="color:black;">
+						<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;	 </h3>
+						<p>Reserva tus palomitas, bebidas o chucherias y ahorrate las colas de espera! </p>
+						<br><p>Pincha aquí!</p>						
+					</div></a>
+				</div>
+			</div>
+
+			<!-- Left and right controls -->
+			<a class="left carousel-control" href="#myCarousel" data-slide="prev">
+				<span class="glyphicon glyphicon-chevron-left"></span> <span
+				class="sr-only">Previous</span>
+			</a> <a class="right carousel-control" href="#myCarousel"
+				data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+	<div class="container jumbotron"><p>Si no deseas nada de nuestra tienda, pincha aqui para seguir con tu compra: <a href='./administration/cuenta.php'> Pagar!</a></p></div>
 </body>
 </html>
