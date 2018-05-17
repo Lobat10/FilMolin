@@ -127,12 +127,12 @@ if ($conexion->connect_errno) {
 			<div class="container">
 				<table class="table table-striped">
 					<thead>
-						<tr class="table-active" style="text-align: center">
-							<th scope="col">*</th>
-							<th scope="col">Producto</th>
-							<th scope="col">Precio</th>
-							<th scope="col">*</th>
-							<th scope="col">Añadir al carrito</th>
+						<tr class="table-active">
+							<th style="text-align: center" scope="col">*</th>
+							<th style="text-align: center" scope="col">Producto</th>
+							<th style="text-align: center" scope="col">Precio</th>
+							<th style="text-align: center" scope="col">#</th>
+							<th style="text-align: center" scope="col">Añadir al carrito</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -143,12 +143,12 @@ if ($conexion->connect_errno) {
     
     while ($producto = $resultado->fetch_assoc()) {
         
-        echo "<tr>";
-        echo "<td>" . $producto['id'] . "</td>";
-        echo "<td>" . $producto['nombre'] . "</td>";
-        echo "<td>" . $producto['precio'] . "€</td>";
-        echo "<td><img src='./img/" . $producto['imagen'] . ".jpg'></td>";
-        echo "<td><input name='productos[]' type='checkbox' class='form-check-input' value='" . $producto['id'] . "'></td>";
+         echo "<tr>";
+        echo "<td style='text-align: center'>" . $producto['id'] . "</td>";
+        echo "<td style='text-align: center'>" . $producto['nombre'] . "</td>";
+        echo "<td style='text-align: center'>" . $producto['precio'] . "€</td>";
+        echo "<td style='text-align: center'><img style='width:100px' src='./img/" . $producto['imagen'] . ".jpg'></td>";
+        echo "<td style='text-align: center'><input name='productos[]' type='checkbox' class='form-check-input' value='" . $producto['id'] . "'></td>";
         echo "</tr>";
     }
     ?>
