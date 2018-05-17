@@ -148,9 +148,9 @@ if (isset($_POST['enviar'])) {
 				
 				
 				</div>
-				<a href="./index.php" class="navbar-brand d-flex align-items-center"> <img
-					src="./img/icon.png" width="50px" height="50px">
-					<h1 style="font-size: 100px">FilMolin Cinema &copy; </h1>
+				<a href="./index.php" class="navbar-brand d-flex align-items-center">
+					<img src="./img/icon.png" width="50px" height="50px">
+					<h1 style="font-size: 100px">FilMolin Cinema &copy;</h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarHeader" aria-controls="navbarHeader"
@@ -164,13 +164,15 @@ if (isset($_POST['enviar'])) {
 	<div class="container jumbotron">
 
         <?php
-        echo "<p>El precio de la entrada de esta sala es : " . $precioXentrada . "€</p><br>";
-        echo "<p>Usted quiere reservar " . $entradas . " entradas, el precio total es de : " . ($precioXentrada * $entradas) . "€</p><br>";
+        if (isset($_POST['butacas'])) {
+            echo "<p>El precio de la entrada de esta sala es : " . $precioXentrada . "€</p><br>";
+            echo "<p>Usted quiere reservar " . $entradas . " entradas, el precio total es de : " . ($precioXentrada * $entradas) . "€</p><br>";
+        }
         ?>
 	
 
 </div>
-<div class="container">
+	<div class="container">
 
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 
@@ -181,31 +183,40 @@ if (isset($_POST['enviar'])) {
 			</ol>
 			<div class="carousel-inner">
 				<div class="item active">
-					<img src="./img/combo3.jpg" style="width: auto;">
-					<a href="./shop.php"><div class="carousel-caption" style="color:black;">
-						<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;	 </h3>
-						<p>Reserva tus palomitas, bebidas o chucherias y ahorrate las colas de espera! </p>
-						<br><p>Pincha aquí!</p>
-					</div></a>
+					<img src="./img/combo3.jpg" style="width: auto;"> <a
+						href="./shop.php"><div class="carousel-caption"
+							style="color: black;">
+							<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;</h3>
+							<p>Reserva tus palomitas, bebidas o chucherias y ahorrate las
+								colas de espera!</p>
+							<br>
+							<p>Pincha aquí!</p>
+						</div></a>
 				</div>
 
 				<div class="item">
-					<img src="./img/combo3.jpg" style="width: auto;">
-					<a href="./shop.php"><div class="carousel-caption" style="color:black;">
-						<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;	 </h3>
-						<p>Reserva tus palomitas, bebidas o chucherias y ahorrate las colas de espera! </p>
-						<br><p>Pincha aquí!</p>
-						
-					</div></a>
+					<img src="./img/combo3.jpg" style="width: auto;"> <a
+						href="./shop.php"><div class="carousel-caption"
+							style="color: black;">
+							<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;</h3>
+							<p>Reserva tus palomitas, bebidas o chucherias y ahorrate las
+								colas de espera!</p>
+							<br>
+							<p>Pincha aquí!</p>
+
+						</div></a>
 				</div>
 
 				<div class="item">
-					<img src="./img/combo3.jpg" style="width: auto;">
-					<a href="./shop.php"><div class="carousel-caption" style="color:black;">
-						<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;	 </h3>
-						<p>Reserva tus palomitas, bebidas o chucherias y ahorrate las colas de espera! </p>
-						<br><p>Pincha aquí!</p>						
-					</div></a>
+					<img src="./img/combo3.jpg" style="width: auto;"> <a
+						href="./shop.php"><div class="carousel-caption"
+							style="color: black;">
+							<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;</h3>
+							<p>Reserva tus palomitas, bebidas o chucherias y ahorrate las
+								colas de espera!</p>
+							<br>
+							<p>Pincha aquí!</p>
+						</div></a>
 				</div>
 			</div>
 
@@ -219,6 +230,12 @@ if (isset($_POST['enviar'])) {
 			</a>
 		</div>
 	</div>
-	<div class="container jumbotron"><p>Si no deseas nada de nuestra tienda, pincha aqui para seguir con tu compra: <a href='./administration/cuenta.php'> Pagar!</a></p></div>
+	<div class="container jumbotron">
+		<p>
+			Si no deseas nada de nuestra tienda, pincha aqui para seguir con tu
+			compra:<br> <a href='./administration/cuenta.php'> Pagar!<img
+				src="./img/carrito.png"></a>
+		</p>
+	</div>
 </body>
 </html>

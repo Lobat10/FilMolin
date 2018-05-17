@@ -1,0 +1,3 @@
+UPDATE `asientosgrande` SET `taken`=0 WHERE taken=1
+UPDATE `asientosmediana` SET `taken`=0 WHERE taken=1
+UPDATE `asientospequeña` SET `taken`=0 WHERE taken=1

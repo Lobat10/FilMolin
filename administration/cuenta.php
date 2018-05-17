@@ -1,7 +1,7 @@
 <?php
 include "../conexion/conexion.php";
 
-$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
+$conexion = new mysqli($servidor3, $usuario3, $clave3, "id5676343_filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
 if ($conexion->connect_errno) {
@@ -13,8 +13,13 @@ session_start();
 
 $mensajeError = '';
 
+if (isset($_POST['enviar'])) {
+    if (isset($_POST['productos'])) {
+        $productos = $_POST['productos'];
+    }
+}
+
 ?>
-<!doctype html>
 <html lang="es">
 <head>
 <meta charset="utf-8">
@@ -30,6 +35,10 @@ $mensajeError = '';
 	crossorigin='anonymous'>
 <link rel='stylesheet'
 	href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
+	integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+	crossorigin="anonymous">
 <script
 	src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script
@@ -39,16 +48,87 @@ $mensajeError = '';
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
-<style type="text/css">
-</style>
-
 <title>FilMolin Cinema</title>
 
 
 </head>
 
-<body class="text-center">
-	<div class="container">
+<body>
+	<header>
+		<div class="collapse bg-dark" id="navbarHeader">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-8 col-md-7 py-4">
+						<h4 class="text-white">About</h4>
+						<p class="text-muted">FilMolin Cinema, es el nuevo cine con un
+							servicio unico que nos diferencia de otros empresas, ya que ahora
+							no solo podras reservar tu entrada, si no que podras reservar las
+							palomitas, las bebidas, las golosinas, etc. Sin tener que esperar
+							colas en la tienda. Los creadores y dueños de este cine son Pablo
+							Molina y Adrián Lobato.</p>
+					</div>
+					<div class="col-sm-4 offset-md-1 py-4">
+						<h4 class="text-white">Contactanos</h4>
+						<ul class="list-unstyled">
+							<li><a href="#" class="text-white">Siguenos en Twitter </a><i
+								style="font-size: 1em; color: lightblue" class="fab fa-twitter"></i></li>
+							<li><a href="#" class="text-white">Siguenos en Facebook </a><i
+								style="font-size: 1em; color: lightblue" class="fab fa-facebook"></i></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="navbar navbar-dark bg-dark box-shadow"
+			style="align-items: initial">
+			<div class="container d-flex justify-content-between">
+				<div class="container">
+				<?php
+    
+    if (isset($_SESSION['login'])) {
+        $login = $_SESSION['login'];
+        if ($login == 1) {
+            ?>
+					<a href="./cuenta.php"><span id="icon"
+						style="float: right; width: 150px; clear: right;"
+						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
+
+		<?php }else{?>
+					
+					 <a href="../login/login.php" class="btn btn-primary btn-lg active"
+						role="button" aria-pressed="true"
+						style="float: right; clear: right;">Inicia sesión</a>
+					
+					<?php
+        }
+    } else {
+        ?>
+    
+    <a href="../login/login.php" class="btn btn-primary btn-lg active"
+						role="button" aria-pressed="true"
+						style="float: right; clear: right;">Inicia sesión</a>
+    <?php
+    }
+    ?>
+    
+				
+				
+				</div>
+				<a href="../index.php"
+					class="navbar-brand d-flex align-items-center"> <img
+					src="../img/icon.png" width="50px" height="50px">
+					<h1 style="font-size: 100px">FilMolin Cinema</h1>
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbarHeader" aria-controls="navbarHeader"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+			</div>
+		</div>
+
+	</header>
+	<div class="container text-center">
 		<h1>DATOS DE TU CUENTA PERSONAL</h1>
 		<table class="table table-light">
 			<thead class="thead-dark">
@@ -78,8 +158,8 @@ if ($usuario['admin'] == 1) {
 echo "		<tbody>
 				<tr>
 					<th scope='row'>" . $usuario['login'] . "</th>
-					<th scope='row'>" . $usuario['name'] . "</th>
-					<th scope='row'>" . $usuario['description'] . "</th>";
+					<th scope='row'>" . $usuario['nombre'] . "</th>
+					<th scope='row'>" . $usuario['descripcion'] . "</th>";
 if ($_SESSION['admin']) {
     echo "<th scope='row'>" . $admin . "</th>";
 }
@@ -109,49 +189,67 @@ if ($mensajeError != "") {
 
 if (isset($_SESSION['precio'])) {
     
-    $array = $_SESSION['entradas'];
+    $numeroEntradas = $_SESSION['entradas'];
     $price = $_SESSION['precio']?>
-
-<table class="table table-bordered table-responsive">
-		<h1>Carrito productos/entradas</h1>
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Producto</th>
-				<th scope="col">Precio</th>
-			</tr>
-		</thead>
-		<tbody>
+<div class="container jumbotron">
+		<table class="table table-bordered">
+			<h1>Carrito productos/entradas</h1>
+			<thead>
+				<tr>
+					<th style="text-align: center;" scope="col">#</th>
+					<th style="text-align: center;" scope="col">Producto</th>
+					<th style="text-align: center;" scope="col">Precio</th>
+				</tr>
+			</thead>
+			<tbody>
 <?php
     $cont = 1;
     
-    $total = ($price * count($array));
+    $total = ($price * $numeroEntradas);
     
-	echo "		<tr>
-				<th scope='row'>".$cont."</th>
-				<td>".count($array)." entrada/s</td>
-				<td>".$total."</td>
+    echo "	<tr>
+				<th style='text-align:center;' scope='row'>" . $cont . "</th>
+				<td style='text-align:center;'>" . $numeroEntradas . " entrada/s</td>
+				<td style='text-align:right;'>" . $total . "€</td>
 
 			</tr>";
-    
+    if (isset($_POST['productos'])) {
+        foreach ($productos as $i) {
+            $cont += 1;
+            $resultado2 = $conexion->query("SELECT * FROM productos WHERE id=" . $i);
+            $prod = $resultado2->fetch_assoc();
+            echo "	<tr>
+				<th style='text-align:center;' scope='row'>" . $cont . "</th>
+				<td style='text-align:center;'>" . $prod['nombre'] . "</td>
+				<td style='text-align:right;'>" . $prod['precio'] . "€</td>
+			</tr>";
+            $total += $prod['precio'];
+        }
+    }
     ?>
 		</tbody>
-		<tfoot>
-			<tr>
-				<th scope="row" colspan="2">TOTAL:</th>
-				<td></td>
-			</tr>
-		</tfoot>
-	</table>
+			<tfoot>
+				<tr>
+					<th scope="row" colspan="2" style="text-align: right; border-left:0px; border-bottom:0px;">TOTAL:</th>
+					<td style="text-align: right;"><?php echo $total ?>€</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
 <?php }?>
-<div class="btn-group btn-group-vertical">
-		<div class="container">
-			<h1>Operaciones</h1>
-			<a href="../logout/logout.php"><button type="button"
-					class="btn btn-warning">Cerrar Sesion</button></a> <a
-				href="../logout/logout.php"><button type="button"
-					class="btn btn-danger">Baja Cuenta</button></a>
+<div class="container">
+		<div class="text-center">
+			<div class="btn-group btn-group-vertical">
+				<h1>Operaciones</h1>
+				<a href="https://www.paypal.com/es/home"><button type="button"
+						class="btn btn-info">Pagar con Paypal</button></a> <a
+					href="../logout/logout.php"><button type="button"
+						class="btn btn-warning">Cerrar Sesion</button></a> <a
+					href="../logout/logout.php"><button type="button"
+						class="btn btn-danger">Baja Cuenta</button></a>
+			</div>
 		</div>
 	</div>
+	<p></p>
 </body>
 </html>

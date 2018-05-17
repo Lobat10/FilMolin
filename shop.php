@@ -128,7 +128,7 @@ if ($conexion->connect_errno) {
 				<table class="table table-striped">
 					<thead>
 						<tr class="table-active">
-							<th style="text-align: center" scope="col">*</th>
+							<th style="text-align: center" scope="col">#</th>
 							<th style="text-align: center" scope="col">Producto</th>
 							<th style="text-align: center" scope="col">Precio</th>
 							<th style="text-align: center" scope="col">#</th>
