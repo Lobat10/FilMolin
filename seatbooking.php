@@ -8,7 +8,7 @@ if (! isset($_SESSION['login'])) {
     header('Location: ./login/login.php');
 }
 
-$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
+$conexion = new mysqli($servidor3, $usuario3, $clave3, "id5676343_filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
 if ($conexion->connect_errno) {
@@ -68,6 +68,10 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 	crossorigin='anonymous'>
 <link rel='stylesheet'
 	href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
+	integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+	crossorigin="anonymous">
 <script
 	src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script
@@ -76,8 +80,10 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/css/bootstrap-datepicker.min.css" />
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
-
 <style type="text/css">
+.n {
+	text-align: center;
+}
 </style>
 
 <title>FilMolin Cinema</title>
@@ -101,8 +107,10 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4 class="text-white">Contactanos</h4>
 						<ul class="list-unstyled">
-							<li><a href="#" class="text-white">Siguenos en Twitter</a></li>
-							<li><a href="#" class="text-white">Siguenos en Facebook</a></li>
+							<li><a href="#" class="text-white">Siguenos en Twitter </a><i
+								style="font-size: 1em; color: lightblue" class="fab fa-twitter"></i></li>
+							<li><a href="#" class="text-white">Siguenos en Facebook </a><i
+								style="font-size: 1em; color: lightblue" class="fab fa-facebook"></i></li>
 						</ul>
 					</div>
 				</div>
@@ -143,8 +151,8 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 				
 				
 				</div>
-				<a href="#" class="navbar-brand d-flex align-items-center"> <img
-					src="./img/icon.png" width="50px" height="50px">
+				<a href="./index.php" class="navbar-brand d-flex align-items-center">
+					<img src="./img/icon.png" width="50px" height="50px">
 					<h1 style="font-size: 100px">FilMolin Cinema</h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -166,16 +174,16 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 					<thead>
 
 						<th scope="col">FILAS</th>
-						<th scope="col">1</th>
-						<th scope="col">2</th>
-						<th scope="col">3</th>
-						<th scope="col">4</th>
-						<th scope="col">5</th>
-						<th scope="col">6</th>
-						<th scope="col">7</th>
-						<th scope="col">8</th>
-						<th scope="col">9</th>
-						<th scope="col">10</th>
+						<th class="n" scope="col">1</th>
+						<th class="n" scope="col">2</th>
+						<th class="n" scope="col">3</th>
+						<th class="n" scope="col">4</th>
+						<th class="n" scope="col">5</th>
+						<th class="n" scope="col">6</th>
+						<th class="n" scope="col">7</th>
+						<th class="n" scope="col">8</th>
+						<th class="n" scope="col">9</th>
+						<th class="n" scope="col">10</th>
 
 					</thead>
 					<tbody>
@@ -193,7 +201,7 @@ while ($filas = $resultado2->fetch_assoc()) {
         if ($asientos['taken'] == 0) {
             echo "<td style='background-color:green;'><input name='butacas[]' type='checkbox' class='form-check-input' value='" . $asientos['seatcode'] . "'> </td>";
         } else {
-            echo "<td style='background-color:red;'><input name='butacas[]' type='checkbox' class='form-check-input' value='" . $asientos['seatcode'] . "' disabled></td>";
+            echo "<td style='background-color:grey;'><input name='butacas[]' type='checkbox' class='form-check-input' value='" . $asientos['seatcode'] . "' disabled></td>";
         }
     }
     

@@ -41,7 +41,7 @@ if ($room['capacity'] == 100) {
 if (isset($_POST['enviar'])) {
     
     if (isset($_POST['butacas'])) {
-        // setcookie("reservando",count($butacas),time()+(5),"/"); POR SI ACASO AQUI ESTA PARA DEJAR LIBRE EL ASIENTO A LOS 10 MINUTOS
+        // setcookie("reservando",count($butacas),time()+(600),"/"); POR SI ACASO AQUI ESTA PARA DEJAR LIBRE EL ASIENTO A LOS 10 MINUTOS
         $butacas = $_POST['butacas'];
         $entradas = count($butacas);
         $cont = 0;
@@ -164,13 +164,12 @@ if (isset($_POST['enviar'])) {
 	<div class="container">
 
         <?php
-        echo "<p>El precio de la entrada de esta sala es : " . $precioXentrada . "</p><br>";
-        echo "<p>Usted quiere reservar " . $entradas . " entradas, el precio total es de : " . ($precioXentrada * $entradas) . "</p><br>";
-        echo "<p><a href='./administracion/cuenta.php'> Pagar!</a></p>";
+        echo "<p>El precio de la entrada de esta sala es : " . $precioXentrada . "€</p><br>";
+        echo "<p>Usted quiere reservar " . $entradas . " entradas, el precio total es de : " . ($precioXentrada * $entradas) . "€</p><br>";
+        echo "<p><a href='./administration/cuenta.php'> Pagar!</a></p>";
         ?>
 	
 
 </div>
-
 </body>
 </html>

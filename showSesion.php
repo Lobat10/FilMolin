@@ -4,16 +4,14 @@ include "./conexion/conexion.php";
 session_name('login');
 session_start();
 
-$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
+$conexion = new mysqli($servidor3, $usuario3, $clave3, "id5676343_filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
 if ($conexion->connect_errno) {
     echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
 }
-
 $cod = "";
 $where = "";
-
 if (! isset($_SESSION['login'])) {
     header('Location: ./login/login.php');
 }
@@ -25,8 +23,6 @@ if (! isset($_GET['code']) || ! isset($_GET['hora']) || ! isset($_GET['sala'])) 
     $hora = $_GET['hora'];
     $where = " WHERE filmcode=" . $cod . "";
 }
-
-
 
 ?>
 <!doctype html>
@@ -45,6 +41,10 @@ if (! isset($_GET['code']) || ! isset($_GET['hora']) || ! isset($_GET['sala'])) 
 	crossorigin='anonymous'>
 <link rel='stylesheet'
 	href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
+	integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+	crossorigin="anonymous">
 <script
 	src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script
@@ -78,8 +78,10 @@ if (! isset($_GET['code']) || ! isset($_GET['hora']) || ! isset($_GET['sala'])) 
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4 class="text-white">Contactanos</h4>
 						<ul class="list-unstyled">
-							<li><a href="#" class="text-white">Siguenos en Twitter</a></li>
-							<li><a href="#" class="text-white">Siguenos en Facebook</a></li>
+							<li><a href="#" class="text-white">Siguenos en Twitter </a><i
+								style="font-size: 1em; color: lightblue" class="fab fa-twitter"></i></li>
+							<li><a href="#" class="text-white">Siguenos en Facebook </a><i
+								style="font-size: 1em; color: lightblue" class="fab fa-facebook"></i></li>
 						</ul>
 					</div>
 				</div>
@@ -160,7 +162,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
 	        <div class='card-footer'><a href='./seatbooking.php?sala=" . $sala . "&hora=" . $hora . "'><button type='button' class='btn btn-default btn-block'>Ver disponibilidad</button></div>
 	        </div>";
 }
-
-?>
+	 
+	?>
 </body>
 </html>

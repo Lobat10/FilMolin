@@ -1,16 +1,15 @@
 <?php
-include "./conexion/conexion.php";
 
+include "./conexion/conexion.php";
 session_name("login");
 session_start();
-
-$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
+$conexion = new mysqli($servidor3, $usuario3, $clave3, "id5676343_filmolin");
 $conexion->query("SET NAMES 'UTF8'");
-
 if ($conexion->connect_errno) {
-    echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
+    echo "
+<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>
+";
 }
-
 ?>
 
 <!doctype html>
@@ -29,6 +28,10 @@ if ($conexion->connect_errno) {
 	crossorigin='anonymous'>
 <link rel='stylesheet'
 	href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.0.12/css/all.css"
+	integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9"
+	crossorigin="anonymous">
 <script
 	src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
 <script
@@ -60,8 +63,10 @@ if ($conexion->connect_errno) {
 					<div class="col-sm-4 offset-md-1 py-4">
 						<h4 class="text-white">Contactanos</h4>
 						<ul class="list-unstyled">
-							<li><a href="#" class="text-white">Siguenos en Twitter</a></li>
-							<li><a href="#" class="text-white">Siguenos en Facebook</a></li>
+							<li><a href="#" class="text-white">Siguenos en Twitter </a><i
+								style="font-size: 1em; color: lightblue" class="fab fa-twitter"></i></li>
+							<li><a href="#" class="text-white">Siguenos en Facebook </a><i
+								style="font-size: 1em; color: lightblue" class="fab fa-facebook"></i></li>
 						</ul>
 					</div>
 				</div>
@@ -72,7 +77,6 @@ if ($conexion->connect_errno) {
 			<div class="container d-flex justify-content-between">
 				<div class="container">
 				<?php
-    
     if (isset($_SESSION['login'])) {
         $login = $_SESSION['login'];
         if ($login == 1) {
@@ -102,7 +106,8 @@ if ($conexion->connect_errno) {
 				
 				
 				</div>
-				<a href="#" class="navbar-brand d-flex align-items-center"> <img
+				<a href="../index.php"
+					class="navbar-brand d-flex align-items-center"> <img
 					src="./img/icon.png" width="50px" height="50px">
 					<h1 style="font-size: 100px">FilMolin Cinema</h1>
 				</a>
@@ -118,11 +123,10 @@ if ($conexion->connect_errno) {
 
 	<main role="main">
 
-
-
 	<div class="container">
 
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
+
 			<!-- Indicators -->
 			<ol class="carousel-indicators">
 				<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -133,18 +137,27 @@ if ($conexion->connect_errno) {
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="item active">
-					<img src="./img/palomitas.jpg" alt="Los Angeles"
-						style="width: 100%;">
+					<img src="./img/fondo2.jpg" style="width: 100%;">
+					<div class="carousel-caption">
+						<h3>Oferta 1</h3>
+						<p>Texto de prueba</p>
+					</div>
 				</div>
 
 				<div class="item">
-					<img src="./img/fondo2.jpg" alt="Chicago" style="width: 100%;">
+					<img src="./img/fondo2.jpg" style="width: 100%;">
+					<div class="carousel-caption">
+						<h3>Oferta 2</h3>
+						<p>Texto de prueba</p>
+					</div>
 				</div>
 
-
-
 				<div class="item">
-					<img src="./img/fondo2.jpg" alt="New york" style="width: 100%;">
+					<img src="./img/fondo2.jpg" style="width: 100%;">
+					<div class="carousel-caption">
+						<h3>Oferta 3</h3>
+						<p>Texto de prueba</p>
+					</div>
 				</div>
 			</div>
 
@@ -173,9 +186,8 @@ if ($conexion->connect_errno) {
 								<strong>Atención!</strong> Solo hay disponibilidad de las
 								peliculas durante esta semana. Diculpe las molestias.
 							</div>
-							<input type='date' id='date' class="form-control form-control-lg" />
-							<input type="submit" id='enviar'
-								class="form-control form-control btn btn-info" />
+							<input type='date' id='date' class='form-control form-control-lg'
+								onChange="window.location.href = 'index.php?date=' + this.value;" />
 						</div>
 					</div>
 				</div>
@@ -195,22 +207,35 @@ if ($conexion->connect_errno) {
 <?php
 
 $error = "";
+$fecha = "";
+$date = "";
 $where = "";
 $hoy = "";
-$today = "" . date('Y-m-d') . "";
 $todayh = getdate();
 
 $ano = $todayh['year'];
-
 $mes = $todayh['mon'];
 $dia = $todayh['mday'];
 
+if (strlen($mes) == 1) {
+    $mes = "0" . $mes;
+}
+if (strlen($dia) == 1) {
+    $dia = "0" . $dia;
+}
 if (isset($_GET['today'])) {
     if ($_GET['today'] == true) {
         $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode AND sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "' GROUP BY peliculas.filmcode";
+        $fecha = " AND sesiones.date='" . $ano . "-" . $mes . "-" . $dia . "'";
     }
 }
-$resultado = $conexion->query("SELECT DISTINCT * FROM peliculas" . $hoy);
+
+if (isset($_GET['date'])) {
+    $date = $_GET['date'];
+    $hoy = ", sesiones WHERE sesiones.filmcode = peliculas.filmcode AND sesiones.date='" . $date . "' GROUP BY peliculas.filmcode";
+    $fecha = " AND sesiones.date='" . $date . "'";
+}
+$resultado = $conexion->query("SELECT * FROM peliculas" . $hoy);
 if ($resultado->num_rows === 0)
     $error = "<p>No hay obras en la base de datos</p>";
 
@@ -235,8 +260,7 @@ while ($pelicula = $resultado->fetch_assoc()) {
                                                  <li><p class='card-text'>" . $pelicula['duration'] . " mins. </p></li>
                                                         <hr size='8px' color='blue' />";
     
-    $resultado2 = $conexion->query("SELECT DISTINCT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . "");
-    
+    $resultado2 = $conexion->query("SELECT * FROM sesiones WHERE sesiones.filmcode=" . $pelicula['filmcode'] . "" . $fecha);
     if ($resultado2->num_rows === 0) {
         $error = "<p>No hay obras en la base de datos</p>";
     }
@@ -244,12 +268,8 @@ while ($pelicula = $resultado->fetch_assoc()) {
     while ($sesion = $resultado2->fetch_assoc()) {
         
         echo "                                       <li><ul class='list-unstyled'>
-
                                                         <li><p class='card-text'>Fecha: " . $sesion['date'] . "</p></li>
-
                                                         <li><p class='card-text'> Sala nº " . $sesion['roomcode'] . "</p><a href='./showSesion.php?code=" . $pelicula['filmcode'] . "&hora=" . $sesion['timetable'] . "&sala=" . $sesion['roomcode'] . "'><p class='btn btn-link'>" . $sesion['timetable'] . "</p></a></li>
-
-
                                                         <hr size='8px' color='blue' />
                                                      </ul>";
     }
