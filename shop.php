@@ -146,7 +146,8 @@ if ($conexion->connect_errno) {
         echo "<tr>";
         echo "<td>" . $producto['id'] . "</td>";
         echo "<td>" . $producto['nombre'] . "</td>";
-        echo "<td>" . $producto['precio'] . "</td>";
+        echo "<td>" . $producto['precio'] . "€</td>";
+        echo "<td><img src='./img/" . $producto['imagen'] . ".jpg'></td>";
         echo "<td><input name='productos[]' type='checkbox' class='form-check-input' value='" . $producto['id'] . "'></td>";
         echo "</tr>";
     }
