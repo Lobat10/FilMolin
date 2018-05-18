@@ -13,12 +13,6 @@ session_start();
 
 $mensajeError = '';
 
-if (isset($_POST['enviar'])) {
-    if (isset($_POST['productos'])) {
-        $productos = $_POST['productos'];
-    }
-}
-
 ?>
 <html lang="es">
 <head>
@@ -213,24 +207,30 @@ if (isset($_SESSION['precio'])) {
 				<td style='text-align:right;'>" . $total . "€</td>
 
 			</tr>";
-    if (isset($_POST['productos'])) {
-        foreach ($productos as $i) {
-            $cont += 1;
-            $resultado2 = $conexion->query("SELECT * FROM productos WHERE id=" . $i);
-            $prod = $resultado2->fetch_assoc();
-            echo "	<tr>
-				<th style='text-align:center;' scope='row'>" . $cont . "</th>
-				<td style='text-align:center;'>" . $prod['nombre'] . "</td>
-				<td style='text-align:right;'>" . $prod['precio'] . "€</td>
-			</tr>";
-            $total += $prod['precio'];
+    if (isset($_POST['enviar'])) {
+        $resultado2 = $conexion->query("SELECT * FROM productos");
+        while ($product = $resultado2->fetch_assoc()) {
+            $actual = $product['id'];
+            if (isset($_POST[$actual])) {
+                $cantidad = $_POST[$actual];
+                if ($cantidad > 0) {
+                    $cont += 1;
+                    echo "	<tr>
+				            <th style='text-align:center;' scope='row'>" . $cont . "</th>
+				            <td style='text-align:center;'>".$cantidad." x " . $product['nombre'] . "</td>
+				            <td style='text-align:right;'>" . $product['precio']*$cantidad . "€</td>
+		                </tr>";
+                    $total += $product['precio'];
+                }
+            }
         }
     }
     ?>
 		</tbody>
 			<tfoot>
 				<tr>
-					<th scope="row" colspan="2" style="text-align: right; border-left:0px; border-bottom:0px;">TOTAL:</th>
+					<th scope="row" colspan="2"
+						style="text-align: right; border-left: 0px; border-bottom: 0px;">TOTAL:</th>
 					<td style="text-align: right;"><?php echo $total ?>€</td>
 				</tr>
 			</tfoot>

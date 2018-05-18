@@ -143,12 +143,12 @@ if ($conexion->connect_errno) {
     
     while ($producto = $resultado->fetch_assoc()) {
         
-         echo "<tr>";
+        echo "<tr>";
         echo "<td style='text-align: center'>" . $producto['id'] . "</td>";
         echo "<td style='text-align: center'>" . $producto['nombre'] . "</td>";
         echo "<td style='text-align: center'>" . $producto['precio'] . "€</td>";
         echo "<td style='text-align: center'><img style='width:100px' src='./img/" . $producto['imagen'] . ".jpg'></td>";
-        echo "<td style='text-align: center'><input name='productos[]' type='checkbox' class='form-check-input' value='" . $producto['id'] . "'></td>";
+        echo "<td style='text-align: center'><input name='" . $producto['id'] . "' type='number' value='0' min=0 max=10></td>";
         echo "</tr>";
     }
     ?>

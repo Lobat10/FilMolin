@@ -8,7 +8,7 @@ $pass = '';
 $nombre = '';
 $description = '';
 
-$conexion = new mysqli($servidor, $usuario, $clave, "filmolin");
+$conexion = new mysqli($servidor3, $usuario3, $clave3, "id5676343_filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
 if ($conexion->connect_errno) {
@@ -25,16 +25,18 @@ if (isset($_POST['enviar'])) {
             $nombre = $_POST['name'];
             $description = $_POST['description'];
             
-            $resultado = $conexion->query("SELECT * FROM usuarios WHERE login=" . $user);
-            
-            if ($resultado->num_rows != 0) {
-                
-                $mensajeError = "Ya existe ese nombre de usuario";
-            } else {
+            $resultado = $conexion->query("SELECT * FROM usuarios");
+            $existe=false;  
+            while ($usuarios=$resultado->fetch_assoc()){
+                if ($usuarios['login']===$user) {
+                    $existe=true;
+                    $mensajeError = "Ya existe ese nombre de usuario";
+                } 
+            }
+            if (!$existe){
                 $passHash = password_hash($pass, PASSWORD_DEFAULT);
                 $resultado = $conexion->query("INSERT INTO usuarios VALUES ('" . $user . "','" . $nombre . "','" . $passHash . "','" . $description . "',0)");
                 header('Location: ./login.php');
-                
             }
         } else {
             $mensajeError = "No puede haber ningun campo vacio";
