@@ -217,10 +217,10 @@ if (isset($_SESSION['precio'])) {
                     $cont += 1;
                     echo "	<tr>
 				            <th style='text-align:center;' scope='row'>" . $cont . "</th>
-				            <td style='text-align:center;'>".$cantidad." x " . $product['nombre'] . "</td>
-				            <td style='text-align:right;'>" . $product['precio']*$cantidad . "€</td>
+				            <td style='text-align:center;'>" . $cantidad . " x " . $product['nombre'] . "</td>
+				            <td style='text-align:right;'>" . $product['precio'] * $cantidad . "€</td>
 		                </tr>";
-                    $total += $product['precio'];
+                    $total += ($product['precio'] * $cantidad);
                 }
             }
         }
