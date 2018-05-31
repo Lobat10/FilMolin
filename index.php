@@ -1,5 +1,4 @@
 <?php
-
 include "./conexion/conexion.php";
 session_name("login");
 session_start();
@@ -109,7 +108,7 @@ if ($conexion->connect_errno) {
 				<a href="../index.php"
 					class="navbar-brand d-flex align-items-center"> <img
 					src="./img/icon.png" width="50px" height="50px">
-					<h1 style="font-size: 100px">FilMolin Cinema</h1>
+					<h1 style="font-size: 100px">FilMolin Cinema &copy;</h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarHeader" aria-controls="navbarHeader"
@@ -137,25 +136,27 @@ if ($conexion->connect_errno) {
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner">
 				<div class="item active">
-					<img src="./img/oferta1.jpg" style="width: 100%;height: 250px;">
-					<div class="carousel-caption">
-						
-					</div>
+					<img src="./img/oferta1.jpg" style="width: 100%; height: 250px;">
+					<div class="carousel-caption"></div>
 				</div>
 
 				<div class="item">
-					<img src="./img/oferta2.jpg" style="width: 100%;height: 250px;">
+					<img src="./img/oferta2.jpg" style="width: 100%; height: 250px;">
 					<div class="carousel-caption" style="color: white">
 						<h3 style="background-color: black">Oferta de tiempo limitada!</h3>
-						<p style="background-color: black">Hasta el dia 18/06/2018, con la compra de tus entradas te descontamos el 50% del menú número 15 y número 18</p>
+						<p style="background-color: black">Hasta el dia 18/06/2018, con la
+							compra de tus entradas te descontamos el 50% del menú número 15 y
+							número 18</p>
 					</div>
 				</div>
 
 				<div class="item">
-					<img src="./img/fondo2.jpg" style="width: 100%;height: 250px;">
+					<img src="./img/fondo2.jpg" style="width: 100%; height: 250px;">
 					<div class="carousel-caption">
 						<h3>No más colas en el cine!</h3>
-						<p>Con nuestro servicio 'express' no tendras que esperar colas, compra los productos a la vez que compras tus entradas desde casa.</p>
+						<p>Con nuestro servicio 'express' no tendras que esperar colas,
+							compra los productos a la vez que compras tus entradas desde
+							casa.</p>
 					</div>
 				</div>
 			</div>

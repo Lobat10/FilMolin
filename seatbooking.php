@@ -26,11 +26,16 @@ $host = $_SERVER["HTTP_HOST"];
 $url = $_SERVER["REQUEST_URI"];
 
 if (isset($_POST['enviar'])) {
-    if (isset($_POST['butacas'])) {
-        $butacas = $_POST['butacas'];
+    if (isset($_POST['hid'])) {
+        $listaButacs = $_POST['hid'];
+        
+        $butacas=explode(",", $listaButacs);
+        $_SESSION['arrButacs']=$butacas;
+        /*
         foreach ($butacas as $i) {
             $result = $conexion->query("UPDATE" . $tabla . " SET taken=1 WHERE seatcode=" . $i);
         }
+        */
         header("Location: ./confirmBooking.php?sala=" . $sala . "&entradas=" . count($butacas));
     }
 }
@@ -89,6 +94,35 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 <title>FilMolin Cinema</title>
 
 </head>
+
+<script type="text/javascript">
+
+var entradas=Array();
+
+function seleccionarButacas(code){
+	var id='butaca'+code;
+	var alt=document.getElementById(id).alt;
+
+	if(alt=='blanca'){
+		document.getElementById(id).src='./img/butaca_verde.png';
+		document.getElementById(id).alt='verde';
+		entradas.push(code);
+		alert(entradas);
+	}else{
+		document.getElementById(id).src='./img/butaca_blanca.png';
+		document.getElementById(id).alt='blanca';
+		var pos=entradas.indexOf(code);
+		entradas.splice(pos,1);
+		alert(entradas);	
+	}	
+}
+
+function pasarArray(){
+	var test=
+	document.getElementById('oculto').value=entradas.toString();
+}
+
+</script>
 
 <body class="text-center">
 	<header>
@@ -153,7 +187,7 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 				</div>
 				<a href="./index.php" class="navbar-brand d-flex align-items-center">
 					<img src="./img/icon.png" width="50px" height="50px">
-					<h1 style="font-size: 100px">FilMolin Cinema</h1>
+					<h1 style="font-size: 100px">FilMolin Cinema &copy;</h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarHeader" aria-controls="navbarHeader"
@@ -168,7 +202,7 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 
 	<div class="container">
 		<form method="post"
-			action='./confirmbooking.php?sala=<?php echo $sala; ?>'>
+			action='./confirmbooking.php?sala=<?php echo $sala; ?>' onSubmit='pasarArray()'>
 			<div class="container">
 				<table class="table table-striped">
 					<thead>
@@ -199,9 +233,9 @@ while ($filas = $resultado2->fetch_assoc()) {
     while ($asientos = $resultado->fetch_assoc()) {
         
         if ($asientos['taken'] == 0) {
-            echo "<td style='background-color:green;'><input name='butacas[]' type='checkbox' class='form-check-input' value='" . $asientos['seatcode'] . "'> </td>";
+            echo "<td><button type='button' onclick='seleccionarButacas(" . $asientos['seatcode'] . ")'><img id='butaca" . $asientos['seatcode'] . "' alt='blanca' src='./img/butaca_blanca.png' width='50px' height='50px' /></button> </td>";
         } else {
-            echo "<td style='background-color:grey;'><input name='butacas[]' type='checkbox' class='form-check-input' value='" . $asientos['seatcode'] . "' disabled></td>";
+            echo "<td><button type='button' disabled><img src='./img/butaca_roja.png'  width='50px' height='50px'/></button></td>";
         }
     }
     
@@ -218,6 +252,7 @@ while ($filas = $resultado2->fetch_assoc()) {
 						</tr>
 					</tfoot>
 				</table>
+				<input id='oculto' type='hidden' value='' name='hid'>
 				<button class="btn btn-lg btn-primary btn-block" type="submit"
 					name="enviar">Confirmar y continuar!</button>
 			</div>

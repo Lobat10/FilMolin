@@ -14,34 +14,30 @@ session_start();
 $mensajeError = '';
 if (isset($_POST['continuar'])) {
     
-    if (isset($_POST['pass'])){
+    if (isset($_POST['pass'])) {
         
-        if (! empty($_POST['pass'])){
+        if (! empty($_POST['pass'])) {
             
             $pass = $_POST['pass'];
             $resultado = $conexion->query("SELECT * FROM usuarios");
-            $existe=false;
-            while ($usuarios=$resultado->fetch_assoc()){
-                if (password_verify($pass, $usuarios['password']) && $usuarios['login']===$_SESSION['usuario']){
-                    $existe=true;
-                    $resultado = $conexion->query("DELETE FROM usuarios WHERE login = '".$_SESSION['usuario']."'");
+            $existe = false;
+            while ($usuarios = $resultado->fetch_assoc()) {
+                if (password_verify($pass, $usuarios['password']) && $usuarios['login'] === $_SESSION['usuario']) {
+                    $existe = true;
+                    $resultado = $conexion->query("DELETE FROM usuarios WHERE login = '" . $_SESSION['usuario'] . "'");
                     session_destroy();
                     header('Location: ../index.php');
                 }
             }
             
-            if (!$existe){
+            if (! $existe) {
                 
                 $mensajeError = "La contraseña no es correcta";
-                
             }
-            
-        }else {
+        } else {
             $mensajeError = "No puede haber ningún campo vacio";
         }
-        
     }
-    
 }
 
 ?>
@@ -52,10 +48,12 @@ if (isset($_POST['continuar'])) {
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
- <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
-    <script src="https://js.braintreegateway.com/web/3.11.0/js/client.min.js"></script>
-    <script src="https://js.braintreegateway.com/web/3.11.0/js/paypal-checkout.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script
+	src="https://js.braintreegateway.com/web/3.11.0/js/client.min.js"></script>
+<script
+	src="https://js.braintreegateway.com/web/3.11.0/js/paypal-checkout.min.js"></script>
 <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
 <link rel="icon" href="../img/favicon.ico" type="image/x-icon">
 <link rel='stylesheet'
@@ -146,7 +144,7 @@ if (isset($_POST['continuar'])) {
 				<a href="../index.php"
 					class="navbar-brand d-flex align-items-center"> <img
 					src="../img/icon.png" width="50px" height="50px">
-					<h1 style="font-size: 100px">FilMolin Cinema</h1>
+					<h1 style="font-size: 100px">FilMolin Cinema &copy;</h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarHeader" aria-controls="navbarHeader"
@@ -205,17 +203,18 @@ if ($mensajeError != "") {
 ?>
 
 <form class="form-signin" id="idForm" action="./BajaUser.php"
-			method="post">
-			<label
-				for="inputPassword" class="col-sm-4 col-form-label">Escribe tu contraseña:</label>
-			<input name="pass" type="password" id="inputPassword"
-				class="form-control" placeholder="Password" required>
-<div class="container text-center"><h2>Si eliges continuar, tu cuenta se eliminará. ¿Estás seguro?</h2>
+		method="post">
+		<label for="inputPassword" class="col-sm-4 col-form-label">Escribe tu
+			contraseña:</label> <input name="pass" type="password"
+			id="inputPassword" class="form-control" placeholder="Password"
+			required>
+		<div class="container text-center">
+			<h2>Si eliges continuar, tu cuenta se eliminará. ¿Estás seguro?</h2>
 
-						<button class="btn btn-info" type="submit"
-						name="continuar">Continuar</button>
-						<a href="../administration/cuenta.php"><button type="button"
-						class="btn btn-danger">Volver atrás</button></a>
-						</div> 
+			<button class="btn btn-info" type="submit" name="continuar">Continuar</button>
+			<a href="../administration/cuenta.php"><button type="button"
+					class="btn btn-danger">Volver atrás</button></a>
+		</div>
+
 </body>
 </html>

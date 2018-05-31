@@ -111,7 +111,7 @@ $mensajeError = '';
 				<a href="../index.php"
 					class="navbar-brand d-flex align-items-center"> <img
 					src="../img/icon.png" width="50px" height="50px">
-					<h1 style="font-size: 100px">FilMolin Cinema</h1>
+					<h1 style="font-size: 100px">FilMolin Cinema &copy;</h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarHeader" aria-controls="navbarHeader"
