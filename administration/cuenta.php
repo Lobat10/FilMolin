@@ -12,7 +12,29 @@ session_name("login");
 session_start();
 
 $mensajeError = '';
+$todayh = getdate();
 
+$ano = $todayh['year'];
+$mes = $todayh['mon'];
+$dia = $todayh['mday'];
+
+if (strlen($mes) == 1) {
+    $mes = "0" . $mes;
+}
+if (strlen($dia) == 1) {
+    $dia = "0" . $dia;
+}
+if (isset($_GET['pagado']) && $_GET['pagado']==true) {
+    $precioXentrada = $_SESSION['precio'];
+    $entradas = $_SESSION['entradas'];
+    $butacas = $_SESSION['butacas'];
+    $tabla = $_SESSION['table'];
+    
+    foreach ($butacas as $i) {
+        $result = $conexion->query("UPDATE " . $tabla . " SET taken=1 WHERE seatcode=" . $i);
+    }
+    
+}
 ?>
 <html lang="es">
 <head>
@@ -43,7 +65,14 @@ $mensajeError = '';
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
 <title>FilMolin Cinema</title>
+<script type="text/javascript">
 
+function confirm(){
+	alert("Su compra se ha confirmado y las butacas seleccionadas han quedado bloqueadas, puede ver los detalles de la compra en el historial de compras.");
+}
+
+
+</script>
 
 </head>
 
@@ -111,7 +140,7 @@ $mensajeError = '';
 				<a href="../index.php"
 					class="navbar-brand d-flex align-items-center"> <img
 					src="../img/icon.png" width="50px" height="50px">
-					<h1 style="font-size: 100px">FilMolin Cinema &copy;</h1>
+					<h1 style="font-size: 100px">FilMolin Cinema&copy;</h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
 					data-target="#navbarHeader" aria-controls="navbarHeader"
@@ -187,7 +216,8 @@ if (isset($_SESSION['precio'])) {
     $price = $_SESSION['precio']?>
 <div class="container jumbotron">
 		<table class="table table-bordered">
-			<h1>Carrito productos/entradas</h1>
+			<h1 style="font-size: 30px; text-align: center;">Carrito
+				productos/entradas</h1>
 			<thead>
 				<tr>
 					<th style="text-align: center;" scope="col">#</th>
@@ -200,6 +230,7 @@ if (isset($_SESSION['precio'])) {
     $cont = 1;
     
     $total = ($price * $numeroEntradas);
+    $descripcion = $numeroEntradas . " entrada/s";
     
     echo "	<tr>
 				<th style='text-align:center;' scope='row'>" . $cont . "</th>
@@ -207,13 +238,19 @@ if (isset($_SESSION['precio'])) {
 				<td style='text-align:right;'>" . $total . "€</td>
 
 			</tr>";
+    
     if (isset($_POST['enviar'])) {
+        
         $resultado2 = $conexion->query("SELECT * FROM productos");
+        
         while ($product = $resultado2->fetch_assoc()) {
+            
             $actual = $product['id'];
             if (isset($_POST[$actual])) {
+                
                 $cantidad = $_POST[$actual];
                 if ($cantidad > 0) {
+                    
                     $cont += 1;
                     echo "	<tr>
 				            <th style='text-align:center;' scope='row'>" . $cont . "</th>
@@ -221,9 +258,11 @@ if (isset($_SESSION['precio'])) {
 				            <td style='text-align:right;'>" . $product['precio'] * $cantidad . "€</td>
 		                </tr>";
                     $total += ($product['precio'] * $cantidad);
+                    $descripcion = $descripcion . ", " . $cantidad . " x " . $product['nombre'];
                 }
             }
         }
+        $conexion->query("INSERT INTO compras VALUES (NULL,'" . $_SESSION['usuario'] . "','" . $descripcion . "','" . $ano . "-" . $mes . "-" . $dia . "'," . $total . ")");
     }
     ?>
 		</tbody>
@@ -235,20 +274,25 @@ if (isset($_SESSION['precio'])) {
 				</tr>
 			</tfoot>
 		</table>
+		<a href="./cuenta.php?pagado=true"><button onclick="confirm()" name="pagar" type="submit"
+			class="btn btn-primary btn-lg">Pagar</button></a>
+
 	</div>
 <?php }?>
-<div class="container">
-		<div class="text-center">
-			<div class="btn-group btn-group-vertical">
-				<h1>Operaciones</h1>
-				<a href="https://www.paypal.com/es/home"><button type="button"
-						class="btn btn-info">Pagar con Paypal</button></a> <a
-					href="../logout/logout.php"><button type="button"
-						class="btn btn-warning">Cerrar Sesion</button></a> <a
-					href="../logout/logout.php"><button type="button"
-						class="btn btn-danger">Baja Cuenta</button></a>
-			</div>
+
+	<div class="text-center">
+		<div class="btn-group btn-group-vertical">
+			<h1>Operaciones</h1>
+				<?php
+    
+    echo "<a href='./historial.php?hist=" . $_SESSION['usuario'] . "'><button type='button'
+						class='btn btn-info'>Ver historial de compras del usuario</button>"?></a>
+			<a href="../logout/logout.php"><button type="button"
+					class="btn btn-warning">Cerrar Sesion</button></a> <a
+				href="../logout/logout.php"><button type="button"
+					class="btn btn-danger">Baja Cuenta</button></a>
 		</div>
+	</div>
 	</div>
 	<p></p>
 </body>

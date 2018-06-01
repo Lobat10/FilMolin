@@ -40,6 +40,77 @@ if ($conexion->connect_errno) {
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
+<script>
+function flotante(tipo){
+	
+	if (tipo==1){
+	//Si hacemos clic en abrir mostramos el fondo negro y el flotante
+	$('#contenedor').show();
+    $('#flotante').animate({
+      marginTop: "-152px"
+    });
+	}
+	if (tipo==2){
+	//Si hacemos clic en cerrar, deslizamos el flotante hacia arriba
+    $('#flotante').animate({
+      marginTop: "-756px"
+    });
+	//Una vez ocultado el flotante cerramos el fondo negro
+	setTimeout(function(){
+	$('#contenedor').hide();
+		
+	},500)
+	}
+
+}
+
+function valora(num){
+	var id='valora'+num;
+	//var img=document.getElementById(id).src;
+
+	while(num!=0) {
+		document.getElementById(id).src='./img/butaca_negra.jpg';
+		num-=1;
+	}
+	
+}
+
+</script>
+<style>
+h1, h3 {
+	text-align: center;
+}
+
+a {
+	cursor: pointer;
+}
+
+#fondo {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 990;
+	opacity: 0.8;
+	background: #000;
+}
+
+#flotante {
+	z-index: 999;
+	border: 8px solid #fff;
+	margin-top: -756px;
+	margin-left: -153px;
+	top: 50%;
+	left: 50%;
+	padding: 12px;
+	position: fixed;
+	width: 265px;
+	background-color: #fff;
+	border-radius: 3px;
+}
+</style>
+
 <title>FilMolin Cinema</title>
 
 
@@ -120,9 +191,39 @@ if ($conexion->connect_errno) {
 
 	</header>
 
+
+
 	<main role="main">
 
 	<div class="container">
+
+		<h3>
+			<button type="button" class="btn btn-outline-dark" style="float: right; clear:left; ">
+				<a onClick="flotante(1)">Valora tu experiencia!</a>
+			</button>
+		</h3>
+
+		<div id="contenedor" style="display: none">
+
+			<div id="flotante">
+				<h1>Valora del 1 al 5</h1>
+				<div class="container">
+<?php
+$loop = 0;
+while ($loop < 5) {
+    echo "<img src='./img/butaca_blanca.jpg' style='width:10px;height:10px' onclick='valora(" . $loop . ")' id='valora" . $loop . "'>";
+    $loop += 1;
+}
+?>	
+    			</div>
+				<h3>
+					<a onClick="flotante(2)">Enviar</a>
+				</h3>
+			</div>
+
+			<div id="fondo"></div>
+
+		</div>
 
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 

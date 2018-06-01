@@ -161,8 +161,9 @@ while ($pelicula = $resultado->fetch_assoc()) {
 	        <div class='card-body'>" . $pelicula['description'] . "</div>
 	        <div class='card-footer'><a href='./seatbooking.php?sala=" . $sala . "&hora=" . $hora . "'><button type='button' class='btn btn-default btn-block'>Ver disponibilidad</button></div>
 	        </div>";
+    echo "<br><div>" . $pelicula['trailer'] . "</div>";
 }
-	 
-	?>
+
+?>
 </body>
 </html>

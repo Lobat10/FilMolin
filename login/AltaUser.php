@@ -26,14 +26,14 @@ if (isset($_POST['enviar'])) {
             $description = $_POST['description'];
             
             $resultado = $conexion->query("SELECT * FROM usuarios");
-            $existe=false;  
-            while ($usuarios=$resultado->fetch_assoc()){
-                if ($usuarios['login']===$user) {
-                    $existe=true;
+            $existe = false;
+            while ($usuarios = $resultado->fetch_assoc()) {
+                if ($usuarios['login'] === $user) {
+                    $existe = true;
                     $mensajeError = "Ya existe ese nombre de usuario";
-                } 
+                }
             }
-            if (!$existe){
+            if (! $existe) {
                 $passHash = password_hash($pass, PASSWORD_DEFAULT);
                 $resultado = $conexion->query("INSERT INTO usuarios VALUES ('" . $user . "','" . $nombre . "','" . $passHash . "','" . $description . "',0)");
                 header('Location: ./login.php');
@@ -124,10 +124,10 @@ input {
 				class="form-control" placeholder="Password" required> <label
 				for="inputName" class="col-sm-2 col-form-label">Nombre completo</label>
 			<input name="name" type="text" id="inputName" class="form-control"
-				placeholder="Ej. Pedro Picapiedra Comerocas" required> <label
+				placeholder="Ej. Pedro Picapiedra Romperocas" required> <label
 				for="inputDesc" class="col-sm-2 col-form-label">Descripción</label>
 			<input name="description" type="text" id="inputDesc"
-				class="form-control" placeholder="Ej. Especialista en pulir rocas."
+				class="form-control" placeholder="Ej. Jefe de equipo de la cantina."
 				required>
 
 			<button class="btn btn-lg btn-primary btn-block" type="submit"

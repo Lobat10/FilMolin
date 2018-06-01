@@ -29,13 +29,13 @@ if (isset($_POST['enviar'])) {
     if (isset($_POST['hid'])) {
         $listaButacs = $_POST['hid'];
         
-        $butacas=explode(",", $listaButacs);
-        $_SESSION['arrButacs']=$butacas;
+        $butacas = explode(",", $listaButacs);
+        $_SESSION['arrButacs'] = $butacas;
         /*
-        foreach ($butacas as $i) {
-            $result = $conexion->query("UPDATE" . $tabla . " SET taken=1 WHERE seatcode=" . $i);
-        }
-        */
+         * foreach ($butacas as $i) {
+         * $result = $conexion->query("UPDATE" . $tabla . " SET taken=1 WHERE seatcode=" . $i);
+         * }
+         */
         header("Location: ./confirmBooking.php?sala=" . $sala . "&entradas=" . count($butacas));
     }
 }
@@ -107,13 +107,11 @@ function seleccionarButacas(code){
 		document.getElementById(id).src='./img/butaca_verde.png';
 		document.getElementById(id).alt='verde';
 		entradas.push(code);
-		alert(entradas);
 	}else{
 		document.getElementById(id).src='./img/butaca_blanca.png';
 		document.getElementById(id).alt='blanca';
 		var pos=entradas.indexOf(code);
 		entradas.splice(pos,1);
-		alert(entradas);	
 	}	
 }
 
@@ -202,7 +200,8 @@ function pasarArray(){
 
 	<div class="container">
 		<form method="post"
-			action='./confirmbooking.php?sala=<?php echo $sala; ?>' onSubmit='pasarArray()'>
+			action='./confirmbooking.php?sala=<?php echo $sala; ?>'
+			onSubmit='pasarArray()'>
 			<div class="container">
 				<table class="table table-striped">
 					<thead>
