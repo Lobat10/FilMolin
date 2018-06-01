@@ -66,11 +66,24 @@ function flotante(tipo){
 
 function valora(num){
 	var id='valora'+num;
-	//var img=document.getElementById(id).src;
+	var valor=document.getElementById(id).alt;
 
-	while(num!=0) {
-		document.getElementById(id).src='./img/butaca_negra.jpg';
-		num-=1;
+	if(valor=="negra"){
+	
+    	while(num!=0) {
+    		document.getElementById(id).src='./img/butaca_blanca.png';
+    		document.getElementById(id).alt='blanca';
+    		num-=1;
+    		id='valora'+num;
+    	}
+	}else{
+		
+		while(num!=6) {
+    		document.getElementById(id).src='./img/butaca_negra.png';
+    		document.getElementById(id).alt='negra';
+    		num+=1;
+    		id='valora'+num;
+    	}	
 	}
 	
 }
@@ -197,34 +210,6 @@ a {
 
 	<div class="container">
 
-		<h3>
-			<button type="button" class="btn btn-outline-dark" style="float: right; clear:left; ">
-				<a onClick="flotante(1)">Valora tu experiencia!</a>
-			</button>
-		</h3>
-
-		<div id="contenedor" style="display: none">
-
-			<div id="flotante">
-				<h1>Valora del 1 al 5</h1>
-				<div class="container">
-<?php
-$loop = 0;
-while ($loop < 5) {
-    echo "<img src='./img/butaca_blanca.jpg' style='width:10px;height:10px' onclick='valora(" . $loop . ")' id='valora" . $loop . "'>";
-    $loop += 1;
-}
-?>	
-    			</div>
-				<h3>
-					<a onClick="flotante(2)">Enviar</a>
-				</h3>
-			</div>
-
-			<div id="fondo"></div>
-
-		</div>
-
 		<div id="myCarousel" class="carousel slide" data-ride="carousel">
 
 			<!-- Indicators -->
@@ -297,6 +282,34 @@ while ($loop < 5) {
 			</div>
 
 		</form>
+
+
+		<h3>
+			<a onClick="flotante(1)"><button type="button" class="btn btn-dark"
+					style="float: right; clear: left;">Valora tu experiencia!</button></a>
+		</h3>
+
+		<div id="contenedor" style="display: none">
+
+			<div id="flotante">
+				<h1>Valora del 1 al 5</h1>
+				<div class="container" style="align-items: center;">
+                <?php
+                $loop = 1;
+                while ($loop < 6) {
+                    echo "<img src='./img/butaca_negra.png' style='width:30px;height:30px' onclick='valora(" . $loop . ")' id='valora" . $loop . "' alt='negra'>";
+                    $loop += 1;
+                }
+                ?>	
+    			</div>
+				<h3>
+					<a onClick="flotante(2)">Enviar</a>
+				</h3>
+			</div>
+
+			<div id="fondo"></div>
+
+		</div>
 
 
 	</div>

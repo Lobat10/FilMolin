@@ -11,6 +11,10 @@ if ($conexion->connect_errno) {
 session_name("login");
 session_start();
 
+if (! isset($_SESSION['login'])) {
+    header('Location: ../login/login.php');
+}
+
 $mensajeError = '';
 $todayh = getdate();
 
@@ -24,17 +28,26 @@ if (strlen($mes) == 1) {
 if (strlen($dia) == 1) {
     $dia = "0" . $dia;
 }
-if (isset($_GET['pagado']) && $_GET['pagado']==true) {
+
+if (isset($_GET['pagado']) && $_GET['pagado'] == true) {
     $precioXentrada = $_SESSION['precio'];
     $entradas = $_SESSION['entradas'];
     $butacas = $_SESSION['butacas'];
     $tabla = $_SESSION['table'];
-    
+    $desc = $_SESSION['desc'];
+    $tot = $_SESSION['tot'];
+    $conexion->query("INSERT INTO compras VALUES (NULL,'" . $_SESSION['usuario'] . "','" . $desc . "','" . $ano . "-" . $mes . "-" . $dia . "'," . $tot . ")");
+    $_SESSION['pay'] = 1;
+    $_SESSION['do'] = 1;
     foreach ($butacas as $i) {
         $result = $conexion->query("UPDATE " . $tabla . " SET taken=1 WHERE seatcode=" . $i);
     }
-    
 }
+if (isset($_SESSION['precio']) && isset($_SESSION['entradas']) && ! isset($_SESSION['do'])) {
+    echo $_SESSION['do'];
+    $_SESSION['pay'] = 0;
+}
+
 ?>
 <html lang="es">
 <head>
@@ -68,7 +81,8 @@ if (isset($_GET['pagado']) && $_GET['pagado']==true) {
 <script type="text/javascript">
 
 function confirm(){
-	alert("Su compra se ha confirmado y las butacas seleccionadas han quedado bloqueadas, puede ver los detalles de la compra en el historial de compras.");
+	alert("Su compra se ha confirmado");
+	alert("Las butacas seleccionadas han quedado bloqueadas, puede ver los detalles de la compra en el historial de compras.");
 }
 
 
@@ -210,11 +224,12 @@ if ($mensajeError != "") {
 <?php
 }
 
-if (isset($_SESSION['precio'])) {
+if (isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pay'] == 0) {
     
     $numeroEntradas = $_SESSION['entradas'];
-    $price = $_SESSION['precio']?>
-<div class="container jumbotron">
+    $price = $_SESSION['precio'];
+    ?>
+	<div class="container jumbotron">
 		<table class="table table-bordered">
 			<h1 style="font-size: 30px; text-align: center;">Carrito
 				productos/entradas</h1>
@@ -238,8 +253,9 @@ if (isset($_SESSION['precio'])) {
 				<td style='text-align:right;'>" . $total . "€</td>
 
 			</tr>";
+    echo $_SESSION['pay'];
     
-    if (isset($_POST['enviar'])) {
+    if (isset($_POST['send'])) {
         
         $resultado2 = $conexion->query("SELECT * FROM productos");
         
@@ -252,7 +268,7 @@ if (isset($_SESSION['precio'])) {
                 if ($cantidad > 0) {
                     
                     $cont += 1;
-                    echo "	<tr>
+                    echo "<tr>
 				            <th style='text-align:center;' scope='row'>" . $cont . "</th>
 				            <td style='text-align:center;'>" . $cantidad . " x " . $product['nombre'] . "</td>
 				            <td style='text-align:right;'>" . $product['precio'] * $cantidad . "€</td>
@@ -262,8 +278,10 @@ if (isset($_SESSION['precio'])) {
                 }
             }
         }
-        $conexion->query("INSERT INTO compras VALUES (NULL,'" . $_SESSION['usuario'] . "','" . $descripcion . "','" . $ano . "-" . $mes . "-" . $dia . "'," . $total . ")");
+        $_SESSION['desc'] = $descripcion;
+        $_SESSION['tot'] = $total;
     }
+    
     ?>
 		</tbody>
 			<tfoot>
@@ -274,11 +292,14 @@ if (isset($_SESSION['precio'])) {
 				</tr>
 			</tfoot>
 		</table>
-		<a href="./cuenta.php?pagado=true"><button onclick="confirm()" name="pagar" type="submit"
-			class="btn btn-primary btn-lg">Pagar</button></a>
+		<a href="./cuenta.php?pagado=true"><button onclick="confirm()"
+				name="pagar" type="submit" class="btn btn-primary btn-lg btn-block">Pagar</button></a>
 
 	</div>
-<?php }?>
+<?php
+}
+
+?>
 
 	<div class="text-center">
 		<div class="btn-group btn-group-vertical">

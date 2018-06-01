@@ -1,13 +1,27 @@
 <?php
-include "./conexion/conexion.php";
+include "../conexion/conexion.php";
+
 session_name("login");
 session_start();
+
 $conexion = new mysqli($servidor3, $usuario3, $clave3, "id5676343_filmolin");
 $conexion->query("SET NAMES 'UTF8'");
+
 if ($conexion->connect_errno) {
-    echo "
-<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>
-";
+    echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
+}
+
+$user = "";
+$where = "";
+
+if (! isset($_SESSION['login'])) {
+    header('Location: ../login/login.php');
+}
+
+if (isset($_GET['hist'])) {
+    
+    $user = $_GET['hist'];
+    $where = " WHERE login = '" . $user . "'";
 }
 ?>
 
@@ -19,8 +33,8 @@ if ($conexion->connect_errno) {
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
-<link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+<link rel="icon" href="../img/favicon.ico" type="image/x-icon">
 <link rel='stylesheet'
 	href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css'
 	integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm'
@@ -80,13 +94,13 @@ if ($conexion->connect_errno) {
         $login = $_SESSION['login'];
         if ($login == 1) {
             ?>
-					<a href="./administration/cuenta.php"><span id="icon"
+					<a href="./cuenta.php"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
 						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
 
 		<?php }else{?>
 					
-					 <a href="./login/login.php" class="btn btn-primary btn-lg active"
+					 <a href="../login/login.php" class="btn btn-primary btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
 					
@@ -95,7 +109,7 @@ if ($conexion->connect_errno) {
     } else {
         ?>
     
-    <a href="./login/login.php" class="btn btn-primary btn-lg active"
+    <a href="../login/login.php" class="btn btn-primary btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
     <?php
@@ -107,7 +121,7 @@ if ($conexion->connect_errno) {
 				</div>
 				<a href="../index.php"
 					class="navbar-brand d-flex align-items-center"> <img
-					src="./img/icon.png" width="50px" height="50px">
+					src="../img/icon.png" width="50px" height="50px">
 					<h1 style="font-size: 100px">FilMolin Cinema &copy;</h1>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -123,50 +137,47 @@ if ($conexion->connect_errno) {
 
 
 	<div class="container">
-		<form method="post" action='./administration/cuenta.php'>
-			<div class="container">
-				<table class="table table-striped">
-					<thead>
-						<tr class="table-active">
-							<th style="text-align: center" scope="col">#</th>
-							<th style="text-align: center" scope="col">Producto</th>
-							<th style="text-align: center" scope="col">Precio</th>
-							<th style="text-align: center" scope="col">#</th>
-							<th style="text-align: center" scope="col">Añadir al carrito</th>
-						</tr>
-					</thead>
-					<tbody>
+		<div class="container">
+			<table class="table table-striped">
+				<thead>
+					<tr class="table-active">
+						<th style="text-align: center" scope="col">#</th>
+						<th style="text-align: center" scope="col">Descripción</th>
+						<th style="text-align: center" scope="col">Fecha</th>
+						<th style="text-align: center" scope="col">Precio</th>
+					</tr>
+				</thead>
+				<tbody>
     
     <?php
+    $cont = 0;
+    $resultado = $conexion->query("SELECT * FROM compras" . $where . "");
     
-    $resultado = $conexion->query("SELECT * FROM productos");
-    
-    while ($producto = $resultado->fetch_assoc()) {
+    while ($compra = $resultado->fetch_assoc()) {
         
+        $cont += 1;
         echo "<tr>";
-        echo "<td style='text-align: center'>" . $producto['id'] . "</td>";
-        echo "<td style='text-align: center'>" . $producto['nombre'] . "</td>";
-        echo "<td style='text-align: center'>" . $producto['precio'] . "€</td>";
-        echo "<td style='text-align: center'><img style='width:100px' src='./img/" . $producto['imagen'] . ".jpg'></td>";
-        echo "<td style='text-align: center'><input name='" . $producto['id'] . "' type='number' value='0' min=0 max=10></td>";
+        echo "<td style='text-align: center'>" . $cont . "</td>";
+        echo "<td style='text-align: center'>" . $compra['descripcion'] . "</td>";
+        echo "<td style='text-align: center'>" . $compra['fecha'] . "</td>";
+        echo "<td style='text-align: center'>" . $compra['gasto'] . " €</td>";
         echo "</tr>";
     }
     ?>
 				</tbody>
-				</table>
-				<button class="btn btn-lg btn-primary btn-block" type="submit"
-					name="send">Confirmar y continuar!</button>
-			</div>
+			</table>
+
+			<a href="./cuenta.php"><button type="button"
+					class="btn btn-lg btn-primary btn-block">Volver</button></a>
+		</div>
 
 		</form>
 	</div>
 	</main>
 	<footer class="text-muted">
 		<div class="container">
-			<p class="float-right">
-				<a href="#">Back to top</a>
-			</p>
-			<p>Pie de página</p>
+			<p class="float-right"></p>
+
 		</div>
 	</footer>
 </body>
