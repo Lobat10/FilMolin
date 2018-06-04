@@ -230,7 +230,7 @@ if (isset($_POST['enviar'])) {
 	<div class="container jumbotron">
 		<p>
 			Si no deseas nada de nuestra tienda, pincha aqui para seguir con tu
-			compra:<br> <a href='./administration/cuenta.php'> Pagar!<img
+			compra:<br> <a href='./administration/cuenta.php?direct=1'> Pagar!<img
 				src="./img/carrito.png"></a>
 		</p>
 	</div>

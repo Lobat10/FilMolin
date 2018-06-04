@@ -41,6 +41,7 @@ if ($conexion->connect_errno) {
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
 <script>
+
 function flotante(tipo){
 	
 	if (tipo==1){

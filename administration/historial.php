@@ -167,6 +167,36 @@ if (isset($_GET['hist'])) {
 				</tbody>
 			</table>
 
+			<div class="container">
+				<table class="table table-striped">
+					<thead class="thead-dark">
+						<tr class="table-active">
+							<th style="text-align: center" scope="col">#</th>
+							<th style="text-align: center" scope="col">Precio Máx.</th>
+							<th style="text-align: center" scope="col">Precio Mín</th>
+							<th style="text-align: center" scope="col">Puntos</th>
+							<th style="text-align: center" scope="col">Puntos</th>
+						</tr>
+					</thead>
+					<tbody>
+    
+    <?php
+    $resultado = $conexion->query("SELECT * FROM puntos ");
+    
+    while ($ref = $resultado->fetch_assoc()) {
+        
+        echo "<tr>";
+        echo "<td style='text-align: center'>" . $ref['idPuntos'] . "</td>";
+        echo "<td style='text-align: center'>" . $ref['precioMin'] . "</td>";
+        echo "<td style='text-align: center'>" . $ref['precioMax'] . "</td>";
+        echo "<td style='text-align: center'>" . $ref['puntos'] . " = " . $ref['valor'] . "€</td>";
+        echo "</tr>";
+    }
+    ?>
+				</tbody>
+				</table>
+			</div>
+
 			<a href="./cuenta.php"><button type="button"
 					class="btn btn-lg btn-primary btn-block">Volver</button></a>
 		</div>

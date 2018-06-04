@@ -224,7 +224,7 @@ if ($mensajeError != "") {
 <?php
 }
 
-if (isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pay'] == 0) {
+if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pay'] == 0) || (isset($_GET['direct']) && $_GET['direct']==1 )) {
     
     $numeroEntradas = $_SESSION['entradas'];
     $price = $_SESSION['precio'];
