@@ -39,12 +39,25 @@ if (isset($_GET['pagado']) && $_GET['pagado'] == true) {
     $conexion->query("INSERT INTO compras VALUES (NULL,'" . $_SESSION['usuario'] . "','" . $desc . "','" . $ano . "-" . $mes . "-" . $dia . "'," . $tot . ")");
     $_SESSION['pay'] = 1;
     $_SESSION['do'] = 1;
+    
     foreach ($butacas as $i) {
         $result = $conexion->query("UPDATE " . $tabla . " SET taken=1 WHERE seatcode=" . $i);
     }
+    $res = $conexion->query("SELECT * FROM listadoPuntos");
+    $select = $conexion->query("SELECT * FROM usuarios WHERE login ='" . $_SESSION['usuario'] . "'");
+    $user = $select->fetch_assoc();
+    $suma = $user['puntos'];
+    while ($point = $res->fetch_assoc()) {
+        if ($tot > $point['precioMin'] && $tot < $point['precioMax']) {
+            $suma += $point['puntos'];
+            $conexion->query("UPDATE usuarios SET puntos=" . $suma . " WHERE login='" . $_SESSION['usuario'] . "'");
+        }
+    }
+    unset($_SESSION['precio']);
+    unset($_SESSION['entradas']);
+    
 }
 if (isset($_SESSION['precio']) && isset($_SESSION['entradas']) && ! isset($_SESSION['do'])) {
-    echo $_SESSION['do'];
     $_SESSION['pay'] = 0;
 }
 
@@ -171,10 +184,12 @@ function confirm(){
 			<thead class="thead-dark">
 				<tr>
 					<th scope="col">Login</th>
-					<th scope="col">Name</th>
-					<th scope="col">Description</th>
+					<th scope="col">Nombre Completo</th>
+					<th scope="col">Descripcion</th>
+					<th scope="col">Puntos</th>
+					
 <?php if($_SESSION['admin']){ ?>					
-					<th scope="col">Admin</th>
+					<th scope="col">Administrador</th>
 		<?php }?>
 				</tr>
 			</thead>
@@ -196,7 +211,9 @@ echo "		<tbody>
 				<tr>
 					<th scope='row'>" . $usuario['login'] . "</th>
 					<th scope='row'>" . $usuario['nombre'] . "</th>
-					<th scope='row'>" . $usuario['descripcion'] . "</th>";
+					<th scope='row'>" . $usuario['descripcion'] . "</th>
+                    <th scope='row'>" . $usuario['puntos'] . "</th>";
+
 if ($_SESSION['admin']) {
     echo "<th scope='row'>" . $admin . "</th>";
 }
@@ -224,7 +241,7 @@ if ($mensajeError != "") {
 <?php
 }
 
-if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pay'] == 0) || (isset($_GET['direct']) && $_GET['direct']==1 )) {
+if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pay'] == 0) || (isset($_GET['direct']) && $_GET['direct'] == 1)) {
     
     $numeroEntradas = $_SESSION['entradas'];
     $price = $_SESSION['precio'];
@@ -253,7 +270,6 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
 				<td style='text-align:right;'>" . $total . "€</td>
 
 			</tr>";
-    echo $_SESSION['pay'];
     
     if (isset($_POST['send'])) {
         
@@ -280,6 +296,9 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
         }
         $_SESSION['desc'] = $descripcion;
         $_SESSION['tot'] = $total;
+        if(){
+            
+        }
     }
     
     ?>
@@ -292,6 +311,8 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
 				</tr>
 			</tfoot>
 		</table>
+		
+		
 		<a href="./cuenta.php?pagado=true"><button onclick="confirm()"
 				name="pagar" type="submit" class="btn btn-primary btn-lg btn-block">Pagar</button></a>
 

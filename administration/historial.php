@@ -55,7 +55,67 @@ if (isset($_GET['hist'])) {
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
 <title>FilMolin Cinema</title>
+<script type="text/javascript">
 
+function flotante(tipo){
+	
+	if (tipo==1){
+	//Si hacemos clic en abrir mostramos el fondo negro y el flotante
+	$('#contenedor').show();
+    $('#flotante').animate({
+      marginTop: "-152px"
+    });
+	}
+	if (tipo==2){
+	//Si hacemos clic en cerrar, deslizamos el flotante hacia arriba
+    $('#flotante').animate({
+      marginTop: "-756px"
+    });
+	//Una vez ocultado el flotante cerramos el fondo negro
+	setTimeout(function(){
+	$('#contenedor').hide();
+		
+	},500)
+	}
+
+}
+
+</script>
+
+<style>
+h1, h3 {
+	text-align: center;
+}
+
+a {
+	cursor: pointer;
+}
+
+#fondo {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 990;
+	opacity: 0.8;
+	background: #000;
+}
+
+#flotante {
+	z-index: 999;
+	border: 8px solid #fff;
+	margin-top: -252px;
+	margin-left: -353px;
+	top: 30%;
+	left: 30%;
+	padding: 12px;
+	position: fixed;
+	width: 100%;
+	background-color: #fff;
+	border-radius: 10px;
+}
+</style>
 
 </head>
 
@@ -134,7 +194,51 @@ if (isset($_GET['hist'])) {
 	</header>
 
 	<main role="main">
+	<h3>
+		<a onClick="flotante(1)"><button type="button" class="btn btn-dark"
+				style="float: left; clear: right;">Ver tabla de puntos.</button></a>
+	</h3>
 
+	<div id="contenedor" style="display: none">
+
+		<div id="flotante">
+			<h1>Tabla de puntos</h1>
+			<div class="container">
+				<div class="container">
+					<table class="table table-striped">
+						<thead class="thead-dark">
+							<tr class="table-active">
+								<th class="col-md-2" style="text-align: center" scope="col">#</th>
+								<th class="col-md-2" style="text-align: center" scope="col">Precios</th>
+								<th class="col-md-2" style="text-align: center" scope="col">Puntos</th>
+							</tr>
+						</thead>
+						<tbody>
+    
+    <?php
+    $resultado = $conexion->query("SELECT * FROM listadoPuntos ");
+    
+    while ($ref = $resultado->fetch_assoc()) {
+        
+        echo "<tr>";
+        echo "<td style='text-align: center'>" . $ref['idPuntos'] . "</td>";
+        echo "<td style='text-align: center'>Entre " . $ref['precioMin'] . "€ y " . $ref['precioMax'] . "€</td>";
+        echo "<td style='text-align: center'>" . $ref['puntos'] . " = " . $ref['valor'] . "€</td>";
+        echo "</tr>";
+    }
+    ?>
+				</tbody>
+					</table>
+				</div>
+			</div>
+			<h3>
+				<a onClick="flotante(2)">Cerrar</a>
+			</h3>
+		</div>
+
+		<div id="fondo"></div>
+
+	</div>
 
 	<div class="container">
 		<div class="container">
@@ -167,35 +271,7 @@ if (isset($_GET['hist'])) {
 				</tbody>
 			</table>
 
-			<div class="container">
-				<table class="table table-striped">
-					<thead class="thead-dark">
-						<tr class="table-active">
-							<th style="text-align: center" scope="col">#</th>
-							<th style="text-align: center" scope="col">Precio Máx.</th>
-							<th style="text-align: center" scope="col">Precio Mín</th>
-							<th style="text-align: center" scope="col">Puntos</th>
-							<th style="text-align: center" scope="col">Puntos</th>
-						</tr>
-					</thead>
-					<tbody>
-    
-    <?php
-    $resultado = $conexion->query("SELECT * FROM puntos ");
-    
-    while ($ref = $resultado->fetch_assoc()) {
-        
-        echo "<tr>";
-        echo "<td style='text-align: center'>" . $ref['idPuntos'] . "</td>";
-        echo "<td style='text-align: center'>" . $ref['precioMin'] . "</td>";
-        echo "<td style='text-align: center'>" . $ref['precioMax'] . "</td>";
-        echo "<td style='text-align: center'>" . $ref['puntos'] . " = " . $ref['valor'] . "€</td>";
-        echo "</tr>";
-    }
-    ?>
-				</tbody>
-				</table>
-			</div>
+
 
 			<a href="./cuenta.php"><button type="button"
 					class="btn btn-lg btn-primary btn-block">Volver</button></a>
