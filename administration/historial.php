@@ -318,14 +318,7 @@ a {
         
         if ($i <= $total_paginas)
             echo '<li class="page-item"><a class="page-link" href="historial.php?hist=' . $_SESSION['usuario'] . '&pagina=' . ($i) . '"><span aria-hidden="true">&raquo;</span></a></li>';
-    }
-    /*
-     * for ($i = 1; $i <= $total_paginas; $i ++) {
-     *
-     * echo "<li class='page-item'><a class='page-link'<a href='historial.php?hist=" . $_SESSION['usuario'] . "&pagina=" . $i . "'>" . $i . "</a></li> ";
-     * }
-     */
-    
+    }    
     ?>
      </ul>
 						</nav>

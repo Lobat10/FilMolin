@@ -293,23 +293,24 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
                 }
             }
         }
-        $_SESSION['desc'] = $descripcion;
-        $_SESSION['tot'] = $total;
-        
+        $select = $conexion->query("SELECT * FROM usuarios WHERE login ='" . $_SESSION['usuario'] . "'");
+        $user = $select->fetch_assoc();
         if ($user['puntos'] != 0) {
             $res = $conexion->query("SELECT * FROM listadoPuntos");
-            $select = $conexion->query("SELECT * FROM usuarios WHERE login ='" . $_SESSION['usuario'] . "'");
-            $user = $select->fetch_assoc();
             
             while ($point = $res->fetch_assoc()) {
                 if ($user['puntos'] < $point['puntos']) {
                     $valor = $point['valor'];
                     $descuento = $user['puntos'] - $point['puntos'];
                     $conexion->query("UPDATE usuarios SET puntos=" . $descuento . " WHERE login='" . $_SESSION['usuario'] . "'");
-                    $msg = "<samp></samp>";
+                    $total -= $valor;
+                    $msg = "<samp>Hemos aplicado " . $point['puntos'] . " puntos para descontar a su precio total</samp>";
+                    break;
                 }
             }
         }
+        $_SESSION['desc'] = $descripcion;
+        $_SESSION['tot'] = $total;
     }
     
     ?>
