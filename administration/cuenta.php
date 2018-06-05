@@ -21,7 +21,7 @@ $todayh = getdate();
 $ano = $todayh['year'];
 $mes = $todayh['mon'];
 $dia = $todayh['mday'];
-
+$msg = "";
 if (strlen($mes) == 1) {
     $mes = "0" . $mes;
 }
@@ -55,7 +55,6 @@ if (isset($_GET['pagado']) && $_GET['pagado'] == true) {
     }
     unset($_SESSION['precio']);
     unset($_SESSION['entradas']);
-    
 }
 if (isset($_SESSION['precio']) && isset($_SESSION['entradas']) && ! isset($_SESSION['do'])) {
     $_SESSION['pay'] = 0;
@@ -296,8 +295,20 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
         }
         $_SESSION['desc'] = $descripcion;
         $_SESSION['tot'] = $total;
-        if(){
+        
+        if ($user['puntos'] != 0) {
+            $res = $conexion->query("SELECT * FROM listadoPuntos");
+            $select = $conexion->query("SELECT * FROM usuarios WHERE login ='" . $_SESSION['usuario'] . "'");
+            $user = $select->fetch_assoc();
             
+            while ($point = $res->fetch_assoc()) {
+                if ($user['puntos'] < $point['puntos']) {
+                    $valor = $point['valor'];
+                    $descuento = $user['puntos'] - $point['puntos'];
+                    $conexion->query("UPDATE usuarios SET puntos=" . $descuento . " WHERE login='" . $_SESSION['usuario'] . "'");
+                    $msg = "<samp></samp>";
+                }
+            }
         }
     }
     
@@ -311,11 +322,8 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
 				</tr>
 			</tfoot>
 		</table>
-		
-		
 		<a href="./cuenta.php?pagado=true"><button onclick="confirm()"
-				name="pagar" type="submit" class="btn btn-primary btn-lg btn-block">Pagar</button></a>
-
+				name="pagar" type="submit" class="btn btn-primary btn-lg btn-block">Pagar <?php if($msg!="") echo " : ".$msg;?></button></a>
 	</div>
 <?php
 }

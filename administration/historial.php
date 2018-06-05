@@ -255,7 +255,28 @@ a {
     
     <?php
     $cont = 0;
-    $resultado = $conexion->query("SELECT * FROM compras" . $where . "");
+    $tamano_paginas = 5;
+    
+    if (isset($_GET['pagina'])) {
+        
+        if ($_GET['pagina'] == 1) {
+            
+            header("Location:historial.php?hist=" . $_SESSION['usuario'] . "");
+        } else {
+            
+            $pagina = $_GET['pagina'];
+        }
+    } else {
+        
+        $pagina = 1;
+    }
+    
+    $inicio = ($pagina - 1) * $tamano_paginas;
+    $sql_total = $conexion->query("SELECT * FROM compras" . $where);
+    $num_filas = mysqli_num_rows($sql_total);
+    $total_paginas = ceil($num_filas / $tamano_paginas);
+    
+    $resultado = $conexion->query("SELECT * FROM compras" . $where . " LIMIT " . $inicio . "," . $tamano_paginas);
     
     while ($compra = $resultado->fetch_assoc()) {
         
@@ -267,7 +288,48 @@ a {
         echo "<td style='text-align: center'>" . $compra['gasto'] . " €</td>";
         echo "</tr>";
     }
+    $primera = $pagina - ($pagina % 10) + 1;
+    if ($primera > $pagina) {
+        $primera = $primera - 10;
+    }
+    $ultima = $primera + 9 > $total_paginas ? $total_paginas : $primera + 9;
     ?>
+     <div class="container">
+						<nav aria-label="Page navigation" class="text-right">
+							<ul class="pagination">
+    <?php
+    if ($total_paginas > 1) {
+        // comprobamos $primera en lugar de $pagina
+        if ($primera != 1)
+            echo '<li class="page-item"><a class="page-link" href="historial.php?hist=' . $_SESSION['usuario'] . '&pagina=' . ($primera - 1) . '" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a></li>';
+        
+        // mostramos de la primera a la última
+        for ($i = $primera; $i <= $ultima; $i ++) {
+            if ($pagina == $i) {
+                echo '<li class="active"><a href="#">' . $pagina . '</a></li>';
+            } else {
+                if ($i == $primera) {
+                    echo '<li class="page-item"><a class="page-link" href="historial.php?hist=' . $_SESSION['usuario'] . '">' . $i . '</a></li>';
+                } else {
+                    echo '<li class="page-item"><a class="page-link" href="historial.php?hist=' . $_SESSION['usuario'] . '&pagina=' . $i . '">' . $i . '</a></li>';
+                }
+            }
+        }
+        
+        if ($i <= $total_paginas)
+            echo '<li class="page-item"><a class="page-link" href="historial.php?hist=' . $_SESSION['usuario'] . '&pagina=' . ($i) . '"><span aria-hidden="true">&raquo;</span></a></li>';
+    }
+    /*
+     * for ($i = 1; $i <= $total_paginas; $i ++) {
+     *
+     * echo "<li class='page-item'><a class='page-link'<a href='historial.php?hist=" . $_SESSION['usuario'] . "&pagina=" . $i . "'>" . $i . "</a></li> ";
+     * }
+     */
+    
+    ?>
+     </ul>
+						</nav>
+					</div>
 				</tbody>
 			</table>
 
