@@ -297,15 +297,15 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
         $user = $select->fetch_assoc();
         if ($user['puntos'] != 0) {
             $res = $conexion->query("SELECT * FROM listadoPuntos");
-            
+            $find = false;
             while ($point = $res->fetch_assoc()) {
-                if ($user['puntos'] < $point['puntos']) {
+                if ($user['puntos'] < $point['puntos'] && $find == false) {
                     $valor = $point['valor'];
                     $descuento = $user['puntos'] - $point['puntos'];
                     $conexion->query("UPDATE usuarios SET puntos=" . $descuento . " WHERE login='" . $_SESSION['usuario'] . "'");
                     $total -= $valor;
                     $msg = "<samp>Hemos aplicado " . $point['puntos'] . " puntos para descontar a su precio total</samp>";
-                    break;
+                    $find = true;
                 }
             }
         }
