@@ -22,6 +22,7 @@ $ano = $todayh['year'];
 $mes = $todayh['mon'];
 $dia = $todayh['mday'];
 $msg = "";
+
 if (strlen($mes) == 1) {
     $mes = "0" . $mes;
 }
@@ -55,6 +56,7 @@ if (isset($_GET['pagado']) && $_GET['pagado'] == true) {
     }
     unset($_SESSION['precio']);
     unset($_SESSION['entradas']);
+    unset($_SESSION['do']);
 }
 if (isset($_SESSION['precio']) && isset($_SESSION['entradas']) && ! isset($_SESSION['do'])) {
     $_SESSION['pay'] = 0;
@@ -295,19 +297,21 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
         }
         $select = $conexion->query("SELECT * FROM usuarios WHERE login ='" . $_SESSION['usuario'] . "'");
         $user = $select->fetch_assoc();
-        if ($user['puntos'] != 0) {
-            $res = $conexion->query("SELECT * FROM listadoPuntos");
-            $find = false;
+        if ($user['puntos'] > 0) {
+            $userPoints = $user['puntos'];
+            $res = $conexion->query("SELECT * FROM listadoPuntos WHERE puntos<=" . $user['puntos'] . " ORDER BY puntos DESC");
+            $valor = 0;
+            $punts = 0;
             while ($point = $res->fetch_assoc()) {
-                if ($user['puntos'] < $point['puntos'] && $find == false) {
-                    $valor = $point['valor'];
-                    $descuento = $user['puntos'] - $point['puntos'];
-                    $conexion->query("UPDATE usuarios SET puntos=" . $descuento . " WHERE login='" . $_SESSION['usuario'] . "'");
+                if ($userPoints >= $point['puntos']) {
+                    $valor += $point['valor'];
+                    $punts += $point['puntos'];
+                    $userPoints -= $point['puntos'];
+                    $conexion->query("UPDATE usuarios SET puntos=" . $userPoints . " WHERE login='" . $_SESSION['usuario'] . "'");
                     $total -= $valor;
-                    $msg = "<samp>Hemos aplicado " . $point['puntos'] . " puntos para descontar a su precio total</samp>";
-                    $find = true;
                 }
             }
+            $msg = "<samp>Hemos aplicado " . $punts . " puntos para descontar a su precio total, hemos descontado " . $valor . "€ al precio total</samp>";
         }
         $_SESSION['desc'] = $descripcion;
         $_SESSION['tot'] = $total;
@@ -319,7 +323,7 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
 				<tr>
 					<th scope="row" colspan="2"
 						style="text-align: right; border-left: 0px; border-bottom: 0px;">TOTAL:</th>
-					<td style="text-align: right;"><?php echo $total ?>€</td>
+					<td style="text-align: right;"><?php echo $total;?>€</td>
 				</tr>
 			</tfoot>
 		</table>
@@ -337,7 +341,7 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
 				<?php
     
     echo "<a href='./historial.php?hist=" . $_SESSION['usuario'] . "'><button type='button'
-						class='btn btn-info'>Ver historial de compras del usuario</button>"?></a>
+						class='btn btn-info'>Ver historial de compras del usuario</button></a>"?>
 			<a href="../logout/logout.php"><button type="button"
 					class="btn btn-warning">Cerrar Sesion</button></a> <a
 				href="../logout/logout.php"><button type="button"
