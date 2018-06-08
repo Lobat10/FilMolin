@@ -89,6 +89,57 @@ $resultado2 = $conexion->query("SELECT DISTINCT fila FROM " . $tabla . " ORDER B
 .n {
 	text-align: center;
 }
+
+a#login {
+	color: white;
+}
+
+a#login:hover {
+	font-size: 150%;
+	text-decoration: underline;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th,
+	.table>thead>tr>td, .table>thead>tr>th {
+	padding: 2px;
+}
+
+h1, h3 {
+	text-align: center;
+}
+
+a {
+	cursor: pointer;
+}
+
+#fondo {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 990;
+	opacity: 0.8;
+	background: #000;
+}
+
+#flotante {
+	z-index: 999;
+	border: 8px solid #fff;
+	margin-top: -756px;
+	margin-left: -153px;
+	top: 50%;
+	left: 50%;
+	padding: 12px;
+	position: fixed;
+	width: 265px;
+	background-color: #fff;
+	border-radius: 3px;
+}
+
+.btn:hover {
+	color: white;
+}
 </style>
 
 <title>FilMolin Cinema</title>
@@ -118,6 +169,29 @@ function seleccionarButacas(code){
 function pasarArray(){
 	var test=
 	document.getElementById('oculto').value=entradas.toString();
+}
+
+function flotante(tipo){
+	
+	if (tipo==1){
+	//Si hacemos clic en abrir mostramos el fondo negro y el flotante
+	$('#contenedor').show();
+    $('#flotante').animate({
+      marginTop: "-152px"
+    });
+	}
+	if (tipo==2){
+	//Si hacemos clic en cerrar, deslizamos el flotante hacia arriba
+    $('#flotante').animate({
+      marginTop: "-756px"
+    });
+	//Una vez ocultado el flotante cerramos el fondo negro
+	setTimeout(function(){
+	$('#contenedor').hide();
+		
+	},500)
+	}
+
 }
 
 </script>
@@ -153,18 +227,17 @@ function pasarArray(){
 			<div class="container d-flex justify-content-between">
 				<div class="container">
 				<?php
-    
     if (isset($_SESSION['login'])) {
         $login = $_SESSION['login'];
         if ($login == 1) {
             ?>
-					<a href="./administration/cuenta.php"><span id="icon"
+					<a href="./administration/cuenta.php" id="login"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
 						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
 
 		<?php }else{?>
 					
-					 <a href="./login/login.php" class="btn btn-primary btn-lg active"
+					 <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
 					
@@ -173,7 +246,7 @@ function pasarArray(){
     } else {
         ?>
     
-    <a href="./login/login.php" class="btn btn-primary btn-lg active"
+    <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
     <?php
@@ -197,44 +270,71 @@ function pasarArray(){
 
 	</header>
 
+	<h3>
+		<a onClick="flotante(1)"><button id="but" type="button"
+				class="btn btn-dark" style="float: left; clear: right;">Consulta la
+				leyenda aquí.</button></a>
+	</h3>
 
-	<div class="container">
+	<div id="contenedor" style="display: none">
+
+		<div id="flotante">
+			
+                <?php
+                echo "<h1>Libre:</h1><button type='button' ><img src='./img/butaca_blanca.png' style='width:30px;height:30px' alt='blanca'></button>";
+                
+                echo "<h1>Ocupada:</h1><button type='button' ><img src='./img/butaca_roja.png' style='width:30px;height:30px' alt='blanca'></button>";
+                
+                echo "<h1>Seleccionada:</h1><button type='button' ><img src='./img/butaca_verde.png' style='width:30px;height:30px' alt='blanca'></button>";
+                ?>	
+    		
+			<h3>
+				<a onClick="flotante(2)">Cerrar</a>
+			</h3>
+		</div>
+
+		<div id="fondo"></div>
+
+	</div>
+
+	<div class="container"
+		style="margin-left: 40px; margin-right: 40px; margin-top: 40px; margin-bottom: 40px;">
 		<form method="post"
 			action='./confirmbooking.php?sala=<?php echo $sala; ?>'
 			onSubmit='pasarArray()'>
 			<div class="container">
-				<table class="table table-striped">
+				<table class="table-sm table-hover" style="margin: auto;">
 					<thead>
-
-						<th scope="col">FILAS</th>
-						<th class="n" scope="col">1</th>
-						<th class="n" scope="col">2</th>
-						<th class="n" scope="col">3</th>
-						<th class="n" scope="col">4</th>
-						<th class="n" scope="col">5</th>
-						<th class="n" scope="col">6</th>
-						<th class="n" scope="col">7</th>
-						<th class="n" scope="col">8</th>
-						<th class="n" scope="col">9</th>
-						<th class="n" scope="col">10</th>
-
+						<tr style="padding: 2px;">
+							<th scope="col" style="text-align: center; width: 50px;">FILAS</th>
+							<th class="n" scope="col">1</th>
+							<th class="n" scope="col">2</th>
+							<th class="n" scope="col">3</th>
+							<th class="n" scope="col">4</th>
+							<th class="n" scope="col">5</th>
+							<th class="n" scope="col">6</th>
+							<th class="n" scope="col">7</th>
+							<th class="n" scope="col">8</th>
+							<th class="n" scope="col">9</th>
+							<th class="n" scope="col">10</th>
+						</tr>
 					</thead>
 					<tbody>
 	
 <?php
 while ($filas = $resultado2->fetch_assoc()) {
     
-    echo "<tr>
-            <th scope='col'>" . $filas['fila'] . "</th>";
+    echo "<tr >
+            <th scope='col' style='text-align: center;'>" . $filas['fila'] . "</th>";
     
     $resultado = $conexion->query("SELECT * FROM " . $tabla . " WHERE roomcode=" . $sala . " AND timetable='" . $hora . "' AND fila=" . $filas['fila']);
     
     while ($asientos = $resultado->fetch_assoc()) {
         
         if ($asientos['taken'] == 0) {
-            echo "<td><button type='button' onclick='seleccionarButacas(" . $asientos['seatcode'] . ")'><img id='butaca" . $asientos['seatcode'] . "' alt='blanca' src='./img/butaca_blanca.png' width='50px' height='50px' /></button> </td>";
+            echo "<td style='width: 50px;'><button type='button' onclick='seleccionarButacas(" . $asientos['seatcode'] . ")'><img id='butaca" . $asientos['seatcode'] . "' alt='blanca' src='./img/butaca_blanca.png' width='25px' height='25px' /></button> </td>";
         } else {
-            echo "<td><button type='button' disabled><img src='./img/butaca_roja.png'  width='50px' height='50px'/></button></td>";
+            echo "<td style='width: 50px;'><button type='button' disabled><img src='./img/butaca_roja.png'  width='25px' height='25px'/></button></td>";
         }
     }
     
@@ -252,7 +352,7 @@ while ($filas = $resultado2->fetch_assoc()) {
 					</tfoot>
 				</table>
 				<input id='oculto' type='hidden' value='' name='hid'>
-				<button class="btn btn-lg btn-primary btn-block" type="submit"
+				<button class="btn btn-lg btn-dark" id="but" type="submit"
 					name="enviar">Confirmar y continuar!</button>
 			</div>
 

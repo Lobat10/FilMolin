@@ -76,7 +76,16 @@ if (isset($_POST['continuar'])) {
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
 <title>FilMolin Cinema</title>
+<style type="text/css">
+a#login {
+	color: white;
+}
 
+a#login:hover {
+	font-size: 150%;
+	text-decoration: underline;
+}
+</style>
 
 </head>
 
@@ -111,18 +120,17 @@ if (isset($_POST['continuar'])) {
 			<div class="container d-flex justify-content-between">
 				<div class="container">
 				<?php
-    
     if (isset($_SESSION['login'])) {
         $login = $_SESSION['login'];
         if ($login == 1) {
             ?>
-					<a href="../administration/cuenta.php"><span id="icon"
+					<a href="./administration/cuenta.php" id="login"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
 						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
 
 		<?php }else{?>
 					
-					 <a href="../login/login.php" class="btn btn-primary btn-lg active"
+					 <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
 					
@@ -131,7 +139,7 @@ if (isset($_POST['continuar'])) {
     } else {
         ?>
     
-    <a href="../login/login.php" class="btn btn-primary btn-lg active"
+    <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
     <?php
@@ -200,6 +208,7 @@ echo "				</tr>
 if ($mensajeError != "") {
     echo "<p>" . $mensajeError . "</p>";
 }
+
 ?>
 
 <form class="form-signin" id="idForm" action="./BajaUser.php"

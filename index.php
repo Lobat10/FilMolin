@@ -69,19 +69,19 @@ function valora(num){
 	var id='valora'+num;
 	var valor=document.getElementById(id).alt;
 
-	if(valor=="negra"){
+	if(valor=="blanca"){
 	
     	while(num!=0) {
-    		document.getElementById(id).src='./img/butaca_blanca.png';
-    		document.getElementById(id).alt='blanca';
+    		document.getElementById(id).src='./img/butaca_amarillo.png';
+    		document.getElementById(id).alt='amarillo';
     		num-=1;
     		id='valora'+num;
     	}
 	}else{
 		
 		while(num!=6) {
-    		document.getElementById(id).src='./img/butaca_negra.png';
-    		document.getElementById(id).alt='negra';
+    		document.getElementById(id).src='./img/butaca_blanca.png';
+    		document.getElementById(id).alt='blanca';
     		num+=1;
     		id='valora'+num;
     	}	
@@ -122,6 +122,19 @@ a {
 	width: 265px;
 	background-color: #fff;
 	border-radius: 3px;
+}
+
+a#login {
+	color: white;
+}
+
+a#login:hover {
+	font-size: 150%;
+	text-decoration: underline;
+}
+
+.btn:hover {
+	color: white;
 }
 </style>
 
@@ -165,13 +178,13 @@ a {
         $login = $_SESSION['login'];
         if ($login == 1) {
             ?>
-					<a href="./administration/cuenta.php"><span id="icon"
+					<a href="./administration/cuenta.php" id="login"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
 						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
 
 		<?php }else{?>
 					
-					 <a href="./login/login.php" class="btn btn-primary btn-lg active"
+					 <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
 					
@@ -180,7 +193,7 @@ a {
     } else {
         ?>
     
-    <a href="./login/login.php" class="btn btn-primary btn-lg active"
+    <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
     <?php
@@ -229,12 +242,7 @@ a {
 
 				<div class="item">
 					<img src="./img/oferta2.jpg" style="width: 100%; height: 250px;">
-					<div class="carousel-caption" style="color: white">
-						<h3 style="background-color: black">Oferta de tiempo limitada!</h3>
-						<p style="background-color: black">Hasta el dia 18/06/2018, con la
-							compra de tus entradas te descontamos el 50% del menú número 15 y
-							número 18</p>
-					</div>
+					<div class="carousel-caption" style="color: white"></div>
 				</div>
 
 				<div class="item">
@@ -267,8 +275,7 @@ a {
 				<div class="col-sm-6" style="height: 130px;">
 					<div class="form-group">
 						<div class='input-group date' id='datetimepicker9'>
-							<label for="date"
-								class="col-sm-2 col-form-label col-form-label-lg">Elige la fecha</label>
+							<h3>Elige la fecha</h3>
 							<div class="alert alert-info" style="align-items: center">
 								<strong>Atención!</strong> Solo hay disponibilidad de las
 								peliculas durante esta semana. Diculpe las molestias.
@@ -294,11 +301,11 @@ a {
 
 			<div id="flotante">
 				<h1>Valora del 1 al 5</h1>
-				<div class="container" style="align-items: center;">
+				<div class="container" style="padding-left: 35px;">
                 <?php
                 $loop = 1;
                 while ($loop < 6) {
-                    echo "<img src='./img/butaca_negra.png' style='width:30px;height:30px' onclick='valora(" . $loop . ")' id='valora" . $loop . "' alt='negra'>";
+                    echo "<img src='./img/butaca_blanca.png' style='width:30px;height:30px' onclick='valora(" . $loop . ")' id='valora" . $loop . "' alt='blanca'>";
                     $loop += 1;
                 }
                 ?>	

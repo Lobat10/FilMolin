@@ -101,7 +101,16 @@ function confirm(){
 
 
 </script>
+<style type="text/css">
+a#login {
+	color: white;
+}
 
+a#login:hover {
+	font-size: 150%;
+	text-decoration: underline;
+}
+</style>
 </head>
 
 <body>
@@ -135,18 +144,17 @@ function confirm(){
 			<div class="container d-flex justify-content-between">
 				<div class="container">
 				<?php
-    
     if (isset($_SESSION['login'])) {
         $login = $_SESSION['login'];
         if ($login == 1) {
             ?>
-					<a href="./cuenta.php"><span id="icon"
+					<a href="./cuenta.php" id="login"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
 						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
 
 		<?php }else{?>
 					
-					 <a href="../login/login.php" class="btn btn-primary btn-lg active"
+					 <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
 					
@@ -155,7 +163,7 @@ function confirm(){
     } else {
         ?>
     
-    <a href="../login/login.php" class="btn btn-primary btn-lg active"
+    <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
     <?php
@@ -344,7 +352,7 @@ if ((isset($_SESSION['precio']) && isset($_SESSION['entradas']) && $_SESSION['pa
 						class='btn btn-info'>Ver historial de compras del usuario</button></a>"?>
 			<a href="../logout/logout.php"><button type="button"
 					class="btn btn-warning">Cerrar Sesion</button></a> <a
-				href="../logout/logout.php"><button type="button"
+				href="../logout/BajaUser.php"><button type="button"
 					class="btn btn-danger">Baja Cuenta</button></a>
 		</div>
 	</div>

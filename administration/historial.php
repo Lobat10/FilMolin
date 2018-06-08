@@ -115,6 +115,19 @@ a {
 	background-color: #fff;
 	border-radius: 10px;
 }
+
+a#login {
+	color: white;
+}
+
+a#login:hover {
+	font-size: 150%;
+	text-decoration: underline;
+}
+
+.btn:hover {
+	color: white;
+}
 </style>
 
 </head>
@@ -154,13 +167,13 @@ a {
         $login = $_SESSION['login'];
         if ($login == 1) {
             ?>
-					<a href="./cuenta.php"><span id="icon"
+					<a href="./cuenta.php" id="login"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
 						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
 
 		<?php }else{?>
 					
-					 <a href="../login/login.php" class="btn btn-primary btn-lg active"
+					 <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
 					
@@ -169,7 +182,7 @@ a {
     } else {
         ?>
     
-    <a href="../login/login.php" class="btn btn-primary btn-lg active"
+    <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
     <?php
@@ -318,7 +331,7 @@ a {
         
         if ($i <= $total_paginas)
             echo '<li class="page-item"><a class="page-link" href="historial.php?hist=' . $_SESSION['usuario'] . '&pagina=' . ($i) . '"><span aria-hidden="true">&raquo;</span></a></li>';
-    }    
+    }
     ?>
      </ul>
 						</nav>

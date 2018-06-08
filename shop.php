@@ -42,7 +42,16 @@ if ($conexion->connect_errno) {
 
 <title>FilMolin Cinema</title>
 
+<style type="text/css">
+a#login {
+	color: white;
+}
 
+a#login:hover {
+	font-size: 150%;
+	text-decoration: underline;
+}
+</style>
 </head>
 
 <body>
@@ -80,13 +89,13 @@ if ($conexion->connect_errno) {
         $login = $_SESSION['login'];
         if ($login == 1) {
             ?>
-					<a href="./administration/cuenta.php"><span id="icon"
+					<a href="./administration/cuenta.php" id="login"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
 						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
 
 		<?php }else{?>
 					
-					 <a href="./login/login.php" class="btn btn-primary btn-lg active"
+					 <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
 					
@@ -95,7 +104,7 @@ if ($conexion->connect_errno) {
     } else {
         ?>
     
-    <a href="./login/login.php" class="btn btn-primary btn-lg active"
+    <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
     <?php

@@ -80,6 +80,14 @@ if (isset($_POST['enviar'])) {
 	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.5.0/js/bootstrap-datepicker.min.js"></script>
 
 <style type="text/css">
+a#login {
+	color: white;
+}
+
+a#login:hover {
+	font-size: 150%;
+	text-decoration: underline;
+}
 </style>
 
 <title>FilMolin Cinema</title>
@@ -115,18 +123,17 @@ if (isset($_POST['enviar'])) {
 			<div class="container d-flex justify-content-between">
 				<div class="container">
 				<?php
-    
     if (isset($_SESSION['login'])) {
         $login = $_SESSION['login'];
         if ($login == 1) {
             ?>
-					<a href="./administration/cuenta.php"><span id="icon"
+					<a href="./administration/cuenta.php" id="login"><span id="icon"
 						style="float: right; width: 150px; clear: right;"
 						class="glyphicon glyphicon-user"><?php echo $_SESSION['usuario']; ?></span></a>
 
 		<?php }else{?>
 					
-					 <a href="./login/login.php" class="btn btn-primary btn-lg active"
+					 <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
 					
@@ -135,7 +142,7 @@ if (isset($_POST['enviar'])) {
     } else {
         ?>
     
-    <a href="./login/login.php" class="btn btn-primary btn-lg active"
+    <a href="./login/login.php" class="btn btn-light btn-lg active"
 						role="button" aria-pressed="true"
 						style="float: right; clear: right;">Inicia sesión</a>
     <?php
@@ -170,19 +177,13 @@ if (isset($_POST['enviar'])) {
 
 </div>
 	<div class="container jumbotron">
-		<div class="item">
-			<img src="./img/combo3.jpg" style="width: auto;"> <a
-				href="./shop.php"><div class="carousel-caption"
-					style="color: black;">
-					<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;</h3>
-					<p>Reserva tus palomitas, bebidas o chucherias y ahorrate las colas
-						de espera!</p>
-					<br>
-					<p>Pincha aquí!</p>
-				</div></a>
-		</div>
-	</div>
-	<div class="container jumbotron">
+		<img src="./img/combo3.jpg"
+			style="width: auto; float: left; clear: right;">
+		<h3>SERVICIO UNICO EN CUALQUIER CINE &darr;</h3>
+		<p>
+			Reserva tus palomitas, bebidas o chucherias y ahorrate las colas de
+			espera! <a href="./shop.php"><p>Pincha aquí!</p> </a>
+		</p>
 		<p>
 			Si no deseas nada de nuestra tienda, pincha aqui para seguir con tu
 			compra:<br> <a href='./administration/cuenta.php?direct=1'> Pagar!<img
