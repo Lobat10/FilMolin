@@ -272,7 +272,7 @@ function flotante(tipo){
 
 	<h3>
 		<a onClick="flotante(1)"><button id="but" type="button"
-				class="btn btn-dark" style="float: left; clear: right;">Consulta la
+				class="btn btn-dark" style="float: left; clear: right; margin-left: 30px;">Consulta la
 				leyenda aquí.</button></a>
 	</h3>
 

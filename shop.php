@@ -52,6 +52,12 @@ a#login:hover {
 	text-decoration: underline;
 }
 </style>
+
+<script type="text/javascript">
+function enviar() {
+	document.getElementById('formulario').action="https://filmolincinema.000webhostapp.com/administration/cuenta.php";
+}
+</script>
 </head>
 
 <body>
@@ -132,41 +138,67 @@ a#login:hover {
 
 
 	<div class="container">
-		<form method="post" action='./administration/cuenta.php'>
-			<div class="container">
-				<table class="table table-striped">
-					<thead>
-						<tr class="table-active">
-							<th style="text-align: center" scope="col">#</th>
-							<th style="text-align: center" scope="col">Producto</th>
-							<th style="text-align: center" scope="col">Precio</th>
-							<th style="text-align: center" scope="col">#</th>
-							<th style="text-align: center" scope="col">Añadir al carrito</th>
-						</tr>
-					</thead>
-					<tbody>
+		<form method="post" action="" id="formulario">
+			<div id="accordion">
+<?php
+$resultado = $conexion->query("SELECT DISTINCT tipo FROM productos");
+$one = 0;
+while ($tipo = $resultado->fetch_assoc()) {
+    $one += 1;
+    ?>
+				<div class="card">
+					<div class="card-header" id="heading<?php echo $one ?>">
+						<h5 class="mb-0">
+							<button class="btn btn-light collapsed" data-toggle="collapse"
+								data-target="#collapse<?php echo $one ?>" aria-expanded="false"
+								aria-controls="collapse<?php echo $one ?>" type="button">
+									<?php echo strtoupper($tipo['tipo']);?>
+							</button>
+						</h5>
+					</div>
+
+					<div id="collapse<?php echo $one ?>" class="collapse"
+						aria-labelledby="heading<?php echo $one ?>"
+						data-parent="#accordion">
+						<div class="card-body">
+							<table class="table table-striped">
+								<thead>
+									<tr class="table-active">
+										<th style="text-align: center" scope="col">Menú</th>
+										<th style="text-align: center" scope="col">Producto</th>
+										<th style="text-align: center" scope="col">Precio</th>
+										<th style="text-align: center" scope="col">#</th>
+										<th style="text-align: center" scope="col">Cantidad</th>
+									</tr>
+								</thead>
+								<tbody>
+					
+					<?php
     
-    <?php
+    $resultado2 = $conexion->query("SELECT * FROM productos WHERE tipo='" . $tipo['tipo'] . "'");
     
-    $resultado = $conexion->query("SELECT * FROM productos");
-    
-    while ($producto = $resultado->fetch_assoc()) {
+    while ($producto = $resultado2->fetch_assoc()) {
         
         echo "<tr>";
         echo "<td style='text-align: center'>" . $producto['id'] . "</td>";
         echo "<td style='text-align: center'>" . $producto['nombre'] . "</td>";
         echo "<td style='text-align: center'>" . $producto['precio'] . "€</td>";
-        echo "<td style='text-align: center'><img style='width:100px' src='./img/" . $producto['imagen'] . ".jpg'></td>";
+        echo "<td style='text-align: center'><img style='width:50px' src='./img/" . $producto['imagen'] . ".jpg'></td>";
         echo "<td style='text-align: center'><input name='" . $producto['id'] . "' type='number' value='0' min=0 max=10></td>";
         echo "</tr>";
     }
     ?>
-				</tbody>
-				</table>
-				<button class="btn btn-lg btn-primary btn-block" type="submit"
-					name="send">Confirmar y continuar!</button>
-			</div>
-
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+		<?php
+}
+?>
+				</div>
+			<button class="btn btn-lg btn-primary btn-block" type="submit"
+				name="send" onclick="enviar()">Confirmar y continuar!</button>
 		</form>
 	</div>
 	</main>
