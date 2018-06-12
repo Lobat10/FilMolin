@@ -1,7 +1,7 @@
 <?php
 
 class Asiento
-{
+{ 
 
     // codigo asiento, dentro de una fila
     public $seatCode ;

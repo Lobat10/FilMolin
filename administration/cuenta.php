@@ -4,7 +4,7 @@ include "../conexion/conexion.php";
 $conexion = new mysqli($servidor3, $usuario3, $clave3, "id5676343_filmolin");
 $conexion->query("SET NAMES 'UTF8'");
 
-if ($conexion->connect_errno) {
+if ($conexion->connect_errno) { 
     echo "<p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>";
 }
 

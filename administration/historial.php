@@ -1,7 +1,7 @@
 <?php
 include "../conexion/conexion.php";
 
-session_name("login");
+session_name("login"); 
 session_start();
 
 $conexion = new mysqli($servidor3, $usuario3, $clave3, "id5676343_filmolin");

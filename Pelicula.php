@@ -5,7 +5,7 @@ class Pelicula
 
     // codigo pelicula, siempre sera el mismo aunque este en diferentes salas
     public $filmCode;
-
+ 
     // Nombre Pelicula
     public $filmName;
 

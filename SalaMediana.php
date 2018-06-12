@@ -7,7 +7,7 @@ class SalaMediana
     public $roomCode;
 
     // Capacidad maxima de la sala
-    public $capacity;
+    public $capacity; 
 
     // Imagen de sala (asientos libres, ocupado , reservando...)
     public $imageSeatsRoom;
@@ -26,7 +26,7 @@ class SalaMediana
         $this->capacity = 80;
         $this->imageSeatsRoom = $pimageSeatsRoom;
         $this->roomsList = $proomsList;
-        // Clave = sesiones de hoy, 1ª sesion a las 10, 2ª sesion a las 12:30...(HORAS FIJAS)
+        // Clave = sesiones de hoy, 1ï¿½ sesion a las 10, 2ï¿½ sesion a las 12:30...(HORAS FIJAS)
         
         $this->timeTableList = array(
             1 => "10:15",

@@ -8,7 +8,7 @@ if ($conexion->connect_errno) {
     echo "
 <p>Error al establecer la conexión (" . $conexion->connect_errno . ") " . $conexion->connect_error . "</p>
 ";
-}
+} 
 ?>
 
 <!doctype html>

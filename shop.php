@@ -168,7 +168,7 @@ while ($tipo = $resultado->fetch_assoc()) {
 										<th style="text-align: center" scope="col">Producto</th>
 										<th style="text-align: center" scope="col">Precio</th>
 										<th style="text-align: center" scope="col">#</th>
-										<th style="text-align: center" scope="col">Cantidad</th>
+										<th style="text-align: center" scope="col">Cantidad</th> 
 									</tr>
 								</thead>
 								<tbody>
